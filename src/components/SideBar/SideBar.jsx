@@ -8,7 +8,7 @@ export function SideBar() {
 	};
 
 	return (
-		<div className="flex">
+		<div className="flex  max-w-fit">
 			{/* Botão de menu para mobile */}
 			<button
 				onClick={toggleSidebar}
