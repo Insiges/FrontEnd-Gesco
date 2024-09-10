@@ -9,7 +9,7 @@ export function Dashboard() {
 						<User size={40} color="#fff" />
 					</div>
 					<div>
-						<p className="text-[#4A90E2]">Estudantes</p>
+						<p className="text-[#4A90E2] font-medium">Estudantes</p>
 						<p className="text-3xl font-bold">932</p>
 					</div>
 				</div>
@@ -18,8 +18,8 @@ export function Dashboard() {
 						<Calendar size={40} color="#fff" />
 					</div>
 					<div>
-						<p className="text-[#4A90E2]">Estudantes</p>
-						<p className="text-3xl font-bold">932</p>
+						<p className="text-[#4A90E2]">Eventos</p>
+						<p className="text-3xl font-bold">42</p>
 					</div>
 				</div>
 				<div className="grid grid-flow-col grid-rows-1 place-items-center gap-x-4">
