@@ -2,7 +2,7 @@ import React from "react";
 import FirstSection from "./components/FirstSection";
 import Header from "./components/header";
 
-const LandingPage = () => {
+export const LandingPage = () => {
 	return (
 		<>
 			<Header />
@@ -10,5 +10,3 @@ const LandingPage = () => {
 		</>
 	);
 };
-
-export default LandingPage;

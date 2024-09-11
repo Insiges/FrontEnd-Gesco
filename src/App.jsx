@@ -1,10 +1,6 @@
-import LandingPage from "./pages/landingPage/landingPage";
+import { RouterProvider } from "react-router-dom";
+import router from "./routes/router";
 
 export function App() {
-	return (
-		<>
-			{/* <div className="text-5xl font-alatsi">Gesco</div> */}
-			<LandingPage />
-		</>
-	);
+	return <RouterProvider router={router} />;
 }
