@@ -8,15 +8,15 @@ const router = createBrowserRouter([
 		path: "/",
 	},
 	{
+		path: "/landingPage",
+		element: <LandingPage />,
+	},
+	{
 		element: <Default />,
 		children: [
 			{
 				path: "/dashboard",
 				element: <Dashboard />,
-			},
-			{
-				path: "/landing",
-				element: <LandingPage />,
 			},
 		],
 	},
