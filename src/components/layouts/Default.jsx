@@ -4,7 +4,7 @@ import { SideBar } from "../SideBar/SideBar";
 export function Default() {
 	return (
 		<div className="grid grid-cols-[250px_1fr] grid-rows-[1fr_auto] min-h-screengrid font-alatsi">
-			<aside className="row-span-2 bg-gray-200">
+			<aside className="row-span-2 bg-gray-200 lg:max-w-full max-w-10">
 				<SideBar />
 			</aside>
 
