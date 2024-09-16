@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import React, { useState } from "react";
 
-export function CalendarDashBoard() {
+export default function Calendar({title}) {
 	const today = dayjs();
 	const [currentDate, setCurrentDate] = useState(today);
 
@@ -49,7 +49,7 @@ export function CalendarDashBoard() {
 	return (
 		<div className="w-full bg-white shadow-lg rounded-lg p-6">
 			<div className="flex justify-between items-center mb-4">
-				<h2 className="text-lg font-bold">School Calendar</h2>
+				<h2 className="text-lg font-bold">{title}</h2>
 				<div className="flex items-center space-x-4">
 					<button
 						type="button"
