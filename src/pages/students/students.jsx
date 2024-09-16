@@ -1,11 +1,5 @@
-import SideBar2 from "../../components/SideBar2/SideBar2";
-
 const Students = () => {
-	return (
-		<div>
-			<SideBar2 />
-		</div>
-	);
+	return <div>Students</div>;
 };
 
 export default Students;
