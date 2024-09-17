@@ -1,6 +1,10 @@
 import React from "react";
 
 const Header = () => {
+	const handleLoginClick = () => {
+		window.location.href = "/login";
+	};
+
 	return (
 		<header className="bg-firstBlue shadow-lg shadow-bottom">
 			<nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
@@ -12,6 +16,7 @@ const Header = () => {
 
 				<button
 					type="button"
+					onClick={handleLoginClick}
 					className="text-center justify-end bg-secondBlue w-[137px] h-[49px] text-white rounded-3xl"
 				>
 					Login
