@@ -4,6 +4,7 @@ import { Dashboard } from "../pages/dashboard/dashboard";
 import Students from "../pages/students/students";
 import LoginPage from "../pages/login/LoginPage";
 import LoginType from "../pages/login/LoginType";
+import EventCalendar from "../pages/eventCalendar/eventCalendar";
 
 const router = createBrowserRouter([
 	{
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
 			{
 				path: "/students",
 				element: <Students />,
+			},
+			{
+				path: "/eventCalendar",
+				element: <EventCalendar />,
 			},
 		],
 	},

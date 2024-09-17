@@ -1,5 +1,5 @@
+import Calendar  from "../../components/Calendar/Calendar";
 import {
-	CalendarDashBoard,
 	Counters,
 	DocentTable,
 	DonutChart,
@@ -22,10 +22,10 @@ export function Dashboard() {
 			</div>
 			<div className="grid gap-y-8">
 				<div className="">
-					<CalendarDashBoard />
+					<Calendar />
 				</div>
 				<div className="bg-white shadow-xl rounded-lg p-6 ">
-					<DonutChart />
+					<DonutChart title="School Calendar"/>
 				</div>
 			</div>
 		</div>
