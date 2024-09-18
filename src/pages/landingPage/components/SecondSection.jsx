@@ -7,12 +7,12 @@ const SecondSection = () => {
 	return (
 		<div className="flex flex-col items-center justify-center">
 			<div className="w-full text-center md:text-left">
-				<h1 className="text-4xl text-yellow font-bold mt-8 md:ml-12">
+				<h1 className="text-4xl text-yellow font-bold mt-8 md:ml-32">
 					Melhore Sua Gestão
 				</h1>
 			</div>
 
-			<div className="flex justify-center space-x-4 mt-5 w-full md:w-auto">
+			<div className="flex flex-col md:flex-row justify-center items-center md:items-start space-y-4 md:space-y-0 md:space-x-8 mt-5 w-full md:w-auto">
 				<Card
 					imageSrc={image01}
 					title="Titulo"
@@ -26,8 +26,7 @@ const SecondSection = () => {
 				<Card
 					imageSrc={image03}
 					title="Titlulo"
-					text="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum, velit maxime? Odit quibusdam corporis consectetur dolorem! Sunt ipsam, dignissimos debitis quidem ab neque totam molestias animi, ducimus expedita ratione itaque?
-"
+					text="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum, velit maxime? Odit quibusdam corporis consectetur dolorem! Sunt ipsam, dignissimos debitis quidem ab neque totam molestias animi, ducimus expedita ratione itaque?"
 				/>
 			</div>
 		</div>
