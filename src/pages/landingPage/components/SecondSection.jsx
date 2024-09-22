@@ -12,7 +12,7 @@ const SecondSection = () => {
 				</h1>
 			</div>
 
-			<div className="flex flex-col md:flex-row justify-center items-center md:items-start space-y-4 md:space-y-0 md:space-x-8 mt-5 w-full md:w-auto">
+			<div className="flex flex-col md:flex-row justify-center items-center md:items-start space-y-4 md:space-y-0 md:space-x-8 mt-5 w-full md:w-auto mx-32">
 				<Card
 					imageSrc={image01}
 					title="Titulo"

@@ -9,7 +9,7 @@ const Footer = () => {
 			<div className="mt-8 mb-8 flex flex-col items-center">
 				<img src={logo} alt="" className="w-20 h-20" />
 
-				<div className="flex flex-col md:flex-row md:space-x-64 mt-4 ">
+				<div className="flex flex-col space-x-0 md:flex-row md:space-x-32 mt-4 ">
 					<div className="mb-4 md:mb-0">
 						<h1 className="text-gray-900 text-xl items-center text-center md:text-start font-semibold font-alatsi">
 							Quick Link
