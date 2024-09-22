@@ -1,9 +1,11 @@
 import dayjs from "dayjs";
 import React, { useState } from "react";
 
-export function CalendarDashBoard() {
+export default function Calendar({ title }) {
 	const today = dayjs();
 	const [currentDate, setCurrentDate] = useState(today);
+	const [selectedDay, setSelectedDay] = useState(null);
+	const [showModal, setShowModal] = useState(false);
 
 	const startOfMonth = currentDate.startOf("month");
 	const endOfMonth = currentDate.endOf("month");
@@ -30,6 +32,15 @@ export function CalendarDashBoard() {
 		/>
 	));
 
+	const handleDayClick = (day) => {
+		setSelectedDay(day);
+		setShowModal(true);
+	};
+
+	const closeModal = () => {
+		setShowModal(false);
+	};
+
 	const days = Array.from({ length: daysInMonth }, (_, index) => {
 		const day = index + 1;
 		const isToday =
@@ -40,6 +51,7 @@ export function CalendarDashBoard() {
 				className={`text-center p-4 rounded-full cursor-pointer ${
 					isToday ? "bg-blue-500 text-white" : "hover:bg-gray-200"
 				}`}
+				onClick={() => handleDayClick(day)}
 			>
 				{day}
 			</div>
@@ -49,7 +61,7 @@ export function CalendarDashBoard() {
 	return (
 		<div className="w-full bg-white shadow-lg rounded-lg p-6">
 			<div className="flex justify-between items-center mb-4">
-				<h2 className="text-lg font-bold">School Calendar</h2>
+				<h2 className="text-lg font-bold">{title}</h2>
 				<div className="flex items-center space-x-4">
 					<button
 						type="button"
@@ -82,6 +94,56 @@ export function CalendarDashBoard() {
 				{emptyDays}
 				{days}
 			</div>
+
+			{showModal && (
+				<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+					<div className="bg-white h-[60%] w-[30%] p-3 rounded-lg shadow-lg">
+						<div className="flex justify-between text-center items-center mb-2">
+							<h2 className="">Criar Evento no Dia</h2>
+							<strong className="p-2 rounded-full bg-blue-500 text-white">
+								{selectedDay}
+							</strong>
+						</div>
+
+						<div className="border-t border-blue-500 px-2 py-4 flex flex-col gap-2">
+							<input
+								className="outline-none p-1 shadow-md rounded-md"
+								type="text"
+								placeholder="Nome*"
+							/>
+							<input
+								className="outline-none p-1 shadow-md rounded-md"
+								type="text"
+								placeholder="Horario*"
+							/>
+							<textarea
+								className="outline-none p-1 shadow-md rounded-md"
+								name="descrição"
+								id=""
+								cols="30"
+								rows="5"
+								placeholder="Descrição"
+							></textarea>
+						</div>
+
+						<div className="flex justify-around gap-2">
+							<button
+								type="button"
+								onClick={closeModal}
+								className="w-[50%] px-2 py-1 bg-red-500 text-white rounded"
+							>
+								Cancelar
+							</button>
+							<button
+								type="button"
+								className="w-[50%] px-2 py-1 bg-green-500 text-white rounded"
+							>
+								Salvar
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }

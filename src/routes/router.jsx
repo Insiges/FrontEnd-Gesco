@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Default } from "../components/layouts/default";
 import { Dashboard } from "../pages/dashboard/dashboard";
+import EventCalendar from "../pages/eventCalendar/eventCalendar";
 import { LandingPage } from "../pages/landingPage/landingPage";
 import LoginPage from "../pages/login/LoginPage";
 import LoginType from "../pages/login/LoginType";
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
 			{
 				path: "/students",
 				element: <Students />,
+			},
+			{
+				path: "/eventCalendar",
+				element: <EventCalendar />,
 			},
 		],
 	},
