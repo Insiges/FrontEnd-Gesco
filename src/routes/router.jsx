@@ -1,15 +1,20 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Default } from "../components/layouts/default";
 import { Dashboard } from "../pages/dashboard/dashboard";
-import Students from "../pages/students/students";
+import EventCalendar from "../pages/eventCalendar/eventCalendar";
+import { LandingPage } from "../pages/landingPage/landingPage";
 import LoginPage from "../pages/login/LoginPage";
 import LoginType from "../pages/login/LoginType";
-import EventCalendar from "../pages/eventCalendar/eventCalendar";
+import Students from "../pages/students/students";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <LoginType />,
+	},
+	{
+		path: "/landingPage",
+		element: <LandingPage />,
 	},
 	{
 		path: "/login",

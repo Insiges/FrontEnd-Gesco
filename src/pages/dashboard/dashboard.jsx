@@ -1,4 +1,4 @@
-import Calendar  from "../../components/Calendar/Calendar";
+import Calendar from "../../components/Calendar/Calendar";
 import {
 	Counters,
 	DocentTable,
@@ -25,7 +25,7 @@ export function Dashboard() {
 					<Calendar />
 				</div>
 				<div className="bg-white shadow-xl rounded-lg p-6 ">
-					<DonutChart title="School Calendar"/>
+					<DonutChart title="School Calendar" />
 				</div>
 			</div>
 		</div>
