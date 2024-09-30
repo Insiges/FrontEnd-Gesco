@@ -15,7 +15,7 @@ const LinkSideBar = ({ url, icone, nome }) => {
 				}`}
 			>
 				<span className="text-2xl">{icone}</span>
-				<p className="text-lg hidden sm:block">{nome}</p>
+				<p className="text-lg hidden lg:block">{nome}</p>
 			</Link>
 		</li>
 	);
