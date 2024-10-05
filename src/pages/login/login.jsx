@@ -1,7 +1,8 @@
 import React from "react";
+import notebookImage from "../../assets/login/pc.png";
 import { Header } from "../login/components/header/Header";
 
-const LoginPage = () => {
+export function Login() {
 	return (
 		<div>
 			<Header />
@@ -64,7 +65,7 @@ const LoginPage = () => {
 
 				<div className="w-[600px] flex flex-col justify-center items-center">
 					<img
-						src="src/pages/login/components/images/pc.png"
+						src={notebookImage}
 						alt="notebook"
 						className="w-390px h-auto max-h-[700px] mb-0"
 					/>
@@ -85,6 +86,4 @@ const LoginPage = () => {
 			</div>
 		</div>
 	);
-};
-
-export default LoginPage;
+}
