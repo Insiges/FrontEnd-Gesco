@@ -21,7 +21,6 @@ export const LandingPage = () => {
 			<Fade triggerOnce delay={100}>
 				<ThirdSection />
 			</Fade>
-
 			<Footer />
 		</>
 	);
