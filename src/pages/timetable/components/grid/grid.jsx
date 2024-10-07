@@ -1,8 +1,8 @@
 export const Grid = ({ table }) => {
 	return (
 		<div>
-			<div className="flex">
-				<table className="table-auto border border-firstBlue justify-center rounded-lg">
+			<div className="flex justify-center overflow-hidden rounded-lg border border-firstBlue">
+				<table className="table-auto">
 					<thead>
 						<tr>
 							<th className="px-16 py-8">Time</th>
