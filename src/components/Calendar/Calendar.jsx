@@ -1,11 +1,13 @@
 import dayjs from "dayjs";
 import React, { useState, useEffect } from "react";
+import { getEvents, saveEvent } from "../../services/api/School";
 
 export default function Calendar({ title }) {
 	const today = dayjs();
 	const [currentDate, setCurrentDate] = useState(today);
 	const [selectedDay, setSelectedDay] = useState(null);
 	const [showModal, setShowModal] = useState(false);
+	const [showModalEdit, setShowModalEdit] = useState(false);
 	const [events, setEvents] = useState({});
 	const [formData, setFormData] = useState({
 		name: "",
@@ -19,6 +21,31 @@ export default function Calendar({ title }) {
 	const daysInMonth = endOfMonth.date();
 	const startDay = startOfMonth.day();
 
+	useEffect(() => {
+		async function fetchEvents() {
+			try {
+				const response = await getEvents();
+				const eventosPorDia = response.eventos.reduce((acc, evento) => {
+					// Se a data do evento não existir no objeto acumulador, criamos a chave
+					if (!acc[evento.dia]) {
+						acc[evento.dia] = {
+							name: evento.nome,
+							description: evento.descricao,
+							time: evento.horario.slice(0, 5), // Mantém apenas as horas e minutos
+						};
+					}
+					return acc;
+				}, {});
+
+				setEvents(eventosPorDia);
+			} catch (error) {
+				console.error("Erro ao buscar eventos:", error);
+			}
+		}
+
+		fetchEvents();
+	}, []);
+
 	const prevMonth = () => {
 		setCurrentDate(currentDate.subtract(1, "month"));
 	};
@@ -27,17 +54,19 @@ export default function Calendar({ title }) {
 		setCurrentDate(currentDate.add(1, "month"));
 	};
 
-	const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+	const daysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
 	const emptyDays = Array.from({ length: startDay }).map((element) => (
 		<div key={element} className="text-center p-2" />
 	));
 
 	const handleDayClick = (day) => {
 		setSelectedDay(day);
-		setShowModal(true);
-		if (events[day]) {
-			setFormData(events[day]);
+		const dia = String(day).padStart(2, "0");
+		const mes = String(currentDate.$M + 1).padStart(2, "0");
+		if (events[`${currentDate.$y}-${mes}-${dia}`]) {
+			setFormData(events[`${currentDate.$y}-${mes}-${dia}`]);
 		} else {
+			setShowModal(true);
 			setFormData({ name: "", time: "", description: "" });
 		}
 		setError("");
@@ -59,7 +88,8 @@ export default function Calendar({ title }) {
 
 	const handleSaveEvent = () => {
 		const { name, time, description } = formData;
-
+		const dia = String(selectedDay).padStart(2, "0");
+		const mes = String(currentDate.$M + 1).padStart(2, "0");
 		if (!name || !time || !description) {
 			setError("Todos os campos precisam estar preenchidos.");
 			setTimeout(() => {
@@ -68,9 +98,12 @@ export default function Calendar({ title }) {
 			return;
 		}
 
+		formData.selectedDay = `${currentDate.$y}-${mes}-${dia}`;
+		saveEvent(formData);
+
 		setEvents((prevEvents) => ({
 			...prevEvents,
-			[selectedDay]: formData,
+			[formData.selectedDay]: formData,
 		}));
 
 		setShowModal(false);
@@ -78,10 +111,13 @@ export default function Calendar({ title }) {
 
 	const days = Array.from({ length: daysInMonth }, (_, index) => {
 		const day = index + 1;
+		const dia = String(day).padStart(2, "0");
+		const mes = String(currentDate.$M + 1).padStart(2, "0");
+
 		const isToday =
 			currentDate.date() === day && currentDate.isSame(today, "month");
 
-		const hasEvent = events[day];
+		const hasEvent = events[`${currentDate.$y}-${mes}-${dia}`];
 
 		return (
 			<div
