@@ -1,11 +1,8 @@
 import Calendar from "../../components/Calendar/Calendar";
-
-const EventCalendar = () => {
+export function Events() {
 	return (
 		<div>
 			<Calendar title="Calendario de Eventos" />
 		</div>
 	);
-};
-
-export default EventCalendar;
+}

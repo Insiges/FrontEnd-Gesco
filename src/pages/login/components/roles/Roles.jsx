@@ -1,14 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Header } from "../login/components/header/Header";
+import { Header } from "../header/Header";
 
-const UserType = () => {
-	const navigate = useNavigate();
-
-	const handleUserTypeClick = (userType) => {
-		navigate("/login");
-	};
-
+export function Roles() {
 	return (
 		<div>
 			<Header />
@@ -58,6 +51,4 @@ const UserType = () => {
 			</div>
 		</div>
 	);
-};
-
-export default UserType;
+}

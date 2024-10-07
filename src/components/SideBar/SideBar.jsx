@@ -14,7 +14,7 @@ export function SideBar() {
 				className="flex items-center justify-center gap-2 p-3 no-underline bg-orange-600 absolute top-0 left-0 w-[100%]"
 			>
 				<img src={logoImg} alt="Logo" className="w-8 " />
-				<h2 className="text-2xl text-white font-bold drop-shadow-[0px_0px_3px_rgba(0,0,0,0.75)] hidden sm:block">
+				<h2 className="text-2xl text-white font-bold drop-shadow-[0px_0px_3px_rgba(0,0,0,0.75)] hidden lg:block">
 					Gesco
 				</h2>
 			</Link>
@@ -23,7 +23,7 @@ export function SideBar() {
 				<LinkSideBar url="/students" icone={<GrUserManager />} nome="Alunos" />
 				<LinkSideBar url="/teachers" icone={<FaUserTie />} nome="Docentes" />
 				<LinkSideBar
-					url="/events"
+					url="/eventCalendar"
 					icone={<FaRegCalendarAlt />}
 					nome="Eventos"
 				/>
