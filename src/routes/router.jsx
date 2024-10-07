@@ -6,6 +6,7 @@ import {
 	LandingPage,
 	Login,
 	Students,
+	Timetable,
 } from "../pages/index";
 
 const router = createBrowserRouter([
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
 			{
 				path: "/events",
 				element: <Events />,
+			},
+			{
+				path: "/HoursGrid",
+				element: <Timetable />,
 			},
 		],
 	},

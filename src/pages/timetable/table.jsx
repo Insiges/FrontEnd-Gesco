@@ -1,11 +1,9 @@
 import { Teste } from "./components";
 
-const Timetable = () => {
+export const Timetable = () => {
 	return (
 		<div>
 			<Teste />
 		</div>
 	);
 };
-
-export default Timetable;
