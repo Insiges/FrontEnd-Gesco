@@ -1,6 +1,11 @@
 import dayjs from "dayjs";
-import React, { useState, useEffect } from "react";
-import { getEvents, saveEvent } from "../../services/api/School";
+import React, { useState, useEffect, useCallback } from "react";
+import {
+	deleteEvent,
+	editEvent,
+	getEvents,
+	saveEvent,
+} from "../../services/api/School";
 
 export default function Calendar({ title }) {
 	const today = dayjs();
@@ -8,8 +13,10 @@ export default function Calendar({ title }) {
 	const [selectedDay, setSelectedDay] = useState(null);
 	const [showModal, setShowModal] = useState(false);
 	const [showModalEdit, setShowModalEdit] = useState(false);
+	const [showModalDelete, setShowModalDelete] = useState(false);
 	const [events, setEvents] = useState({});
 	const [formData, setFormData] = useState({
+		id: 0,
 		name: "",
 		time: "",
 		description: "",
@@ -21,30 +28,32 @@ export default function Calendar({ title }) {
 	const daysInMonth = endOfMonth.date();
 	const startDay = startOfMonth.day();
 
-	useEffect(() => {
-		async function fetchEvents() {
-			try {
-				const response = await getEvents();
-				const eventosPorDia = response.eventos.reduce((acc, evento) => {
-					// Se a data do evento não existir no objeto acumulador, criamos a chave
-					if (!acc[evento.dia]) {
-						acc[evento.dia] = {
-							name: evento.nome,
-							description: evento.descricao,
-							time: evento.horario.slice(0, 5), // Mantém apenas as horas e minutos
-						};
-					}
-					return acc;
-				}, {});
+	const fetchEvents = useCallback(async () => {
+		console.log("Fetching events...");
 
-				setEvents(eventosPorDia);
-			} catch (error) {
-				console.error("Erro ao buscar eventos:", error);
-			}
+		try {
+			const response = await getEvents();
+			const eventosPorDia = response.eventos.reduce((acc, evento) => {
+				if (!acc[evento.dia]) {
+					acc[evento.dia] = {
+						id: evento.id,
+						name: evento.nome,
+						description: evento.descricao,
+						time: evento.horario.slice(0, 5), // Mantém apenas as horas e minutos
+					};
+				}
+				return acc;
+			}, {});
+
+			setEvents(eventosPorDia);
+		} catch (error) {
+			console.error("Erro ao buscar eventos:", error);
 		}
-
-		fetchEvents();
 	}, []);
+
+	useEffect(() => {
+		fetchEvents();
+	}, [fetchEvents]);
 
 	const prevMonth = () => {
 		setCurrentDate(currentDate.subtract(1, "month"));
@@ -64,6 +73,7 @@ export default function Calendar({ title }) {
 		const dia = String(day).padStart(2, "0");
 		const mes = String(currentDate.$M + 1).padStart(2, "0");
 		if (events[`${currentDate.$y}-${mes}-${dia}`]) {
+			setShowModalEdit(true);
 			setFormData(events[`${currentDate.$y}-${mes}-${dia}`]);
 		} else {
 			setShowModal(true);
@@ -74,6 +84,8 @@ export default function Calendar({ title }) {
 
 	const closeModal = () => {
 		setShowModal(false);
+		setShowModalEdit(false);
+		setShowModalDelete(false);
 		setFormData({ name: "", time: "", description: "" });
 		setError("");
 	};
@@ -101,12 +113,45 @@ export default function Calendar({ title }) {
 		formData.selectedDay = `${currentDate.$y}-${mes}-${dia}`;
 		saveEvent(formData);
 
-		setEvents((prevEvents) => ({
-			...prevEvents,
-			[formData.selectedDay]: formData,
-		}));
-
+		setTimeout(async () => {
+			await fetchEvents();
+		}, 2000);
 		setShowModal(false);
+	};
+
+	const handleEditEvent = () => {
+		const { name, time, description } = formData;
+		const dia = String(selectedDay).padStart(2, "0");
+		const mes = String(currentDate.$M + 1).padStart(2, "0");
+		if (!name || !time || !description) {
+			setError("Todos os campos precisam estar preenchidos.");
+			setTimeout(() => {
+				setError("");
+			}, 4000);
+			return;
+		}
+
+		formData.selectedDay = `${currentDate.$y}-${mes}-${dia}`;
+		editEvent(formData);
+
+		setTimeout(async () => {
+			await fetchEvents();
+		}, 2000);
+		setShowModalEdit(false);
+	};
+
+	const handleDeleteEvent = () => {
+		setShowModalDelete(true);
+	};
+
+	const handleDeleteEventConfirm = () => {
+		deleteEvent(formData.id);
+
+		setTimeout(async () => {
+			await fetchEvents();
+		}, 2000);
+		setShowModalDelete(false);
+		setShowModalEdit(false);
 	};
 
 	const days = Array.from({ length: daysInMonth }, (_, index) => {
@@ -222,6 +267,99 @@ export default function Calendar({ title }) {
 								className="w-[50%] px-2 py-1 bg-green-500 text-white rounded"
 							>
 								Salvar
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
+
+			{showModalEdit && (
+				<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+					<div className="bg-white max-h-96  w-[30%] min-w-64 p-3 rounded-lg shadow-lg">
+						<div className="flex justify-between text-center items-center mb-2">
+							<h2>Editar Evento</h2>
+							<strong className="p-2 rounded-full bg-blue-500 text-white">
+								{selectedDay}
+							</strong>
+						</div>
+
+						<div className="border-t border-blue-500 px-2 py-4 flex flex-col gap-2">
+							<input
+								className="outline-none p-1 shadow-md rounded-md"
+								type="text"
+								placeholder="Nome*"
+								name="name"
+								value={formData.name}
+								onChange={handleInputChange}
+							/>
+							<input
+								className="outline-none p-1 shadow-md rounded-md"
+								type="text"
+								placeholder="Horário*"
+								name="time"
+								value={formData.time}
+								onChange={handleInputChange}
+							/>
+							<textarea
+								className="outline-none p-1 shadow-md rounded-md"
+								name="description"
+								cols="30"
+								rows="5"
+								placeholder="Descrição"
+								value={formData.description}
+								onChange={handleInputChange}
+							></textarea>
+
+							{error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+						</div>
+
+						<div className="flex justify-end gap-2 pr-2">
+							<button
+								type="button"
+								onClick={handleDeleteEvent}
+								className="w-[15%] px-2 py-1 bg-red-500 text-white rounded mr-20"
+							>
+								Excluir
+							</button>
+							<button
+								type="button"
+								onClick={closeModal}
+								className="w-[30%] px-2 py-1 bg-red-500 text-white rounded"
+							>
+								Cancelar
+							</button>
+							<button
+								type="button"
+								onClick={handleEditEvent}
+								className="w-[30%] px-2 py-1 bg-green-500 text-white rounded"
+							>
+								Salvar
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
+
+			{showModalDelete && (
+				<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+					<div className="bg-white max-h-96  w-[20%] min-w-64 p-3 rounded-lg shadow-lg">
+						<div className="flex justify-between text-center items-center mb-2">
+							<h2>Excluir Evento</h2>
+						</div>
+						<div className="flex justify-center gap-3">
+							<button
+								type="button"
+								onClick={closeModal}
+								className="w-[40%] px-2 py-1 bg-red-500 text-white rounded"
+							>
+								Cancelar
+							</button>
+							<button
+								type="button"
+								onClick={handleDeleteEventConfirm}
+								className="w-[40%] px-2 py-1 bg-green-500 text-white rounded"
+							>
+								Excluir
 							</button>
 						</div>
 					</div>

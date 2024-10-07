@@ -42,8 +42,6 @@ export async function saveEvent(formData) {
 		escola: { id: 1 },
 	};
 
-	console.log(body);
-
 	const request = await makeRequest(
 		"POST",
 		url,
@@ -61,6 +59,46 @@ export async function getEvents() {
 	const url = "escola/eventos/1";
 	const request = await makeRequest(
 		"GET",
+		url,
+		{},
+		{},
+		`Authorization: ${token}`,
+	);
+
+	return request.body;
+}
+
+export async function editEvent(formData) {
+	const token =
+		"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnZXNjbyIsInN1YiI6InRlc3RlQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRVNDT0xBIl0sImV4cCI6MTcyODQwMTA1N30.nUPXAW0VWqHAW2U3dnzx95i4WC8TG2U5NFs0UqVMzmU";
+	const url = `eventos/atualizarEvento/${formData.id}`;
+
+	const body = {
+		nome: formData.name,
+		descricao: formData.description,
+		dia: formData.selectedDay,
+		horario: formData.time,
+		escola: { id: 1 },
+	};
+
+	const request = await makeRequest(
+		"PUT",
+		url,
+		body,
+		{},
+		`Authorization: ${token}`,
+	);
+
+	return request.body;
+}
+
+export async function deleteEvent(id) {
+	const token =
+		"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnZXNjbyIsInN1YiI6InRlc3RlQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRVNDT0xBIl0sImV4cCI6MTcyODQwMTA1N30.nUPXAW0VWqHAW2U3dnzx95i4WC8TG2U5NFs0UqVMzmU";
+	const url = `eventos/deletarEvento/${id}`;
+
+	const request = await makeRequest(
+		"DELETE",
 		url,
 		{},
 		{},
