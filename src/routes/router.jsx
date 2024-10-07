@@ -6,6 +6,7 @@ import { LandingPage } from "../pages/landingPage/landingPage";
 import LoginPage from "../pages/login/LoginPage";
 import LoginType from "../pages/login/LoginType";
 import Students from "../pages/students/students";
+import Timetable from "../pages/timetable/timeTable";
 
 const router = createBrowserRouter([
 	{
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
 			{
 				path: "/eventCalendar",
 				element: <EventCalendar />,
+			},
+			{
+				path: "/timetable",
+				element: <Timetable />,
 			},
 		],
 	},
