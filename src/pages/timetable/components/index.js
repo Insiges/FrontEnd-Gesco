@@ -1,1 +1,2 @@
-export * from "./teste/Teste";
+export * from "./titleClass/title";
+export * from "./grid/grid";
