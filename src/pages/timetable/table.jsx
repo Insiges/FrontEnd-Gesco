@@ -24,7 +24,7 @@ export const Timetable = () => {
 			>
 				Abrir Modal
 			</button>
-			{showModal && <Modal />}
+			{showModal && <Modal closeModal={() => setShowModal(false)} />}
 		</div>
 	);
 };

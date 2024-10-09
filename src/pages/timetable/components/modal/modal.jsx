@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const Modal = () => {
+export const Modal = ({ closeModal }) => {
 	const [turma, setTurma] = useState("");
 	const [materia, setMateria] = useState("");
 	const [horario, setHorario] = useState("");
@@ -8,7 +8,16 @@ export const Modal = () => {
 	return (
 		<div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
 			<div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-				<h2 className="text-2xl font-bold mb-4">Formulário</h2>
+				<div className="flex justify-between items-center mb-4">
+					<h2 className="text-2xl font-bold">Formulário</h2>
+					<button
+						type="button"
+						onClick={closeModal}
+						className="text-gray-700 hover:text-gray-900"
+					>
+						&times;
+					</button>
+				</div>
 				<form>
 					<div className="mb-4">
 						<label htmlFor="turma" className="block text-gray-700">

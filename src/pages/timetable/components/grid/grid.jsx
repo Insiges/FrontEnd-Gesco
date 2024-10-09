@@ -1,29 +1,39 @@
-import React, { useState } from "react";
-
 export const Grid = ({ table }) => {
 	return (
 		<div className="flex flex-col w-full h-full">
-			<div className="flex justify-center overflow-hidden rounded-lg border border-firstBlue w-full h-full">
-				<table className="table-auto w-full h-full rounded-lg ">
+			<div className="flex justify-center rounded-lg border-firstBlue w-full h-full">
+				<table className="table-fixed w-full h-full rounded-lg">
 					<thead>
-						<tr className=" bg-firstBlue">
-							<th className="px-16 py-8 text-white">Time</th>
-							<th className="px-16 py-8 text-white">Monday</th>
-							<th className="px-16 py-8 text-white">Tuesday</th>
-							<th className="px-16 py-8 text-white">Wednesday</th>
-							<th className="px-16 py-8 text-white">Thursday</th>
-							<th className="px-16 py-8 text-white">Friday</th>
+						<tr className="bg-firstBlue">
+							<th className="w-1/6 px-2 py-1 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl rounded-tl-lg  text-white text-center">
+								Time
+							</th>
+							<th className="w-1/6 px-2 py-1 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-white text-center">
+								Monday
+							</th>
+							<th className="w-1/6 px-2 py-1 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-white text-center">
+								Tuesday
+							</th>
+							<th className="w-1/6 px-2 py-1 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-white text-center">
+								Wednesday
+							</th>
+							<th className="w-1/6 px-2 py-1 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-white text-center">
+								Thursday
+							</th>
+							<th className="w-1/6 px-2 py-1 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl rounded-tr-lg  text-white text-center">
+								Friday
+							</th>
 						</tr>
 					</thead>
 					<tbody>
-						{table.map((row, id) => (
+						{table.map((row, rowIndex) => (
 							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-							<tr key={id} className="w-full h-full">
-								{row.map((cell, id) => (
+							<tr key={rowIndex} className="w-full h-full">
+								{row.map((cell, cellIndex) => (
 									<td
 										// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-										key={id}
-										className="border border-firstBlue px-16 py-8 w-full h-full"
+										key={cellIndex}
+										className="w-1/6 border border-firstBlue px-2 py-1 md:px-16 md:py-8 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-center"
 									>
 										{cell}
 									</td>
