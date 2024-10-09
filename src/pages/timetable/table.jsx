@@ -1,4 +1,5 @@
-import { Grid, TitleClass } from "./components";
+import { useState } from "react";
+import { Grid, Modal, TitleClass } from "./components";
 
 const sampleTableData = [
 	["08:00", "Math", "English", "Science", "History", "PE"],
@@ -9,10 +10,21 @@ const sampleTableData = [
 ];
 
 export const Timetable = () => {
+	const [showModal, setShowModal] = useState(false);
+
 	return (
 		<div>
 			<TitleClass title="Truma 6° - B" />
 			<Grid table={sampleTableData} />
+
+			<button
+				type="button"
+				className="mt-4 w-32 bg-firstBlue text-white py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+				onClick={() => setShowModal(true)}
+			>
+				Abrir Modal
+			</button>
+			{showModal && <Modal />}
 		</div>
 	);
 };
