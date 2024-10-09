@@ -34,7 +34,7 @@ export function SideBar() {
 					nome="Finanças"
 				/>
 				<LinkSideBar
-					url="/HoursGrid"
+					url="/ClassSchedule"
 					icone={<IoTime />}
 					nome="Grade de Horáros"
 				/>
