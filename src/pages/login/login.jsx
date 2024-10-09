@@ -1,8 +1,56 @@
-import React from "react";
+import React, { useId, useState } from "react";
+import { useNavigate, useNavigation } from "react-router";
 import notebookImage from "../../assets/login/pc.png";
+
+import { useAuth } from "../../contexts/AuthContext";
 import { Header } from "../login/components/header/Header";
 
 export function Login() {
+	const [errors, setErrors] = useState({
+		password: false,
+		username: false,
+		message: "",
+	});
+	const [errorCredentials, setErrorCredentials] = useState(false);
+	const id = useId();
+	const navigate = useNavigate();
+	const { login } = useAuth();
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		const formData = new FormData(e.target);
+		const { username, password } = Object.fromEntries(formData.entries());
+		if (!username || !password) {
+			!username
+				? setErrors({
+						password: false,
+						username: true,
+						message: "Preencha o Email",
+					})
+				: setErrors({
+						password: true,
+						username: false,
+						message: "Preencha a Senha",
+					});
+
+			return;
+		}
+
+		login(
+			{ username, password },
+			() => {
+				setErrorCredentials(true);
+			},
+			() => {
+				navigate("/dashboard");
+			},
+		);
+	};
+
+	const resetErrors = () => {
+		setErrors({ message: "", password: false, username: false });
+	};
 	return (
 		<div>
 			<Header />
@@ -11,18 +59,35 @@ export function Login() {
 					<h1 className="text-[#060273] text-4xl font-bold mb-10">
 						Bem-vindo de volta!
 					</h1>
-					<form className="space-y-4 w-full max-w-sm">
+					<form
+						className="space-y-4 w-full max-w-sm"
+						id={id}
+						onSubmit={handleSubmit}
+					>
 						<input
 							type="text"
 							placeholder="Username"
 							className="block w-full p-[6px] border border-black rounded-full"
+							name="username"
+							onFocus={resetErrors}
 						/>
+						{errors.username && (
+							<p className="text-red-600 py-1">{errors.message}</p>
+						)}
 						<input
 							type="password"
 							placeholder="Password"
 							className="block w-full p-[6px] border border-black rounded-full"
+							name="password"
+							onFocus={resetErrors}
 						/>
+						{errors.password && (
+							<p className="text-red-600 py-1">{errors.message}</p>
+						)}
 					</form>
+					{errorCredentials && (
+						<p className="text-red-600 py-1">Credenciais erradas</p>
+					)}
 					<div className="flex justify-between items-center mt-4 ml-[200px]">
 						<button
 							type="button"
@@ -34,8 +99,9 @@ export function Login() {
 					</div>
 					<div className="w-full mt-4">
 						<button
-							type="button"
+							type="submit"
 							className="bg-custom-yellow text-[#060273] text-lg font-bold px-3 py-2 rounded-full w-full"
+							form={id}
 						>
 							Login
 						</button>
