@@ -35,7 +35,7 @@ const router = createBrowserRouter([
 				element: <Events />,
 			},
 			{
-				path: "/HoursGrid",
+				path: "/ClassSchedule",
 				element: <Timetable />,
 			},
 		],
