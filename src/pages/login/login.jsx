@@ -1,7 +1,8 @@
 import React, { useId, useState } from "react";
-import { useNavigation } from "react-router";
+import { useNavigate, useNavigation } from "react-router";
 import notebookImage from "../../assets/login/pc.png";
-import { useAuth } from "../../hooks/useAuth";
+
+import { useAuth } from "../../contexts/AuthContext";
 import { Header } from "../login/components/header/Header";
 
 export function Login() {
@@ -10,9 +11,9 @@ export function Login() {
 		username: false,
 		message: "",
 	});
+	const [errorCredentials, setErrorCredentials] = useState(false);
 	const id = useId();
-	const navigate = useNavigation();
-
+	const navigate = useNavigate();
 	const { login } = useAuth();
 
 	const handleSubmit = (e) => {
@@ -36,7 +37,15 @@ export function Login() {
 			return;
 		}
 
-		login({ username, password });
+		login(
+			{ username, password },
+			() => {
+				setErrorCredentials(true);
+			},
+			() => {
+				navigate("/dashboard");
+			},
+		);
 	};
 
 	const resetErrors = () => {
@@ -76,6 +85,9 @@ export function Login() {
 							<p className="text-red-600 py-1">{errors.message}</p>
 						)}
 					</form>
+					{errorCredentials && (
+						<p className="text-red-600 py-1">Credenciais erradas</p>
+					)}
 					<div className="flex justify-between items-center mt-4 ml-[200px]">
 						<button
 							type="button"
