@@ -9,7 +9,7 @@ export const Modal = ({ closeModal }) => {
 		<div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
 			<div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
 				<div className="flex justify-between items-center mb-4">
-					<h2 className="text-2xl font-bold">Formulário</h2>
+					<h2 className="text-2xl font-bold">Editar Horários</h2>
 					<button
 						type="button"
 						onClick={closeModal}
