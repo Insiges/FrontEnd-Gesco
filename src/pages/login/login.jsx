@@ -4,6 +4,7 @@ import notebookImage from "../../assets/login/pc.png";
 
 import { useAuth } from "../../contexts/AuthContext";
 import { Header } from "../login/components/header/Header";
+import { Roles } from "./components/roles/Roles";
 
 export function Login() {
 	const [errors, setErrors] = useState({
@@ -12,6 +13,7 @@ export function Login() {
 		message: "",
 	});
 	const [errorCredentials, setErrorCredentials] = useState(false);
+	const [loginType, setLoginType] = useState("");
 	const id = useId();
 	const navigate = useNavigate();
 	const { login } = useAuth();
@@ -39,6 +41,7 @@ export function Login() {
 
 		login(
 			{ username, password },
+			loginType,
 			() => {
 				setErrorCredentials(true);
 			},
@@ -51,6 +54,15 @@ export function Login() {
 	const resetErrors = () => {
 		setErrors({ message: "", password: false, username: false });
 	};
+
+	const handleRules = (data) => {
+		console.log("", data);
+		setLoginType(data);
+	};
+
+	if (loginType === "") return <Roles setRole={handleRules} />;
+
+	console.log({ loginType });
 	return (
 		<div>
 			<Header />
