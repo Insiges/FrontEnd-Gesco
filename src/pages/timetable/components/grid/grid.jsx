@@ -9,19 +9,19 @@ export const Grid = ({ table }) => {
 								Time
 							</th>
 							<th className="w-1/6 px-2 py-1 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-white text-center">
-								Monday
+								Segunda
 							</th>
 							<th className="w-1/6 px-2 py-1 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-white text-center">
-								Tuesday
+								Terça
 							</th>
 							<th className="w-1/6 px-2 py-1 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-white text-center">
-								Wednesday
+								Quarta
 							</th>
 							<th className="w-1/6 px-2 py-1 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-white text-center">
-								Thursday
+								Quinta
 							</th>
 							<th className="w-1/6 px-2 py-1 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl rounded-tr-lg  text-white text-center">
-								Friday
+								Sexta
 							</th>
 						</tr>
 					</thead>
