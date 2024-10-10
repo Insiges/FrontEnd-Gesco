@@ -10,7 +10,7 @@ export const makeRequest = async (
 	headers = {},
 ) => {
 	try {
-		const response = await API({
+		const response = await axios({
 			method,
 			url,
 			params,
