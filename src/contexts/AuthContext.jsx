@@ -1,13 +1,15 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useContext } from "react";
 import { ACCESS_TOKEN } from "../consts/storageKeys";
 import { API } from "../services/api/config";
-import { setStorage } from "../services/storage/storage";
+import { getStorage, setStorage } from "../services/storage/storage";
 
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [isAuthenticated, setIsAuthenticated] = useState(() => {
+		return !!getStorage(ACCESS_TOKEN);
+	});
 
 	//Função para logar o usuário
 	const login = async (credentials, onError, onSuccess) => {
