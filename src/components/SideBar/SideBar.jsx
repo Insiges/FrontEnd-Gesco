@@ -24,7 +24,7 @@ export function SideBar() {
 				<LinkSideBar url="/students" icone={<GrUserManager />} nome="Alunos" />
 				<LinkSideBar url="/teachers" icone={<FaUserTie />} nome="Docentes" />
 				<LinkSideBar
-					url="/eventCalendar"
+					url="/events"
 					icone={<FaRegCalendarAlt />}
 					nome="Eventos"
 				/>

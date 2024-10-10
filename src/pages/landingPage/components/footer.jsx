@@ -1,13 +1,13 @@
 import { FaEnvelope, FaFacebookF, FaInstagram, FaPhone } from "react-icons/fa";
 import { FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { IoIosArrowForward } from "react-icons/io";
-import logo from "../../../../public/logoGesco.png";
+// import logo from "../../../../public/logoGesco.png";
 
 const Footer = () => {
 	return (
 		<footer className="bg-firstBlue flex justify-center items-center">
 			<div className="mt-8 mb-8 flex flex-col items-center">
-				<img src={logo} alt="" className="w-20 h-20" />
+				<img src={"/logoGesco.png"} alt="" className="w-20 h-20" />
 
 				<div className="flex flex-col space-x-0 md:flex-row md:space-x-32 mt-4 ">
 					<div className="mb-4 md:mb-0">
