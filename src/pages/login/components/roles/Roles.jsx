@@ -1,7 +1,8 @@
 import React from "react";
+import peopleImage from "../../../../assets/login/people.png";
 import { Header } from "../header/Header";
 
-export function Roles() {
+export function Roles({ setRole }) {
 	return (
 		<div>
 			<Header />
@@ -21,14 +22,14 @@ export function Roles() {
 							<div className="space-y-4 w-[180px]">
 								<button
 									type="button"
-									onClick={() => handleUserTypeClick("admin")}
+									onClick={() => setRole("escola")}
 									className="w-full bg-custom-blue from-[#7C93C3] to-[#C5CFE4] text-[#060273] px-4 py-2 font-bold border-2 rounded-full hover:bg-white hover:border-[#FFC436] hover:text-[#060273] text-[15px] mt-[10px]"
 								>
 									Administração
 								</button>
 								<button
 									type="button"
-									onClick={() => handleUserTypeClick("teacher")}
+									onClick={() => setRole("professor")}
 									className="w-full bg-custom-blue text-[#060273] px-4 py-2  font-bold border-2 rounded-full hover:bg-white hover:border-[#FFC436] hover:text-[#060273] text-[15px]"
 								>
 									Professor
@@ -41,7 +42,7 @@ export function Roles() {
 							style={{ width: "800px" }}
 						>
 							<img
-								src="src/pages/login/components/images/people.png"
+								src={peopleImage}
 								alt="pc"
 								style={{ maxWidth: "800px", height: "auto", width: "800px" }}
 							/>

@@ -12,9 +12,12 @@ export const AuthProvider = ({ children }) => {
 	});
 
 	//Função para logar o usuário
-	const login = async (credentials, onError, onSuccess) => {
+	const login = async (credentials, role, onError, onSuccess) => {
 		try {
-			const response = await API.post("/escola/auth/login", {
+			let response;
+			if (role === "admin") {
+			}
+			response = await API.post(`/${role}/auth/login`, {
 				email: credentials.username,
 				senha: credentials.password,
 			});
