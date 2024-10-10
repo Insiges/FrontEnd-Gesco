@@ -4,9 +4,5 @@ import { AuthProvider } from "./contexts/AuthContext";
 import router from "./routes/router";
 
 export function App() {
-	return (
-		<AuthProvider>
-			<RouterProvider router={router} />
-		</AuthProvider>
-	);
+	return <RouterProvider router={router} />;
 }
