@@ -8,6 +8,7 @@ import {
 	Students,
 	Timetable,
 } from "../pages/index";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 const router = createBrowserRouter([
 	{
@@ -18,21 +19,25 @@ const router = createBrowserRouter([
 		path: "/login",
 		element: <Login />,
 	},
-
 	{
-		element: <Default />,
+		element: <ProtectedRoute />,
 		children: [
 			{
-				path: "/dashboard",
-				element: <Dashboard />,
-			},
-			{
-				path: "/students",
-				element: <Students />,
-			},
-			{
-				path: "/events",
-				element: <Events />,
+				element: <Default />,
+				children: [
+					{
+						path: "/dashboard",
+						element: <Dashboard />,
+					},
+					{
+						path: "/students",
+						element: <Students />,
+					},
+					{
+						path: "/events",
+						element: <Events />,
+					},
+				],
 			},
 			{
 				path: "/ClassSchedule",
