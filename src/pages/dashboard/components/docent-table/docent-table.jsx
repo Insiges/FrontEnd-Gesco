@@ -1,6 +1,6 @@
 import { Mail, Phone } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getDocents } from "../../../../services/api/School";
+import { getDocents } from "../../../../services/api/school";
 export function DocentTable() {
 	// Estado para armazenar os dados dos docentes
 	const [docentes, setDocentes] = useState([]);

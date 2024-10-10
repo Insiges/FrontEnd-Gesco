@@ -1,76 +1,41 @@
 import { makeRequest } from "./requestProvider";
 
 export async function getDocents() {
-	const token =
-		"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnZXNjbyIsInN1YiI6InRlc3RlQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRVNDT0xBIl0sImV4cCI6MTcyODQwMTA1N30.nUPXAW0VWqHAW2U3dnzx95i4WC8TG2U5NFs0UqVMzmU";
-	const url = "escola/professor/1";
-	const request = await makeRequest(
-		"GET",
-		url,
-		{},
-		{},
-		`Authorization: ${token}`,
-	);
+	const url = "escola/professor";
+	const request = await makeRequest("GET", url);
 
 	return request.body;
 }
 export async function getCounters() {
-	const token =
-		"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnZXNjbyIsInN1YiI6InRlc3RlQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRVNDT0xBIl0sImV4cCI6MTcyODQwMTA1N30.nUPXAW0VWqHAW2U3dnzx95i4WC8TG2U5NFs0UqVMzmU";
-	const url = "escola/contador/1";
-	const request = await makeRequest(
-		"GET",
-		url,
-		{},
-		{},
-		`Authorization: ${token}`,
-	);
+	const url = "escola/contador";
+	const request = await makeRequest("GET", url);
 
 	return request.body;
 }
 
 export async function saveEvent(formData) {
-	const token =
-		"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnZXNjbyIsInN1YiI6InRlc3RlQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRVNDT0xBIl0sImV4cCI6MTcyODQwMTA1N30.nUPXAW0VWqHAW2U3dnzx95i4WC8TG2U5NFs0UqVMzmU";
 	const url = "eventos/novoEvento";
-
 	const body = {
 		nome: formData.name,
 		descricao: formData.description,
 		dia: formData.selectedDay,
 		horario: formData.time,
-		escola: { id: 1 },
 	};
 
-	const request = await makeRequest(
-		"POST",
-		url,
-		body,
-		{},
-		`Authorization: ${token}`,
-	);
-
+	const request = await makeRequest("POST", url, body);
 	return request.body;
 }
 
 export async function getEvents() {
-	const token =
-		"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnZXNjbyIsInN1YiI6InRlc3RlQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRVNDT0xBIl0sImV4cCI6MTcyODQwMTA1N30.nUPXAW0VWqHAW2U3dnzx95i4WC8TG2U5NFs0UqVMzmU";
-	const url = "escola/eventos/1";
-	const request = await makeRequest(
-		"GET",
-		url,
-		{},
-		{},
-		`Authorization: ${token}`,
-	);
+	const url = "escola/eventos";
+	const request = await makeRequest("GET", url);
 
 	return request.body;
 }
 
 export async function editEvent(formData) {
-	const token =
-		"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnZXNjbyIsInN1YiI6InRlc3RlQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRVNDT0xBIl0sImV4cCI6MTcyODQwMTA1N30.nUPXAW0VWqHAW2U3dnzx95i4WC8TG2U5NFs0UqVMzmU";
+	console.log("chamou");
+
 	const url = `eventos/atualizarEvento/${formData.id}`;
 
 	const body = {
@@ -78,32 +43,19 @@ export async function editEvent(formData) {
 		descricao: formData.description,
 		dia: formData.selectedDay,
 		horario: formData.time,
-		escola: { id: 1 },
 	};
 
-	const request = await makeRequest(
-		"PUT",
-		url,
-		body,
-		{},
-		`Authorization: ${token}`,
-	);
+	const request = await makeRequest("PUT", url, body);
+
+	console.log(request);
 
 	return request.body;
 }
 
 export async function deleteEvent(id) {
-	const token =
-		"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnZXNjbyIsInN1YiI6InRlc3RlQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfRVNDT0xBIl0sImV4cCI6MTcyODQwMTA1N30.nUPXAW0VWqHAW2U3dnzx95i4WC8TG2U5NFs0UqVMzmU";
 	const url = `eventos/deletarEvento/${id}`;
 
-	const request = await makeRequest(
-		"DELETE",
-		url,
-		{},
-		{},
-		`Authorization: ${token}`,
-	);
+	const request = await makeRequest("DELETE", url);
 
 	return request.body;
 }

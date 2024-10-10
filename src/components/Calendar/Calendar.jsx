@@ -5,7 +5,7 @@ import {
 	editEvent,
 	getEvents,
 	saveEvent,
-} from "../../services/api/School";
+} from "../../services/api/school";
 
 export default function Calendar({ title }) {
 	const today = dayjs();
