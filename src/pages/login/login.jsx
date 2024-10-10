@@ -56,13 +56,11 @@ export function Login() {
 	};
 
 	const handleRules = (data) => {
-		console.log("", data);
 		setLoginType(data);
 	};
 
 	if (loginType === "") return <Roles setRole={handleRules} />;
 
-	console.log({ loginType });
 	return (
 		<div>
 			<Header />
