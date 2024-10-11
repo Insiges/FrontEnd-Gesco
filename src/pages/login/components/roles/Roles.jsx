@@ -8,14 +8,12 @@ export function Roles({ setRole }) {
 			<Header />
 			<div className="h-[500px] w-screen flex flex-col mt-0">
 				<div className="flex flex-grow justify-center mt-0">
-					<div className="flex w-full max-w-7xl bg-white gap-0">
-						<div className="w-850px p-2 flex flex-col justify-center items-center text-center mx-auto ml-[150px]">
-							<h1 className="text-[38px] font-bold mb-1 whitespace-nowrap">
-								<span style={{ color: "#060273" }}>
-									Qual o seu tipo de
-								</span>{" "}
+					<div className="flex flex-col md:flex-row w-full max-w-7xl bg-white gap-0">
+						<div className="w-full md:w-[850px] p-2 flex flex-col justify-center items-center text-center mx-auto md:ml-[150px]">
+							<h1 className="text-[28px] md:text-[38px] font-bold mb-1 whitespace-nowrap">
+								<span style={{ color: "#060273" }}>Qual o seu tipo de</span>
 							</h1>
-							<h1 className="text-[38px] font-bold mb-6">
+							<h1 className="text-[28px] md:text-[38px] font-bold mb-6">
 								<span style={{ color: "#FFB400" }}>usuário?</span>
 							</h1>
 
@@ -37,14 +35,11 @@ export function Roles({ setRole }) {
 							</div>
 						</div>
 
-						<div
-							className="flex items-center justify-center"
-							style={{ width: "800px" }}
-						>
+						<div className="flex items-center justify-center w-full md:w-[800px] mt-8 md:mt-0">
 							<img
 								src={peopleImage}
 								alt="pc"
-								style={{ maxWidth: "800px", height: "auto", width: "800px" }}
+								className="w-full max-w-[300px] md:max-w-[800px] h-auto"
 							/>
 						</div>
 					</div>
