@@ -22,16 +22,11 @@ export function SideBar() {
 			<ul className="flex flex-col gap-3 w-full pt-20">
 				<LinkSideBar url="/dashboard" icone={<FiHome />} nome="Dashboard" />
 				<LinkSideBar url="/students" icone={<GrUserManager />} nome="Alunos" />
-				<LinkSideBar url="/teachers" icone={<FaUserTie />} nome="Docentes" />
+				<LinkSideBar url="/docents" icone={<FaUserTie />} nome="Docentes" />
 				<LinkSideBar
 					url="/events"
 					icone={<FaRegCalendarAlt />}
 					nome="Eventos"
-				/>
-				<LinkSideBar
-					url="/finance"
-					icone={<GiReceiveMoney />}
-					nome="Finanças"
 				/>
 				<LinkSideBar
 					url="/ClassSchedule"
