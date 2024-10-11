@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { getDocents } from "../../../../services/api/school";
 import {
+	editGrid,
 	getHours,
+	getOneGrid,
 	getWeek,
 	saveGrid,
 } from "../../../../services/api/timeTable";
 
-export const Modal = ({ closeModal }) => {
+export const ModalEdit = ({ closeModal, id }) => {
 	const [turma, setTurma] = useState("");
 	const [materia, setMateria] = useState("");
 	const [day, setDay] = useState("");
@@ -16,6 +18,7 @@ export const Modal = ({ closeModal }) => {
 	const [disciplines, setDisciplines] = useState([]);
 	const [week, setWeek] = useState([]);
 	const [cronograma, setCronograma] = useState([]);
+	const [grid, setGrid] = useState({});
 	const [formData, setFormData] = useState({
 		turma: 0,
 		disciplina: 0,
@@ -54,10 +57,21 @@ export const Modal = ({ closeModal }) => {
 			}
 		}
 
+		async function fetchGrid() {
+			try {
+				const response = await getOneGrid(id);
+
+				setGrid(response);
+			} catch (e) {
+				console.error("Erro ao buscar week:", e);
+			}
+		}
+
+		fetchGrid();
 		fetchCrono();
 		fetchWeek();
 		fetchDocents();
-	}, []);
+	}, [id]);
 
 	// Manipular a seleção do professor
 	const handleFirstSelectChange = (e) => {
@@ -74,19 +88,39 @@ export const Modal = ({ closeModal }) => {
 	};
 
 	const handleSubmitGrid = () => {
-		formData.disciplina = materia;
-		formData.professor = selectedTeacherId;
-		formData.dia = day;
-		formData.horario = horario;
+		if (selectedTeacherId === "") {
+			formData.professor = grid.id_professor;
+		} else {
+			formData.professor = selectedTeacherId;
+		}
 
-		saveGrid(formData);
+		if (materia === "") {
+			formData.disciplina = grid.id_disciplina;
+		} else {
+			formData.disciplina = materia;
+		}
+
+		if (day === "") {
+			formData.dia = grid.id_dia;
+		} else {
+			formData.dia = day;
+		}
+
+		if (horario === "") {
+			formData.horario = grid.id_hora;
+		} else {
+			formData.horario = horario;
+		}
+
+		editGrid(id, formData);
 		closeModal();
 	};
+
 	return (
 		<div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
 			<div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
 				<div className="flex justify-between items-center mb-4">
-					<h2 className="text-2xl font-bold">Salvar Horário</h2>
+					<h2 className="text-2xl font-bold">Editar Horários</h2>
 					<button
 						type="button"
 						onClick={closeModal}
@@ -106,8 +140,9 @@ export const Modal = ({ closeModal }) => {
 							onChange={handleFirstSelectChange}
 						>
 							<option value="" disabled>
-								Selecione uma opção
+								{grid.professor}
 							</option>
+
 							{docentes.map((it) => (
 								<option key={it.dados.id} value={it.dados.id}>
 									{it.dados.nome}
@@ -126,7 +161,7 @@ export const Modal = ({ closeModal }) => {
 							onChange={(e) => setMateria(e.target.value)}
 						>
 							<option value="" disabled>
-								Selecione uma opção
+								{grid.disciplina}
 							</option>
 							{disciplines.map((disciplina) => (
 								<option key={disciplina.id} value={disciplina.id}>
@@ -146,7 +181,7 @@ export const Modal = ({ closeModal }) => {
 							onChange={(e) => setDay(e.target.value)}
 						>
 							<option value="" disabled>
-								Selecione uma opção
+								{grid.dia}
 							</option>
 							{week.map((it) => (
 								<option key={it.id} value={it.id}>
@@ -166,7 +201,7 @@ export const Modal = ({ closeModal }) => {
 							onChange={(e) => setHorario(e.target.value)}
 						>
 							<option value="" disabled>
-								Selecione uma opção
+								{grid.hora}
 							</option>
 							{cronograma.map((it) => (
 								<option key={it.id} value={it.id}>

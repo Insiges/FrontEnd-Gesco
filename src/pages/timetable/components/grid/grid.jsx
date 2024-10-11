@@ -1,4 +1,22 @@
-export const Grid = ({ table }) => {
+import { useEffect, useState } from "react";
+
+export const Grid = ({ table, horario, openModal, selectedGrid }) => {
+	const handleClick = (e) => {
+		openModal();
+		selectedGrid(e.target.id);
+	};
+	const diasDaSemana = [
+		"Segunda-feira",
+		"Terça-feira",
+		"Quarta-feira",
+		"Quinta-feira",
+		"Sexta-feira",
+	];
+	// Função para encontrar o horário correspondente a um dia e hora
+	const getHorario = (dia, hora) => {
+		return table.find((h) => h.dia === dia && h.hora === hora);
+	};
+
 	return (
 		<div className="flex flex-col w-full h-full">
 			<div className="flex justify-center rounded-lg border-firstBlue w-full h-full">
@@ -26,18 +44,29 @@ export const Grid = ({ table }) => {
 						</tr>
 					</thead>
 					<tbody>
-						{table.map((row, rowIndex) => (
-							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-							<tr key={rowIndex} className="w-full h-full">
-								{row.map((cell, cellIndex) => (
-									<td
-										// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-										key={cellIndex}
-										className="w-1/6 border border-firstBlue px-2 py-1 md:px-16 md:py-8 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-center"
-									>
-										{cell}
-									</td>
-								))}
+						{horario.map((hora) => (
+							<tr key={hora}>
+								<td className="w-1/6 border border-firstBlue px-2 py-1 md:px-16 md:py-8 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-center">
+									{hora}
+								</td>
+								{diasDaSemana.map((dia) => {
+									const horario = getHorario(dia, hora);
+									return (
+										<td
+											key={dia + hora}
+											className="border border-gray-400 px-4 py-2 text-center"
+										>
+											{horario ? (
+												<div onClick={handleClick} id={horario.id}>
+													<p id={horario.id}>{horario.professor}</p>
+													<strong id={horario.id}>{horario.disciplina}</strong>
+												</div>
+											) : (
+												"—"
+											)}
+										</td>
+									);
+								})}
 							</tr>
 						))}
 					</tbody>
