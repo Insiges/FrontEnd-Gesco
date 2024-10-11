@@ -65,7 +65,7 @@ const LoginAdmin = () => {
 
 					<div className="w-full md:w-[600px] flex flex-col justify-center items-center mt-10 md:mt-0">
 						<img
-							src="/src/pages/login/components/images/pc.png"
+							src="/src/assets/login/pc.png"
 							alt="notebook"
 							className="w-full max-w-[300px] md:max-w-[390px] h-auto max-h-[700px]"
 						/>
