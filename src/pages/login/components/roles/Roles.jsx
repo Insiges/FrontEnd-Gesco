@@ -1,18 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Header } from "../login/components/header/Header";
+import peopleImage from "../../../../assets/login/people.png";
+import { Header } from "../header/Header";
 
-const LoginType = () => {
-	const navigate = useNavigate();
-
-	const handleUserTypeClick = (userType) => {
-		if (userType === "teacher") {
-			navigate("/login/teacher");
-		} else if (userType === "admin") {
-			navigate("/login/admin");
-		}
-	};
-
+export function Roles({ setRole }) {
 	return (
 		<div>
 			<Header />
@@ -30,15 +20,15 @@ const LoginType = () => {
 							<div className="space-y-4 w-[180px]">
 								<button
 									type="button"
-									onClick={() => handleUserTypeClick("admin")}
+									onClick={() => setRole("escola")}
 									className="w-full bg-custom-blue from-[#7C93C3] to-[#C5CFE4] text-[#060273] px-4 py-2 font-bold border-2 rounded-full hover:bg-white hover:border-[#FFC436] hover:text-[#060273] text-[15px] mt-[10px]"
 								>
 									Administração
 								</button>
 								<button
 									type="button"
-									onClick={() => handleUserTypeClick("teacher")}
-									className="w-full bg-custom-blue text-[#060273] px-4 py-2 font-bold border-2 rounded-full hover:bg-white hover:border-[#FFC436] hover:text-[#060273] text-[15px]"
+									onClick={() => setRole("professor")}
+									className="w-full bg-custom-blue text-[#060273] px-4 py-2  font-bold border-2 rounded-full hover:bg-white hover:border-[#FFC436] hover:text-[#060273] text-[15px]"
 								>
 									Professor
 								</button>
@@ -47,7 +37,7 @@ const LoginType = () => {
 
 						<div className="flex items-center justify-center w-full md:w-[800px] mt-8 md:mt-0">
 							<img
-								src="src/pages/login/components/images/people.png"
+								src={peopleImage}
 								alt="pc"
 								className="w-full max-w-[300px] md:max-w-[800px] h-auto"
 							/>
@@ -57,6 +47,4 @@ const LoginType = () => {
 			</div>
 		</div>
 	);
-};
-
-export default LoginType;
+}

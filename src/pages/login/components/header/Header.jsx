@@ -1,4 +1,5 @@
 import React from "react";
+import gescoIcon from "../../../../assets/login/icone.png";
 
 export function Header() {
 	return (
@@ -16,5 +17,3 @@ export function Header() {
 		</nav>
 	);
 }
-
-export default Header;

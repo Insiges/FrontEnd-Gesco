@@ -1,35 +1,47 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Default } from "../components/layouts/default";
-import { Dashboard } from "../pages/dashboard/dashboard";
-import LoginAdmin from "../pages/login/LoginAdmin";
-import LoginTeacher from "../pages/login/LoginTeacher";
-import LoginType from "../pages/login/LoginType";
-import Students from "../pages/students/students";
+import {
+	Dashboard,
+	Events,
+	LandingPage,
+	Login,
+	Students,
+	Timetable,
+} from "../pages/index";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <LoginType />,
+		element: <LandingPage />,
 	},
 	{
-		path: "/login/teacher",
-		element: <LoginTeacher />,
+		path: "/login",
+		element: <Login />,
 	},
 	{
-		path: "/login/admin",
-		element: <LoginAdmin />,
-	},
-
-	{
-		element: <Default />,
+		element: <ProtectedRoute />,
 		children: [
 			{
-				path: "/dashboard",
-				element: <Dashboard />,
+				element: <Default />,
+				children: [
+					{
+						path: "/dashboard",
+						element: <Dashboard />,
+					},
+					{
+						path: "/students",
+						element: <Students />,
+					},
+					{
+						path: "/events",
+						element: <Events />,
+					},
+				],
 			},
 			{
-				path: "/students",
-				element: <Students />,
+				path: "/ClassSchedule",
+				element: <Timetable />,
 			},
 		],
 	},
