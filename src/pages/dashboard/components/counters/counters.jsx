@@ -2,22 +2,7 @@ import { Calendar, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getCounters } from "../../../../services/api/school";
 
-export function Counters() {
-	const [counters, setCounter] = useState([]);
-
-	useEffect(() => {
-		async function fetchCounters() {
-			try {
-				const response = await getCounters();
-				setCounter(response);
-			} catch (error) {
-				console.error("Erro ao buscar contadores:", error);
-			}
-		}
-
-		fetchCounters();
-	}, []);
-
+export function Counters({ counters }) {
 	return (
 		<div className="bg-transparent shadow-xl rounded-lg py-12 flex justify-evenly">
 			<div className="grid grid-flow-col grid-rows-1 place-items-center gap-x-4">
