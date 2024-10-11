@@ -1,6 +1,6 @@
 import { Calendar, User } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getCounters } from "../../../../services/api/School";
+import { getCounters } from "../../../../services/api/school";
 
 export function Counters() {
 	const [counters, setCounter] = useState([]);
