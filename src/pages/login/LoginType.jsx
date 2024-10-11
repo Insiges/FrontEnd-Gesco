@@ -2,11 +2,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../login/components/header/Header";
 
-const UserType = () => {
+const LoginType = () => {
 	const navigate = useNavigate();
 
 	const handleUserTypeClick = (userType) => {
-		navigate("/login");
+		if (userType === "teacher") {
+			navigate("/login/teacher");
+		} else if (userType === "admin") {
+			navigate("/login/admin");
+		}
 	};
 
 	return (
@@ -14,14 +18,12 @@ const UserType = () => {
 			<Header />
 			<div className="h-[500px] w-screen flex flex-col mt-0">
 				<div className="flex flex-grow justify-center mt-0">
-					<div className="flex w-full max-w-7xl bg-white gap-0">
-						<div className="w-850px p-2 flex flex-col justify-center items-center text-center mx-auto ml-[150px]">
-							<h1 className="text-[38px] font-bold mb-1 whitespace-nowrap">
-								<span style={{ color: "#060273" }}>
-									Qual o seu tipo de
-								</span>{" "}
+					<div className="flex flex-col md:flex-row w-full max-w-7xl bg-white gap-0">
+						<div className="w-full md:w-[850px] p-2 flex flex-col justify-center items-center text-center mx-auto md:ml-[150px]">
+							<h1 className="text-[28px] md:text-[38px] font-bold mb-1 whitespace-nowrap">
+								<span style={{ color: "#060273" }}>Qual o seu tipo de</span>
 							</h1>
-							<h1 className="text-[38px] font-bold mb-6">
+							<h1 className="text-[28px] md:text-[38px] font-bold mb-6">
 								<span style={{ color: "#FFB400" }}>usuário?</span>
 							</h1>
 
@@ -36,21 +38,18 @@ const UserType = () => {
 								<button
 									type="button"
 									onClick={() => handleUserTypeClick("teacher")}
-									className="w-full bg-custom-blue text-[#060273] px-4 py-2  font-bold border-2 rounded-full hover:bg-white hover:border-[#FFC436] hover:text-[#060273] text-[15px]"
+									className="w-full bg-custom-blue text-[#060273] px-4 py-2 font-bold border-2 rounded-full hover:bg-white hover:border-[#FFC436] hover:text-[#060273] text-[15px]"
 								>
 									Professor
 								</button>
 							</div>
 						</div>
 
-						<div
-							className="flex items-center justify-center"
-							style={{ width: "800px" }}
-						>
+						<div className="flex items-center justify-center w-full md:w-[800px] mt-8 md:mt-0">
 							<img
 								src="src/pages/login/components/images/people.png"
 								alt="pc"
-								style={{ maxWidth: "800px", height: "auto", width: "800px" }}
+								className="w-full max-w-[300px] md:max-w-[800px] h-auto"
 							/>
 						</div>
 					</div>
@@ -60,4 +59,4 @@ const UserType = () => {
 	);
 };
 
-export default UserType;
+export default LoginType;

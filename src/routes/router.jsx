@@ -1,9 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Default } from "../components/layouts/default";
 import { Dashboard } from "../pages/dashboard/dashboard";
-import Students from "../pages/students/students";
-import LoginPage from "../pages/login/LoginPage";
+import LoginAdmin from "../pages/login/LoginAdmin";
+import LoginTeacher from "../pages/login/LoginTeacher";
 import LoginType from "../pages/login/LoginType";
+import Students from "../pages/students/students";
 
 const router = createBrowserRouter([
 	{
@@ -11,8 +12,12 @@ const router = createBrowserRouter([
 		element: <LoginType />,
 	},
 	{
-		path: "/login",
-		element: <LoginPage />,
+		path: "/login/teacher",
+		element: <LoginTeacher />,
+	},
+	{
+		path: "/login/admin",
+		element: <LoginAdmin />,
 	},
 
 	{
