@@ -3,6 +3,7 @@ import { Default } from "../components/layouts/default";
 import {
 	Dashboard,
 	Events,
+	GestaoDocente,
 	LandingPage,
 	Login,
 	Students,
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
 					{
 						path: "/events",
 						element: <Events />,
+					},
+					{
+						path: "/docents",
+						element: <GestaoDocente />,
 					},
 				],
 			},
