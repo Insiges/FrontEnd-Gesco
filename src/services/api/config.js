@@ -8,6 +8,12 @@ export const API = axios.create({
 });
 API.interceptors.request.use(
 	(config) => {
+		if (config.url.includes("/escola/auth/login")) {
+			// Remove o cabeçalho Authorization
+			// biome-ignore lint/complexity/useLiteralKeys: <explanation>
+			// biome-ignore lint/performance/noDelete: <explanation>
+			delete config.headers["Authorization"];
+		}
 		const token = getStorage(ACCESS_TOKEN);
 		if (token) {
 			config.headers.Authorization = `Bearer ${token}`;
@@ -18,3 +24,11 @@ API.interceptors.request.use(
 		return Promise.reject(error);
 	},
 );
+
+// curl --location 'http://localhost:8080/escola/auth/login' \
+// --header 'Content-Type: application/json' \
+// --header 'User-Agent: insomnia/10.0.0' \
+// --data-raw ' {
+//   "email": "bb@gmail.com",
+//   "senha": "123"
+//  }'
