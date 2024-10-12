@@ -5,12 +5,10 @@ import {
 	Events,
 	GestaoDocente,
 	LandingPage,
+	Login,
 	Students,
 	Timetable,
 } from "../pages/index";
-import LoginAdmin from "../pages/login/LoginAdmin";
-import LoginTeacher from "../pages/login/LoginTeacher";
-import LoginType from "../pages/login/LoginType";
 import { ProtectedRoute } from "./ProtectedRoute";
 
 const router = createBrowserRouter([
@@ -20,15 +18,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/login",
-		element: <LoginType />,
-	},
-	{
-		path: "/login/teacher",
-		element: <LoginTeacher />,
-	},
-	{
-		path: "/login/admin",
-		element: <LoginAdmin />,
+		element: <Login />,
 	},
 	{
 		element: <ProtectedRoute />,

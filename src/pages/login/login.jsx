@@ -4,7 +4,7 @@ import notebookImage from "../../assets/login/pc.png";
 
 import { useAuth } from "../../contexts/AuthContext";
 import { Header } from "../login/components/header/Header";
-import { Roles } from "./components/roles/Roles";
+import { Roles } from "./components";
 
 export function Login() {
 	const [errors, setErrors] = useState({
