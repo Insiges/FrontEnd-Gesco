@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { getCep } from "../../../../services/api/viacep";
 import {
 	BoxView,
 	Button,
@@ -11,6 +12,15 @@ import {
 
 const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 	const [personData, setPersonData] = useState(dadosPessoais || {});
+	const [cepData, setCepData] = useState({
+		cep: "",
+		logradouro: "",
+		complemento: "",
+		bairro: "",
+		uf: "",
+		estado: "",
+		cidade: "",
+	});
 
 	useEffect(() => {
 		if (dadosPessoais) {
@@ -21,6 +31,34 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 	const handleOnChange = (field, value) => {
 		setPersonData((prev) => ({ ...prev, [field]: value }));
 	};
+
+	const cepOnChange = async (field, value) => {
+		if (value.length > 7) {
+			const cep = await getCep(value);
+
+			setCepData({
+				bairro: cep.bairro,
+				cep: cep.cep,
+				complemento: cep.complemento,
+				logradouro: cep.logradouro,
+				uf: cep.uf,
+				estado: cep.estado,
+				cidade: cep.localidade,
+			});
+		}
+
+		setPersonData((prev) => ({ ...prev, [field]: value }));
+	};
+
+	useEffect(() => {
+		setPersonData((prev) => ({ ...prev, cep: cepData.cep }));
+		setPersonData((prev) => ({ ...prev, bairro: cepData.bairro }));
+		setPersonData((prev) => ({ ...prev, logradouro: cepData.logradouro }));
+		setPersonData((prev) => ({ ...prev, estado: cepData.uf }));
+		setPersonData((prev) => ({ ...prev, cidade: cepData.cidade }));
+	}, [cepData]);
+
+	console.log(personData);
 
 	return (
 		<Flex>
@@ -33,12 +71,20 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 			<Flex direction="row" justify="start" className="flex-wrap p-2">
 				<Flex style={{ flex: 1 }}>
 					<Flex direction="row" justify="center" className="flex-wrap gap-2">
-						<BoxView style={styles.fotoBox}>
-							<input type="file" style={styles.photoInput} />
+						<BoxView style={styles.fotoBox} className="mt-6">
+							<input
+								type="file"
+								style={styles.photoInput}
+								onChange={(event) => {
+									const file = event.target.files[0];
+									console.log(file);
+									handleOnChange("foto", event.target.value);
+								}}
+							/>
 						</BoxView>
 
 						{/* Nome e Sobrenome Row */}
-						<Flex justify="start" className="flex-wrap gap-2">
+						<Flex justify="start" className="flex-wrap gap-3 mb-5">
 							<Flex>
 								<label htmlFor="nome">Nome:</label>
 								<input
@@ -51,12 +97,23 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 								/>
 							</Flex>
 							<Flex>
-								<label htmlFor="sobrenome">Sobrenome:</label>
+								<label htmlFor="cpf">CPF:</label>
 								<input
 									type="text"
-									id="sobrenome"
-									value={personData.sobrenome}
-									onChange={(e) => handleOnChange("sobrenome", e.target.value)}
+									id="cpf"
+									value={personData.cpf}
+									onChange={(e) => handleOnChange("cpf", e.target.value)}
+									className={inputClassName}
+									required
+								/>
+							</Flex>
+							<Flex className="">
+								<label htmlFor="data-de-nascimento">Data de Nascimento:</label>
+								<input
+									type="date"
+									id="data-de-nascimento"
+									value={personData.nascimento}
+									onChange={(e) => handleOnChange("nascimento", e.target.value)}
 									className={inputClassName}
 									required
 								/>
@@ -65,28 +122,34 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 					</Flex>
 
 					{/* CEP and CPF Row */}
-					<Flex direction="row" justify="center" className="flex-wrap gap-6">
-						<Flex className="py-2">
-							<label htmlFor="data-de-nascimento">Data de Nascimento:</label>
-							<input
-								type="date"
-								id="data-de-nascimento"
-								value={personData.nascimento}
-								onChange={(e) => handleOnChange("nascimento", e.target.value)}
+
+					<Flex
+						direction="row"
+						justify="center"
+						className=" pl-1 flex-wrap gap-2"
+					>
+						<Flex>
+							<label htmlFor="email">Sexo:</label>
+							<select
 								className={inputClassName}
-								style={{ maxWidth: 300 }}
+								onChange={(e) => handleOnChange("sexo", e.target.value)}
 								required
-							/>
+							>
+								<option value="" disabled selected>
+									Selecione uma opção
+								</option>
+								<option value="Feminino">Feminino</option>
+								<option value="Masculino">Masculino</option>
+							</select>
 						</Flex>
-						<Flex className="py-2">
-							<label htmlFor="cpf">CPF:</label>
+						<Flex className="">
+							<label htmlFor="telefone">Telefone:</label>
 							<input
 								type="text"
-								id="cpf"
-								value={personData.cpf}
-								onChange={(e) => handleOnChange("cpf", e.target.value)}
+								id="telefone"
+								value={personData.telefone}
+								onChange={(e) => handleOnChange("telefone", e.target.value)}
 								className={inputClassName}
-								style={{ maxWidth: 300 }}
 								required
 							/>
 						</Flex>
@@ -102,31 +165,40 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 				>
 					<Flex justify="start" className="gap-2">
 						<Flex>
-							<label htmlFor="endereco">Endereço:</label>
+							<label htmlFor="cep">CEP:</label>
 							<input
 								type="text"
-								id="endereco"
-								value={personData.endereco}
-								onChange={(e) => handleOnChange("endereco", e.target.value)}
+								id="cep"
+								value={personData.cep}
+								onChange={(e) => cepOnChange("cep", e.target.value)}
 								className={inputClassName}
 								required
 							/>
 						</Flex>
 						<Flex>
-							<label htmlFor="cidade">Cidade:</label>
+							<label htmlFor="bairro">Bairro:</label>
 							<input
 								type="text"
-								id="cidade"
-								value={personData.cidade}
-								onChange={(e) => handleOnChange("cidade", e.target.value)}
+								id="bairro"
+								value={cepData.bairro}
+								onChange={(e) => handleOnChange("bairro", e.target.value)}
 								className={inputClassName}
 								required
+								disabled
 							/>
 						</Flex>
-					</Flex>
-
-					{/* Right Nested Column */}
-					<Flex justify="start" className="gap-2">
+						<Flex>
+							<label htmlFor="estado">Estado:</label>
+							<input
+								type="text"
+								id="estado"
+								value={cepData.estado}
+								onChange={(e) => handleOnChange("estado", e.target.value)}
+								className={inputClassName}
+								required
+								disabled
+							/>
+						</Flex>
 						<Flex>
 							<label htmlFor="complemento">Complemento:</label>
 							<input
@@ -138,24 +210,43 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 								required
 							/>
 						</Flex>
+					</Flex>
+
+					{/* Right Nested Column */}
+
+					<Flex justify="start" className="gap-2">
 						<Flex>
-							<label htmlFor="estado">Estado:</label>
+							<label htmlFor="endereco">Logradouro:</label>
 							<input
 								type="text"
-								id="estado"
-								value={personData.estado}
-								onChange={(e) => handleOnChange("estado", e.target.value)}
+								id="logradouro"
+								value={cepData.logradouro}
+								onChange={(e) => handleOnChange("logradouro", e.target.value)}
 								className={inputClassName}
 								required
+								disabled
+							/>
+						</Flex>
+
+						<Flex>
+							<label htmlFor="cidade">Cidade:</label>
+							<input
+								type="text"
+								id="cidade"
+								value={cepData.cidade}
+								onChange={(e) => handleOnChange("cidade", e.target.value)}
+								className={inputClassName}
+								required
+								disabled
 							/>
 						</Flex>
 						<Flex>
-							<label htmlFor="cep">CEP:</label>
+							<label htmlFor="cidade">Numero:</label>
 							<input
 								type="text"
-								id="cep"
-								value={personData.cep}
-								onChange={(e) => handleOnChange("cep", e.target.value)}
+								id="cidade"
+								value={personData.numero}
+								onChange={(e) => handleOnChange("numero", e.target.value)}
 								className={inputClassName}
 								required
 							/>
@@ -181,9 +272,7 @@ const styles = {
 		display: "flex",
 		alignItems: "center",
 		justifyContent: "center",
-		backgroundImage:
-			"url(https://archive.org/download/placeholder-image/placeholder-image.jpg)",
-		backgroundSize: "cover",
+		backgroundImage: "url(/src/assets/click.png)",
 		backgroundPosition: "center",
 		backgroundRepeat: "no-repeat",
 		width: "fit-content",

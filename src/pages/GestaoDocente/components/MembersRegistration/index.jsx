@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { saveTeacher } from "../../../../services/api/teachers";
 import LoginRegistration from "./LoginRegistration";
 import TeacherDisciplines from "./MemberDisciplines";
 import MemberEducation from "./MemberEducation";
@@ -15,20 +16,26 @@ const Registration = ({ onAdicionar, docentes = [] }) => {
 
 	const [data, setData] = useState({
 		nome: "",
-		sobrenome: "",
-		endereco: "",
+		foto: "",
+		sexo: "",
+		telefone: "",
+		logradouro: "",
 		complemento: "",
 		cidade: "",
 		estado: "",
 		nascimento: "",
+		bairro: "",
 		cep: "",
+		numero: "",
 		cpf: "",
 		disciplinas: [],
+		diplomas: [],
 
 		// Propriedades para Login
 		email: "",
 		password: "",
 	});
+	console.log(data);
 
 	useEffect(() => {
 		if (id) {
@@ -48,10 +55,10 @@ const Registration = ({ onAdicionar, docentes = [] }) => {
 		}));
 	};
 
-	const handleSubmit = (e, finalData) => {
+	const handleSubmit = async (e, finalData) => {
 		e.preventDefault();
-		onAdicionar(finalData);
-		navigate("/gestao-docente");
+		await saveTeacher(finalData);
+		navigate("/docents");
 	};
 
 	return (
@@ -83,8 +90,10 @@ const Registration = ({ onAdicionar, docentes = [] }) => {
 				<TeacherDisciplines
 					disciplinas={data.disciplinas}
 					etapas={etapasCadastrais}
-					onChange={setData}
-					onNext={() => setEtapasCadastrais(4)}
+					onNext={(vals) => {
+						handleChangeOnNext(vals); // Atualiza disciplinas
+						setEtapasCadastrais(4);
+					}}
 					onPrevious={() => setEtapasCadastrais(2)}
 				/>
 			)}

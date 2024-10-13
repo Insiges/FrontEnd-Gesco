@@ -20,6 +20,10 @@ const LoginRegistration = ({
 		setLoginData(dadosCadastrais);
 	}, [dadosCadastrais]);
 
+	const handleSubmit = (e) => {
+		onSubmit(e, loginData);
+	};
+
 	return (
 		<Flex>
 			<Flex>
@@ -32,7 +36,7 @@ const LoginRegistration = ({
 				<Flex direction="row" justify="center" className="flex-wrap gap-4">
 					<Flex className="items-start">
 						<BoxView className="p-8">
-							<form onSubmit={(e) => onSubmit(e, loginData)}>
+							<form onSubmit={handleSubmit}>
 								<Flex className="my-4">
 									<label htmlFor="email">Email:</label>
 									<input
@@ -86,27 +90,29 @@ const LoginRegistration = ({
 								<div>
 									{Object.entries(dadosCadastrais).map(([key, value]) => {
 										if (key === "email" || key === "password") return null;
-										return (
-											<Flex
-												key={key}
-												direction="row"
-												justify="between"
-												className="p-3 odd:bg-white even:bg-blue-50"
-											>
+										if (key !== "disciplinas" && key !== "diplomas") {
+											return (
 												<Flex
+													key={key}
 													direction="row"
-													justify="start"
-													className="gap-12"
+													justify="between"
+													className="p-3 odd:bg-white even:bg-blue-50"
 												>
-													<p>
-														<strong style={{ textTransform: "uppercase" }}>
-															{key}
-														</strong>
-														: {!value ? "N/A" : value}
-													</p>
+													<Flex
+														direction="row"
+														justify="start"
+														className="gap-12"
+													>
+														<p>
+															<strong style={{ textTransform: "uppercase" }}>
+																{key}
+															</strong>
+															: {!value ? "N/A" : value}
+														</p>
+													</Flex>
 												</Flex>
-											</Flex>
-										);
+											);
+										}
 									})}
 								</div>
 							</div>

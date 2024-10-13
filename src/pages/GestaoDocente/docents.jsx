@@ -1,16 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 import MembersList from "./components/MembersList";
 import Registration from "./components/MembersRegistration";
 import LoginRegistration from "./components/MembersRegistration/LoginRegistration";
 
+import { getDocents } from "../../services/api/school";
 import data from "./data";
 
 export const GestaoDocente = () => {
 	const navigate = useNavigate();
 
-	const [docentes, setDocentes] = useState(data);
+	const [docentes, setDocentes] = useState([]);
+
+	useEffect(() => {
+		const fetchTeachers = async () => {
+			try {
+				const response = await getDocents();
+				setDocentes(response);
+			} catch (error) {
+				console.error("Error fetching teachers", error);
+			}
+		};
+		fetchTeachers();
+	}, []);
 
 	const handleAdicionarDocente = (dadosCadastrais) => {
 		setDocentes((prevDocentes) => {
