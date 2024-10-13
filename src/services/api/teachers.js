@@ -48,3 +48,11 @@ export async function saveTeacher(data) {
 
 	return request.body;
 }
+
+export async function deleteTeacher(id) {
+	const url = `professor/${id}`;
+
+	const request = await makeRequest("DELETE", url);
+
+	return request;
+}
