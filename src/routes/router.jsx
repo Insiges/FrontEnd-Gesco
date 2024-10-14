@@ -48,6 +48,10 @@ const router = createBrowserRouter([
 						element: <Registration />,
 					},
 					{
+						path: "docents/edit/:id",
+						element: <Registration />,
+					},
+					{
 						path: "/ClassSchedule",
 						element: <Timetable />,
 					},

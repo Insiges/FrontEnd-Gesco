@@ -33,18 +33,25 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 	};
 
 	const cepOnChange = async (field, value) => {
-		if (value.length > 7) {
-			const cep = await getCep(value);
+		console.log(value);
 
-			setCepData({
-				bairro: cep.bairro,
-				cep: cep.cep,
-				complemento: cep.complemento,
-				logradouro: cep.logradouro,
-				uf: cep.uf,
-				estado: cep.estado,
-				cidade: cep.localidade,
-			});
+		if (value.length >= 8) {
+			try {
+				const cepCerto = value.replace("-", "");
+				const cep = await getCep(value);
+
+				setCepData({
+					bairro: cep.bairro,
+					cep: cep.cep,
+					complemento: cep.complemento,
+					logradouro: cep.logradouro,
+					uf: cep.uf,
+					estado: cep.estado,
+					cidade: cep.localidade,
+				});
+			} catch (error) {
+				console.log(error);
+			}
 		}
 
 		setPersonData((prev) => ({ ...prev, [field]: value }));
@@ -54,11 +61,9 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 		setPersonData((prev) => ({ ...prev, cep: cepData.cep }));
 		setPersonData((prev) => ({ ...prev, bairro: cepData.bairro }));
 		setPersonData((prev) => ({ ...prev, logradouro: cepData.logradouro }));
-		setPersonData((prev) => ({ ...prev, estado: cepData.uf }));
+		setPersonData((prev) => ({ ...prev, sigla_estado: cepData.uf }));
 		setPersonData((prev) => ({ ...prev, cidade: cepData.cidade }));
 	}, [cepData]);
-
-	console.log(personData);
 
 	return (
 		<Flex>
@@ -133,6 +138,7 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 							<select
 								className={inputClassName}
 								onChange={(e) => handleOnChange("sexo", e.target.value)}
+								value={personData.sexo || ""}
 								required
 							>
 								<option value="" disabled selected>
@@ -180,7 +186,7 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 							<input
 								type="text"
 								id="bairro"
-								value={cepData.bairro}
+								value={cepData.bairro || personData.bairro}
 								onChange={(e) => handleOnChange("bairro", e.target.value)}
 								className={inputClassName}
 								required
@@ -192,7 +198,7 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 							<input
 								type="text"
 								id="estado"
-								value={cepData.estado}
+								value={cepData.estado || personData.nome_estado}
 								onChange={(e) => handleOnChange("estado", e.target.value)}
 								className={inputClassName}
 								required
@@ -204,7 +210,7 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 							<input
 								type="text"
 								id="complemento"
-								value={personData.complemento}
+								value={personData.complemento || personData.complemento}
 								onChange={(e) => handleOnChange("complemento", e.target.value)}
 								className={inputClassName}
 								required
@@ -220,7 +226,7 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 							<input
 								type="text"
 								id="logradouro"
-								value={cepData.logradouro}
+								value={cepData.logradouro || personData.logradouro}
 								onChange={(e) => handleOnChange("logradouro", e.target.value)}
 								className={inputClassName}
 								required
@@ -233,7 +239,7 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 							<input
 								type="text"
 								id="cidade"
-								value={cepData.cidade}
+								value={cepData.cidade || personData.cidade}
 								onChange={(e) => handleOnChange("cidade", e.target.value)}
 								className={inputClassName}
 								required
@@ -245,7 +251,7 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 							<input
 								type="text"
 								id="cidade"
-								value={personData.numero}
+								value={personData.numero || personData.numero}
 								onChange={(e) => handleOnChange("numero", e.target.value)}
 								className={inputClassName}
 								required

@@ -41,6 +41,10 @@ const MemberEducation = ({
 		fetchTypeEducation();
 	}, []);
 
+	useEffect(() => {
+		setEducations(personData.diplomas);
+	}, [personData]);
+
 	const [educationFields, setEducationFields] = useState({
 		faculdade: "",
 		curso: "",

@@ -7,28 +7,12 @@ import LoginRegistration from "./components/MembersRegistration/LoginRegistratio
 
 import { getDocents } from "../../services/api/school";
 import { deleteTeacher } from "../../services/api/teachers";
-import data from "./data";
 
 export const GestaoDocente = () => {
 	const [showModalDelete, setShowModalDelete] = useState(false);
 	const [docentes, setDocentes] = useState([]);
 	const [idDocente, setIdDocente] = useState("");
 	const navigate = useNavigate();
-
-	const closeModal = () => {
-		setShowModalDelete(false);
-		setError("");
-	};
-
-	const handleDeleteTeacherConfirm = async () => {
-		await deleteTeacher(idDocente);
-
-		setShowModalDelete(false);
-		setTimeout(async () => {
-			const response = await getDocents();
-			setDocentes(response);
-		}, 2000);
-	};
 
 	useEffect(() => {
 		const fetchTeachers = async () => {
@@ -59,35 +43,31 @@ export const GestaoDocente = () => {
 		});
 	};
 
-	const handleEditarDocente = (id) =>
-		navigate(`/gestao-docente/cadastro/${id}`);
+	const handleEditarDocente = (id) => navigate(`/docents/edit/${id}`);
 
 	const handleDeletarDocente = (id) => {
 		setShowModalDelete(true);
 		setIdDocente(id);
 	};
 
+	const handleDeleteTeacherConfirm = async () => {
+		await deleteTeacher(idDocente);
+
+		setShowModalDelete(false);
+		setTimeout(async () => {
+			const response = await getDocents();
+			setDocentes(response);
+		}, 2000);
+	};
+
+	const closeModal = () => {
+		setShowModalDelete(false);
+		setError("");
+	};
+
 	return (
 		<section style={styles.container}>
 			<Routes>
-				{/* Rota com parametro de ID para tela de formulário de cadastro para editar um docente existente */}
-				<Route
-					path="/cadastro/:id"
-					element={
-						<Registration
-							onAdicionar={handleAdicionarDocente}
-							docentes={docentes}
-						/>
-					}
-				/>
-
-				{/* Rota para tela de formulário de cadastro de um novo docente */}
-				<Route
-					path="/cadastro"
-					element={<Registration onAdicionar={handleAdicionarDocente} />}
-				/>
-
-				{/* Rota da tela inicial do modulo Gestao Docente */}
 				<Route
 					path="/"
 					element={

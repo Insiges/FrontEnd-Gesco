@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { saveTeacher } from "../../../../services/api/teachers";
+import {
+	editTeacher,
+	getOneTeacher,
+	saveTeacher,
+} from "../../../../services/api/teachers";
 import LoginRegistration from "./LoginRegistration";
 import TeacherDisciplines from "./MemberDisciplines";
 import MemberEducation from "./MemberEducation";
@@ -12,6 +16,7 @@ const Registration = ({ onAdicionar, docentes = [] }) => {
 
 	const { id } = useParams();
 
+	const [docenteId, setDocenteId] = useState(null);
 	const [etapasCadastrais, setEtapasCadastrais] = useState(1);
 
 	const [data, setData] = useState({
@@ -21,8 +26,6 @@ const Registration = ({ onAdicionar, docentes = [] }) => {
 		telefone: "",
 		logradouro: "",
 		complemento: "",
-		cidade: "",
-		estado: "",
 		nascimento: "",
 		bairro: "",
 		cep: "",
@@ -30,12 +33,60 @@ const Registration = ({ onAdicionar, docentes = [] }) => {
 		cpf: "",
 		disciplinas: [],
 		diplomas: [],
+		id_telefone: 0,
+		id_email: 0,
+		id_cidade: 0,
+		cidade: "",
+		sigla_estado: "",
+		id_estado: 0,
+		nome_estado: "",
 
 		// Propriedades para Login
 		email: "",
 		password: "",
 	});
-	console.log(data);
+	useEffect(() => {
+		if (window.location.pathname !== "/docents/register") {
+			const path = window.location.pathname;
+			const pathParts = path.split("/");
+			const id = pathParts[pathParts.length - 1];
+			setDocenteId(id);
+
+			const fetchTeacher = async () => {
+				try {
+					const response = await getOneTeacher(id);
+					setData({
+						nome: response.dados.nome,
+						foto: response.dados.foto,
+						sexo: response.dados.sexo,
+						telefone: response.dados.telefone,
+						id_endereco: response.dados.id_endereco,
+						logradouro: response.dados.logradouro,
+						complemento: response.dados.complemento,
+						cidade: response.dados.cidade,
+						nascimento: response.dados.data_nascimento,
+						bairro: response.dados.bairro,
+						cep: response.dados.cep,
+						numero: response.dados.numero,
+						cpf: response.dados.cpf,
+						email: response.dados.email,
+						disciplinas: response.disciplinas,
+						diplomas: response.diplomas,
+						id_telefone: response.dados.id_telefone,
+						id_email: response.dados.id_email,
+						id_cidade: response.dados.id_cidade,
+						sigla_estado: response.dados.sigla_estado,
+						id_estado: response.dados.id_estado,
+						nome_estado: response.dados.nome_estado,
+					});
+				} catch (error) {
+					console.error(error);
+				}
+			};
+
+			fetchTeacher();
+		}
+	}, []);
 
 	useEffect(() => {
 		if (id) {
@@ -57,8 +108,17 @@ const Registration = ({ onAdicionar, docentes = [] }) => {
 
 	const handleSubmit = async (e, finalData) => {
 		e.preventDefault();
-		await saveTeacher(finalData);
-		navigate("/docents");
+		if (window.location.pathname !== "/docents/register") {
+			await editTeacher(finalData, docenteId);
+			navigate("/docents");
+		} else {
+			try {
+				await saveTeacher(finalData);
+				navigate("/docents");
+			} catch (error) {
+				console.log(error);
+			}
+		}
 	};
 
 	return (

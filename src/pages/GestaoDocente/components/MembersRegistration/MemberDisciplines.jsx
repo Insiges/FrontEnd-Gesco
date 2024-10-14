@@ -15,29 +15,46 @@ const MemberDisciplines = ({
 	onNext,
 	onPrevious,
 }) => {
-	const [disciplina, setDisciplina] = useState([]);
-	const [disciplineList, setDisciplineList] = useState(disciplinas || {});
-	const [nameDisciplina, setNameDisciplina] = useState([]);
+	const [disciplina, setDisciplina] = useState([]); // Disciplinas disponíveis para seleção
+	const [disciplineList, setDisciplineList] = useState([]);
+	const [nameDisciplina, setNameDisciplina] = useState(
+		disciplinas?.map((disciplina) => ({ nome: disciplina.nome })) || [],
+	);
 
+	useEffect(() => {
+		const ids = disciplinas.map((it) => {
+			return it.id;
+		});
+
+		setDisciplineList(ids);
+	}, [disciplinas]);
+
+	// Função para buscar disciplinas
 	useEffect(() => {
 		async function fetchDiscipline() {
 			try {
 				const response = await getDisciplines();
-
 				setDisciplina(response);
 			} catch (error) {
-				console.error("Erro ao buscar tipos de educacao:", error);
+				console.error("Erro ao buscar disciplinas:", error);
 			}
 		}
 		fetchDiscipline();
-	}, []);
+	}, []); // Esse efeito só será executado uma vez, ao montar o componente
 
 	const handleSaveDiscipline = (e) => {
-		setDisciplineList((prev) => [...prev, e.target.value]);
-		setNameDisciplina((prev) => [
-			...prev,
-			{ nome: e.target.selectedOptions[0].innerHTML },
-		]);
+		const selectedDisciplineId = Number(e.target.value);
+		const selectedDisciplineName = e.target.selectedOptions[0].innerHTML;
+
+		// Verifica se a disciplina já foi adicionada
+		if (disciplineList.some((d) => d === Number(selectedDisciplineId))) {
+			alert("Disciplina já adicionada.");
+			return;
+		}
+
+		// Atualiza as listas de disciplinas
+		setDisciplineList((prev) => [...prev, selectedDisciplineId]);
+		setNameDisciplina((prev) => [...prev, { nome: selectedDisciplineName }]);
 	};
 
 	const handleDelete = (index) => {
@@ -50,8 +67,10 @@ const MemberDisciplines = ({
 	};
 
 	const handleSave = () => {
-		onNext({ disciplinas: disciplineList });
+		const unique = Array.from(new Set(disciplineList));
+		onNext({ disciplinas: unique });
 	};
+
 	return (
 		<Flex>
 			<Flex>
