@@ -5,12 +5,11 @@ import { TableSearchFilter } from "../SearchFilter";
 
 export const MembersList = ({ docentes, onEditar, onDeletar }) => {
 	const navigate = useNavigate();
-
 	return (
 		<div>
 			<Flex direction="row" className="p-4">
 				<Title fontSize={34}>Docentes</Title>
-				<Button onClick={() => navigate("/gestao-docente/cadastro")}>
+				<Button onClick={() => navigate("/docents/register")}>
 					Adicionar Docente
 				</Button>
 			</Flex>
@@ -36,28 +35,27 @@ export const MembersList = ({ docentes, onEditar, onDeletar }) => {
 								<tbody>
 									{resultados.map((docente) => (
 										<tr
-											key={docente.id}
+											key={docente.dados.id}
 											className="border-t text-center odd:bg-white even:bg-blue-50"
 										>
 											<td className="py-3" style={{ width: "33%" }}>
-												{docente.nome}
+												{docente.dados.nome}
 											</td>
 											<td className="py-3" style={{ width: "33%" }}>
-												{typeof docente.disciplinas === "string"
-													? docente.disciplinas
-													: docente.disciplinas.join(" | ")}
+												{docente.disciplinas}
 											</td>
+
 											<td className="py-3" style={{ width: "33%" }}>
 												<button
 													className="text-blue-500 hover:underline mx-1"
-													onClick={() => onEditar(docente.id ?? "")}
+													onClick={() => onEditar(docente.dados.id ?? "")}
 													type="button"
 												>
 													{editIcon}
 												</button>
 												<button
 													className="text-red-500 hover:underline mx-1"
-													onClick={() => onDeletar(docente.id)}
+													onClick={() => onDeletar(docente.dados.id)}
 													type="button"
 												>
 													{deleteIcon}

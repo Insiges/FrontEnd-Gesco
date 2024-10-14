@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { BoxView, Flex } from "../../common";
 
 export const TableSearchFilter = ({
@@ -12,25 +11,38 @@ export const TableSearchFilter = ({
 }) => {
 	const [filtro, setFiltro] = useState("");
 
+	// Se os parâmetros de filtro não forem fornecidos, retorna todos os resultados
 	if (!filtroParam1 && !filtroParam2) {
 		return children(resultados);
 	}
 
-	const resultadosConvertidos = resultados.map((resultado) =>
-		Array.isArray(resultado[filtroParam2])
-			? { ...resultado, [filtroParam2]: resultado[filtroParam2].join(" | ") }
-			: resultado,
-	);
+	// Conversão dos resultados para garantir que disciplinas seja uma string concatenada
+	const resultadosConvertidos = resultados.map((resultado) => ({
+		...resultado,
+		[filtroParam2]: Array.isArray(resultado[filtroParam2])
+			? resultado[filtroParam2]
+					.map((disciplina) =>
+						disciplina.nome ? disciplina.nome : JSON.stringify(disciplina),
+					) // Acessa a propriedade nome, ou converte em string
+					.join(" | ")
+			: resultado[filtroParam2] || "Sem disciplinas", // Fallback caso não seja array
+	}));
 
-	const resultadosFiltrados = resultadosConvertidos.filter(
-		(resultado) =>
-			(filtroParam1 &&
-				resultado[filtroParam1]
-					.toLowerCase()
-					.includes(filtro?.toLowerCase())) ||
-			(filtroParam2 &&
-				resultado[filtroParam2].toLowerCase().includes(filtro?.toLowerCase())),
-	);
+	// Filtragem dos resultados com verificação extra
+	const resultadosFiltrados = resultadosConvertidos.filter((resultado) => {
+		const filtroLower = filtro.toLowerCase();
+		const filtro1Valido =
+			filtroParam1 &&
+			resultado.dados[filtroParam1] &&
+			resultado.dados[filtroParam1].toLowerCase().includes(filtroLower);
+
+		const filtro2Valido =
+			filtroParam2 &&
+			resultado[filtroParam2] &&
+			resultado[filtroParam2].toLowerCase().includes(filtroLower);
+
+		return filtro1Valido || filtro2Valido;
+	});
 
 	return (
 		<Flex className="gap-12 p-4">
@@ -51,7 +63,7 @@ export const TableSearchFilter = ({
 					/>
 				</div>
 			</BoxView>
-			<div>{children(resultadosFiltrados, "outro argumento")}</div>
+			<div>{children(resultadosFiltrados)}</div>
 		</Flex>
 	);
 };

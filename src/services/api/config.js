@@ -8,15 +8,19 @@ export const API = axios.create({
 });
 API.interceptors.request.use(
 	(config) => {
+		const token = getStorage(ACCESS_TOKEN);
+
+		if (token) {
+			config.headers.Authorization = `Bearer ${token}`;
+		}
+
 		if (config.url.includes("/escola/auth/login")) {
+			console.log("entrou");
+
 			// Remove o cabeçalho Authorization
 			// biome-ignore lint/complexity/useLiteralKeys: <explanation>
 			// biome-ignore lint/performance/noDelete: <explanation>
 			delete config.headers["Authorization"];
-		}
-		const token = getStorage(ACCESS_TOKEN);
-		if (token) {
-			config.headers.Authorization = `Bearer ${token}`;
 		}
 		return config;
 	},
