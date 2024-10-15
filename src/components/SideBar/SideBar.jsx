@@ -3,6 +3,7 @@ import { FiHome } from "react-icons/fi";
 import { GiReceiveMoney } from "react-icons/gi";
 import { GrUserManager } from "react-icons/gr";
 import { IoTime } from "react-icons/io5";
+import { MdGroups2 } from "react-icons/md";
 import { Link } from "react-router-dom";
 import logoImg from "/logoGesco2.png";
 import LinkSideBar from "./LinkSideBar/LinkSideBar";
@@ -28,6 +29,7 @@ export function SideBar() {
 					icone={<FaRegCalendarAlt />}
 					nome="Eventos"
 				/>
+				<LinkSideBar url="/Classes" icone={<MdGroups2 />} nome="Turmas" />
 				<LinkSideBar
 					url="/ClassSchedule"
 					icone={<IoTime />}
