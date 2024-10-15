@@ -4,7 +4,7 @@ export const SearchFilter = () => {
 			<div className="gap-12 p-4">
 				<div>
 					<div className="flex bg-firstBlue text-white h-16 rounded-t-lg items-center">
-						<label htmlFor="filtro" className="text-lg font-bold p-4 my-4">
+						<label htmlFor="filtro" className="text-lg font-medium p-8 my-4">
 							Filtro
 						</label>
 					</div>
