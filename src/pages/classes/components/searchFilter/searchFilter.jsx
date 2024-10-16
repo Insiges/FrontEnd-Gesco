@@ -8,22 +8,22 @@ export const SearchFilter = () => {
 							Filtro
 						</label>
 					</div>
-					<form className="flex p-8 space-x-8 shadow-lg shadow-t-none items-center">
+					<form className="flex flex-col sm:flex-row p-8 space-y-4 sm:space-y-0 sm:space-x-8 shadow-lg shadow-t-none items-center">
 						<input
 							type="text"
 							id="filtro"
 							placeholder="Turma"
-							className="w-80 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+							className="w-full sm:w-80 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
 						/>
 						<input
 							type="number"
 							id="filtro"
 							placeholder="Ano letivo"
-							className="w-80 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+							className="w-full sm:w-80 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
 						/>
 						<button
 							type="submit"
-							className="bg-firstBlue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+							className="w-full sm:w-auto px-4 py-2 bg-firstBlue text-white rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
 						>
 							Buscar
 						</button>

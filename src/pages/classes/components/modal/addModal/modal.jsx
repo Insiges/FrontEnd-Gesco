@@ -16,7 +16,7 @@ const AddClassModal = ({ isOpen, onClose, onSave }) => {
 
 	return (
 		<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-			<div className="bg-white rounded-lg shadow-lg w-1/3">
+			<div className="bg-white rounded-lg shadow-lg w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/3">
 				<div className="flex justify-between items-center bg-firstBlue p-4 rounded-t-lg">
 					<h2 className="text-white text-lg">Adicionar Nova Turma</h2>
 					<button type="button" onClick={onClose} className="text-white">

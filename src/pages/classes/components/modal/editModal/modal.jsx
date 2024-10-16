@@ -18,15 +18,15 @@ export const EditModal = ({ isOpen, onClose, turma, onSave }) => {
 		<div
 			className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 ${isOpen ? "block" : "hidden"}`}
 		>
-			<div className="bg-white rounded-lg shadow-lg w-1/3">
+			<div className="bg-white rounded-lg shadow-lg w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/3">
 				<div className="flex justify-between items-center bg-firstBlue p-4 rounded-t-lg">
-					<h2 className="text-white text-lg">Adicionar Nova Turma</h2>
+					<h2 className="text-white text-lg">Editar Turma</h2>
 					<button type="button" onClick={onClose} className="text-white">
 						<MdClose size={24} />
 					</button>
 				</div>
-				<form>
-					<div className="mb-4">
+				<form className="mx-4 mt-4">
+					<div className="mb-4 ">
 						<label
 							className="block text-gray-700 text-sm font-bold mb-2"
 							htmlFor="nome"
@@ -74,7 +74,7 @@ export const EditModal = ({ isOpen, onClose, turma, onSave }) => {
 							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 						/>
 					</div>
-					<div className="flex items-center justify-between">
+					<div className="flex items-center justify-end mb-4 space-x-1">
 						<button
 							type="button"
 							onClick={handleSave}

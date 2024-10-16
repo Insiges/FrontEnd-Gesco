@@ -48,7 +48,7 @@ export const ClassTable = ({ turmas }) => {
 							<tr key={turma.id} className="bg-white ">
 								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
 									<div className="flex items-center justify-center">
-										<MdGroups2 className="mr-2 inline-block align-middle" />
+										<MdGroups2 className="mr-2 hidden sm:block  align-middle" />
 										<span className="inline-block align-middle">
 											{turma.nome}
 										</span>
