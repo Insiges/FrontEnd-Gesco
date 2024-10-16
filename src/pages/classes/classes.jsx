@@ -1,4 +1,12 @@
-import { Button, SearchFilter } from "./components/index";
+import { Button, ClassTable, SearchFilter } from "./components/index";
+
+const turmas = [
+	{ nome: "Turma A", ano: 2021, id: 1235 },
+	{ nome: "Turma A", ano: 2021, id: 1245 },
+	{ nome: "Turma A", ano: 2021, id: 12345 },
+	{ nome: "Turma B", ano: 2022, id: 1345 },
+	{ nome: "Turma C", ano: 2023, id: 2345 },
+];
 
 export const Classes = () => {
 	return (
@@ -8,6 +16,7 @@ export const Classes = () => {
 				<Button />
 			</div>
 			<SearchFilter />
+			<ClassTable turmas={turmas} />
 		</div>
 	);
 };
