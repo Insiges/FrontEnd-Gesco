@@ -33,16 +33,14 @@ export async function getEvents() {
 	return request.body;
 }
 
-export async function editEvent(formData) {
-	console.log("chamou");
-
-	const url = `eventos/atualizarEvento/${formData.id}`;
+export async function editEvent(data) {
+	const url = `eventos/atualizarEvento/${data.id}`;
 
 	const body = {
-		nome: formData.name,
-		descricao: formData.description,
-		dia: formData.selectedDay,
-		horario: formData.time,
+		nome: data.name,
+		descricao: data.description,
+		dia: data.date,
+		horario: data.time,
 	};
 
 	const request = await makeRequest("PUT", url, body);

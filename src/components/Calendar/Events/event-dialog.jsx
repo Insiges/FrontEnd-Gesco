@@ -50,14 +50,6 @@ export function EventDialog({
 		});
 	};
 
-	const handleEdit = (event) => {
-		reset({
-			name: event.name,
-			time: event.time,
-			description: event.description,
-		});
-	};
-
 	const generateTimeOptions = () => {
 		const times = [];
 		for (let i = 0; i < 24; i++) {
@@ -123,18 +115,7 @@ export function EventDialog({
 						{...register("description")}
 					></textarea>
 
-					{/* {error && <p className="text-red-500 text-sm mt-1">{error}</p>} */}
-
 					<div className="flex justify-around gap-2">
-						{/* {isEditing && (
-						<button
-							type="button"
-							onClick={handleDeleteEvent}
-							className="w-[30%] px-2 py-1 bg-red-500 text-white rounded"
-						>
-							Excluir
-						</button>
-					)} */}
 						<button
 							type="submit"
 							className="w-[50%] px-2 py-1 bg-green-500 text-white rounded disabled:cursor-not-allowed disabled:bg-green-300"

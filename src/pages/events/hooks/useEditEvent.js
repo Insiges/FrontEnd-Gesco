@@ -8,9 +8,18 @@ export const useEditEvent = () => {
 	return useMutation({
 		mutationFn: editEvent,
 		onSuccess: () => {
+			const { currentlyClickedDate } = variables;
 			queryClient.invalidateQueries({
 				queryKey: [QUERY_KEYS.EVENTS],
 			});
+
+			queryClient.invalidateQueries({
+				queryKey: [QUERY_KEYS.EVENTS_BY_DATE, currentlyClickedDate],
+			});
+
+			if (context?.onSuccess) {
+				context.onSuccess();
+			}
 		},
 	});
 };
