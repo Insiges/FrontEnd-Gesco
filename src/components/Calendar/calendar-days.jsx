@@ -1,13 +1,6 @@
 import React from "react";
 
-export function Days({
-	day,
-	currentDate,
-	today,
-	hasEvent,
-	isToday,
-	onDayClick,
-}) {
+export function Days({ day, hasEvent, isToday, onDayClick }) {
 	return (
 		<div
 			data-testid={`day-${day}`}
