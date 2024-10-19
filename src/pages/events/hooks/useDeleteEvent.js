@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import QUERY_KEYS from "../../../consts/QueryKeys";
-import { saveEvent } from "../../../services/api/school";
+import { deleteEvent } from "../../../services/api/school";
 
-export const useCreateEvent = () => {
+export const useDeleteEvent = () => {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: saveEvent,
+		mutationFn: deleteEvent,
 		onSuccess: (data, variables, context) => {
 			const { currentlyClickedDate } = variables;
 			queryClient.invalidateQueries({
