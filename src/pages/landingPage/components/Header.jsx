@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import logoImg from "/logoGesco.png";
 
 const Header = () => {
 	const handleLoginClick = () => {
@@ -9,9 +11,15 @@ const Header = () => {
 		<header className="bg-firstBlue shadow-lg shadow-bottom">
 			<nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
 				<div className="flex lg:flex-1">
-					<a href="www.google.com" className="-m-1.5 p-1.5">
-						<h1 className="text-5xl font-alatsi text-white">GESCO</h1>
-					</a>
+					<Link
+						to="/"
+						className="no-underline bg-tranparent flex place-items-center"
+					>
+						<img src={logoImg} alt="Logo" className="w-12" />
+						<h2 className="text-3xl text-lightGray font-bold hidden lg:block">
+							Gesco
+						</h2>
+					</Link>
 				</div>
 
 				<button
