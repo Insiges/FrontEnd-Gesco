@@ -8,6 +8,9 @@ import { Header } from "../login/components/header/Header";
 import { Roles } from "./components";
 import { loginSchema } from "./form/loginSchema";
 
+//TODO
+// - Implementar o useSignIn
+
 export function Login() {
 	const [loginType, setLoginType] = useState("");
 	const navigate = useNavigate();
