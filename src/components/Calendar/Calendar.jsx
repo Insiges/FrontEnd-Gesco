@@ -6,6 +6,8 @@ import {
 	getEvents,
 	saveEvent,
 } from "../../services/api/school";
+import { Days } from "./days";
+import { EditEventDialog } from "./edit-event-dialog";
 
 export default function Calendar({ title }) {
 	const today = dayjs();
@@ -13,7 +15,6 @@ export default function Calendar({ title }) {
 	const [selectedDay, setSelectedDay] = useState(null);
 	const [showModal, setShowModal] = useState(false);
 	const [showModalEdit, setShowModalEdit] = useState(false);
-	const [showModalDelete, setShowModalDelete] = useState(false);
 	const [events, setEvents] = useState({});
 	const [formData, setFormData] = useState({
 		id: 0,
@@ -29,8 +30,6 @@ export default function Calendar({ title }) {
 	const startDay = startOfMonth.day();
 
 	const fetchEvents = useCallback(async () => {
-		console.log("Fetching events...");
-
 		try {
 			const response = await getEvents();
 			const eventosPorDia = response.eventos.reduce((acc, evento) => {
@@ -84,8 +83,6 @@ export default function Calendar({ title }) {
 
 	const closeModal = () => {
 		setShowModal(false);
-		setShowModalEdit(false);
-		setShowModalDelete(false);
 		setFormData({ name: "", time: "", description: "" });
 		setError("");
 	};
@@ -140,17 +137,13 @@ export default function Calendar({ title }) {
 		setShowModalEdit(false);
 	};
 
-	const handleDeleteEvent = () => {
-		setShowModalDelete(true);
-	};
-
 	const handleDeleteEventConfirm = () => {
 		deleteEvent(formData.id);
 
 		setTimeout(async () => {
 			await fetchEvents();
 		}, 2000);
-		setShowModalDelete(false);
+
 		setShowModalEdit(false);
 	};
 
@@ -165,20 +158,20 @@ export default function Calendar({ title }) {
 		const hasEvent = events[`${currentDate.$y}-${mes}-${dia}`];
 
 		return (
-			<div
+			<Days
 				key={day}
-				className={`text-center p-4 rounded-full cursor-pointer ${
-					isToday ? "bg-blue-500 text-white" : "hover:bg-gray-200"
-				} ${hasEvent ? "border-2 border-green-500" : ""}`}
-				onClick={() => handleDayClick(day)}
-			>
-				{day}
-			</div>
+				day={day}
+				currentDate={currentDate}
+				today={today}
+				isToday={isToday}
+				hasEvent={hasEvent}
+				onDayClick={handleDayClick}
+			/>
 		);
 	});
 
 	return (
-		<div className="w-full bg-white shadow-lg rounded-lg p-6">
+		<div className="w-full h-full bg-white shadow-lg rounded-lg p-6">
 			<div className="flex justify-between items-center mb-4">
 				<h2 className="text-lg font-bold">{title}</h2>
 				<div className="flex items-center space-x-4">
@@ -202,169 +195,30 @@ export default function Calendar({ title }) {
 				</div>
 			</div>
 
-			<div className="grid grid-cols-7 gap-4 text-center text-gray-600 font-medium">
+			<div className="grid grid-cols-7 gap-2 text-center text-gray-600 font-medium text-xs sm:text-base">
 				{daysOfWeek.map((day) => (
-					<div key={day}>{day}</div>
+					<div key={day} className="py-2">
+						{day}
+					</div>
 				))}
 			</div>
 
-			<div className="grid grid-cols-7 gap-4 mt-4">
+			<div className="grid grid-cols-9 gap-2 mt-4">
 				{emptyDays}
 				{days}
 			</div>
 
-			{showModal && (
-				<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-					<div className="bg-white max-h-96  w-[30%] min-w-64 p-3 rounded-lg shadow-lg">
-						<div className="flex justify-between text-center items-center mb-2">
-							<h2>Criar Evento no Dia</h2>
-							<strong className="p-2 rounded-full bg-blue-500 text-white">
-								{selectedDay}
-							</strong>
-						</div>
-
-						<div className="border-t border-blue-500 px-2 py-4 flex flex-col gap-2">
-							<input
-								className="outline-none p-1 shadow-md rounded-md"
-								type="text"
-								placeholder="Nome*"
-								name="name"
-								value={formData.name}
-								onChange={handleInputChange}
-							/>
-							<input
-								className="outline-none p-1 shadow-md rounded-md"
-								type="text"
-								placeholder="Horário*"
-								name="time"
-								value={formData.time}
-								onChange={handleInputChange}
-							/>
-							<textarea
-								className="outline-none p-1 shadow-md rounded-md"
-								name="description"
-								cols="30"
-								rows="5"
-								placeholder="Descrição"
-								value={formData.description}
-								onChange={handleInputChange}
-							></textarea>
-
-							{error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-						</div>
-
-						<div className="flex justify-around gap-2">
-							<button
-								type="button"
-								onClick={closeModal}
-								className="w-[50%] px-2 py-1 bg-red-500 text-white rounded"
-							>
-								Cancelar
-							</button>
-							<button
-								type="button"
-								onClick={handleSaveEvent}
-								className="w-[50%] px-2 py-1 bg-green-500 text-white rounded"
-							>
-								Salvar
-							</button>
-						</div>
-					</div>
-				</div>
-			)}
-
-			{showModalEdit && (
-				<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-					<div className="bg-white max-h-96  w-[30%] min-w-64 p-3 rounded-lg shadow-lg">
-						<div className="flex justify-between text-center items-center mb-2">
-							<h2>Editar Evento</h2>
-							<strong className="p-2 rounded-full bg-blue-500 text-white">
-								{selectedDay}
-							</strong>
-						</div>
-
-						<div className="border-t border-blue-500 px-2 py-4 flex flex-col gap-2">
-							<input
-								className="outline-none p-1 shadow-md rounded-md"
-								type="text"
-								placeholder="Nome*"
-								name="name"
-								value={formData.name}
-								onChange={handleInputChange}
-							/>
-							<input
-								className="outline-none p-1 shadow-md rounded-md"
-								type="text"
-								placeholder="Horário*"
-								name="time"
-								value={formData.time}
-								onChange={handleInputChange}
-							/>
-							<textarea
-								className="outline-none p-1 shadow-md rounded-md"
-								name="description"
-								cols="30"
-								rows="5"
-								placeholder="Descrição"
-								value={formData.description}
-								onChange={handleInputChange}
-							></textarea>
-
-							{error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-						</div>
-
-						<div className="flex justify-end gap-2 pr-2">
-							<button
-								type="button"
-								onClick={handleDeleteEvent}
-								className="w-[15%] px-2 py-1 bg-red-500 text-white rounded mr-20"
-							>
-								Excluir
-							</button>
-							<button
-								type="button"
-								onClick={closeModal}
-								className="w-[30%] px-2 py-1 bg-red-500 text-white rounded"
-							>
-								Cancelar
-							</button>
-							<button
-								type="button"
-								onClick={handleEditEvent}
-								className="w-[30%] px-2 py-1 bg-green-500 text-white rounded"
-							>
-								Salvar
-							</button>
-						</div>
-					</div>
-				</div>
-			)}
-
-			{showModalDelete && (
-				<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-					<div className="bg-white max-h-96  w-[20%] min-w-64 p-3 rounded-lg shadow-lg">
-						<div className="flex justify-between text-center items-center mb-2">
-							<h2>Excluir Evento</h2>
-						</div>
-						<div className="flex justify-center gap-3">
-							<button
-								type="button"
-								onClick={closeModal}
-								className="w-[40%] px-2 py-1 bg-red-500 text-white rounded"
-							>
-								Cancelar
-							</button>
-							<button
-								type="button"
-								onClick={handleDeleteEventConfirm}
-								className="w-[40%] px-2 py-1 bg-green-500 text-white rounded"
-							>
-								Excluir
-							</button>
-						</div>
-					</div>
-				</div>
-			)}
+			<EditEventDialog
+				isOpen={showModal}
+				closeDialog={closeModal}
+				selectedDay={selectedDay}
+				formData={formData}
+				handleInputChange={handleInputChange}
+				handleSaveEvent={showModalEdit ? handleEditEvent : handleSaveEvent}
+				handleDeleteEvent={handleDeleteEventConfirm}
+				isEditing={showModalEdit}
+				error={error}
+			/>
 		</div>
 	);
 }

@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
-import Calendar from "../../components/Calendar/Calendar";
+
 import { getCounters } from "../../services/api/school";
 import {
+	Calendar,
 	Counters,
 	DocentTable,
 	DonutChart,
 	SchoolPerformanceChart,
 } from "./components";
+
+const events = [
+	{ day: 3, eventName: "Meeting" },
+	{ day: 8, eventName: "Class Presentation" },
+	{ day: 20, eventName: "Workshop" },
+	{ day: 25, eventName: "Holiday" },
+];
 export function Dashboard() {
 	const [counters, setCounter] = useState([]);
 
@@ -38,7 +46,7 @@ export function Dashboard() {
 			</div>
 			<div className="grid gap-y-8">
 				<div className="">
-					<Calendar />
+					<Calendar events={events} />
 				</div>
 				<div className="bg-white shadow-xl rounded-lg p-6 ">
 					<DonutChart title="School Calendar" />
