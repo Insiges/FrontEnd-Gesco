@@ -1,6 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useCreateEvent } from "../../../pages/events/hooks/useCreateEvent";
+import { useDeleteEvent } from "../../../pages/events/hooks/useDeleteEvent";
+import { useGetEventsByDate } from "../../../pages/events/hooks/useGetEvents";
 import { formatToBRLDate } from "../../../utils/formatDate";
 import {
 	Dialog,
@@ -9,6 +11,7 @@ import {
 	DialogOverlay,
 	DialogTitle,
 } from "../../ui/dialog";
+import { EventList } from "./events-list";
 import { eventsSchema } from "./events-schema";
 
 export function EventDialog({
@@ -17,8 +20,11 @@ export function EventDialog({
 	selectedDay,
 	error,
 	currentlyClickedDate,
+	// dayEvents,
 }) {
+	const { data: dayEvents } = useGetEventsByDate(currentlyClickedDate);
 	const { mutate: createEvent } = useCreateEvent();
+
 	const {
 		register,
 		handleSubmit,
@@ -38,9 +44,17 @@ export function EventDialog({
 		const eventData = { ...data, currentlyClickedDate };
 		createEvent(eventData, {
 			onSuccess: () => {
-				closeDialog();
+				// closeDialog();
 				reset();
 			},
+		});
+	};
+
+	const handleEdit = (event) => {
+		reset({
+			name: event.name,
+			time: event.time,
+			description: event.description,
 		});
 	};
 
@@ -141,6 +155,17 @@ export function EventDialog({
 						</DialogClose>
 					</div>
 				</form>
+				{dayEvents?.length > 0 && (
+					<div className="mt-4">
+						<h3 className="text-lg font-bold mb-2 text-secondYellow">
+							Eventos do Dia:
+						</h3>
+						<EventList
+							events={dayEvents}
+							currentlyClickedDate={currentlyClickedDate}
+						/>
+					</div>
+				)}
 			</DialogContent>
 		</Dialog>
 	);
