@@ -15,6 +15,7 @@ const events = [
 	{ day: 20, eventName: "Workshop" },
 	{ day: 25, eventName: "Holiday" },
 ];
+
 export function Dashboard() {
 	const [counters, setCounter] = useState([]);
 
@@ -32,23 +33,23 @@ export function Dashboard() {
 	}, []);
 
 	return (
-		<div className="w-full grid grid-cols-1 lg:grid-cols-2 lg:h-max gap-x-8">
-			<div className="grid gap-y-8">
-				<div className="h-fit ">
+		<div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
+			<div className="space-y-4">
+				<div className="bg-white  rounded-lg p-4">
 					<Counters counters={counters} />
 				</div>
-				<div className="">
+				<div className="bg-white rounded-lg p-4">
 					<DocentTable />
 				</div>
 				<div className="bg-white shadow-xl rounded-lg p-6">
 					<SchoolPerformanceChart />
 				</div>
 			</div>
-			<div className="grid gap-y-8">
-				<div className="">
+			<div className="space-y-4">
+				<div className="bg-white  rounded-lg p-6">
 					<Calendar events={events} />
 				</div>
-				<div className="bg-white shadow-xl rounded-lg p-6 ">
+				<div className="bg-white shadow-xl rounded-lg p-6">
 					<DonutChart title="School Calendar" />
 				</div>
 			</div>
