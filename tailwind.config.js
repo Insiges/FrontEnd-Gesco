@@ -11,6 +11,12 @@ export default {
 				secondBlue: "#0174BE",
 				yellow: "#FFC436",
 				secondYellow: "#FFF0CE",
+				navyBlue: "#2C3E50",
+				softBlue: "#3498DB",
+				softOrange: "#E67E22",
+				softGreen: "#27AE60",
+				lightGray: "#ECF0F1",
+				darkGray: "#34495E",
 			},
 			backgroundImage: {
 				"custom-blue": "linear-gradient(to right, #7C93C3 0%, #C5CFE4 100%)",
