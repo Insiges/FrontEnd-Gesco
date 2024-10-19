@@ -7,10 +7,14 @@ export const useCreateEvent = () => {
 
 	return useMutation({
 		mutationFn: saveEvent,
-		onSuccess: () => {
+		onSuccess: (data, variable, context) => {
 			queryClient.invalidateQueries({
 				queryKey: [QUERY_KEYS.EVENTS],
 			});
+
+			if (context?.onSuccess) {
+				context.onSuccess();
+			}
 		},
 	});
 };

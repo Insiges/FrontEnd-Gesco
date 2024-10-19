@@ -14,12 +14,6 @@ export default function Calendar({ title }) {
 	const [clickedDate, setClickedDate] = useState("");
 	const [showModalEdit, setShowModalEdit] = useState(false);
 
-	const [formData, setFormData] = useState({
-		id: 0,
-		name: "",
-		time: "",
-		description: "",
-	});
 	const [error, setError] = useState("");
 
 	const handleDayClick = (day) => {
@@ -32,17 +26,15 @@ export default function Calendar({ title }) {
 		setClickedDate(fullDate);
 		if (events?.[`${currentDate.$y}-${mes}-${dia}`]) {
 			setShowModalEdit(true);
-			setFormData(events?.[`${currentDate.$y}-${mes}-${dia}`]);
+			// setFormData(events?.[`${currentDate.$y}-${mes}-${dia}`]);
 		} else {
 			setShowModal(true);
-			setFormData({ name: "", time: "", description: "" });
 		}
 		setError("");
 	};
 
 	const closeModal = () => {
 		setShowModal(false);
-		setFormData({ name: "", time: "", description: "" });
 		setError("");
 	};
 

@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { isDayjs } from "dayjs";
 import { useForm } from "react-hook-form";
 import { useCreateEvent } from "../../../pages/events/hooks/useCreateEvent";
 import { formatToBRLDate } from "../../../utils/formatDate";
@@ -23,6 +22,7 @@ export function EventDialog({
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors, isDirty, isValid },
 	} = useForm({
 		resolver: zodResolver(eventsSchema),
@@ -36,7 +36,12 @@ export function EventDialog({
 
 	const handleCreateEvent = (data) => {
 		const eventData = { ...data, currentlyClickedDate };
-		createEvent(eventData);
+		createEvent(eventData, {
+			onSuccess: () => {
+				closeDialog();
+				reset();
+			},
+		});
 	};
 
 	const generateTimeOptions = () => {
@@ -52,7 +57,15 @@ export function EventDialog({
 	const timeOptions = generateTimeOptions();
 
 	return (
-		<Dialog open={isOpen} onOpenChange={closeDialog}>
+		<Dialog
+			open={isOpen}
+			onOpenChange={(open) => {
+				if (!open) {
+					reset();
+					closeDialog();
+				}
+			}}
+		>
 			<DialogOverlay className="fixed inset-0 bg-black bg-opacity-60" />
 
 			<DialogContent
