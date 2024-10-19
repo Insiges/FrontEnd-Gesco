@@ -12,25 +12,34 @@ export default function Calendar({ title }) {
 	const [selectedDay, setSelectedDay] = useState(null);
 	const [showModal, setShowModal] = useState(false);
 	const [clickedDate, setClickedDate] = useState("");
-	const [showModalEdit, setShowModalEdit] = useState(false);
+	const [dayEvents, setDayEvents] = useState([]);
 
 	const [error, setError] = useState("");
 
 	const handleDayClick = (day) => {
-		setSelectedDay(day);
 		const dia = String(day).padStart(2, "0");
 		const mes = String(currentDate.$M + 1).padStart(2, "0");
 		const fullDate = dayjs(`${currentDate.year()}-${mes}-${dia}`).format(
 			"YYYY-MM-DD",
 		);
 		setClickedDate(fullDate);
-		if (events?.[`${currentDate.$y}-${mes}-${dia}`]) {
-			setShowModalEdit(true);
-			// setFormData(events?.[`${currentDate.$y}-${mes}-${dia}`]);
-		} else {
-			setShowModal(true);
+
+		const selectedDate = dayjs(fullDate);
+		if (selectedDate.isBefore(today, "day")) {
+			alert("Não é possível adicionar eventos em datas anteriores a hoje.");
+			return;
 		}
-		setError("");
+
+		const selectedDayEvents = events?.[`${currentDate.$y}-${mes}-${dia}`];
+		if (selectedDayEvents) {
+			setDayEvents([selectedDayEvents]); // Armazena os eventos do dia selecionado
+		} else {
+			setDayEvents([]); // Não há eventos para o dia
+		}
+
+		setSelectedDay(day);
+
+		setShowModal(true);
 	};
 
 	const closeModal = () => {
@@ -67,6 +76,7 @@ export default function Calendar({ title }) {
 				selectedDay={selectedDay}
 				error={error}
 				currentlyClickedDate={clickedDate}
+				dayEvents={dayEvents}
 			/>
 		</div>
 	);
