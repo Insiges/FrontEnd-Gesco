@@ -3,6 +3,7 @@ import React, { useState } from "react";
 // TODO
 // Armazenar infos de mês e dias numa variavel global
 // Pegar infos de eventos na variavel global
+// Arrumar esse component para que pegue do endpoint essas infos
 
 export function Calendar({ events }) {
 	const daysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
