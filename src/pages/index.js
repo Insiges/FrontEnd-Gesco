@@ -6,3 +6,4 @@ export * from "./landingPage/landing";
 export * from "./timetable/table";
 export * from "./GestaoDocente/docents";
 export * from "./classes/classes";
+export * from "./classesSchedule/classesSchedule";

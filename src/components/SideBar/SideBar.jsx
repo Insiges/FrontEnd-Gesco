@@ -31,7 +31,7 @@ export function SideBar() {
 				/>
 				<LinkSideBar url="/Classes" icone={<MdGroups2 />} nome="Turmas" />
 				<LinkSideBar
-					url="/ClassSchedule"
+					url="/ClassesSchedule"
 					icone={<IoTime />}
 					nome="Grade de Horáros"
 				/>

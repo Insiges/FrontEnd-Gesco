@@ -3,6 +3,7 @@ import { Default } from "../components/layouts/default";
 import Registration from "../pages/GestaoDocente/components/MembersRegistration";
 import {
 	Classes,
+	ClassesSchedule,
 	Dashboard,
 	Events,
 	GestaoDocente,
@@ -54,12 +55,16 @@ const router = createBrowserRouter([
 						element: <Registration />,
 					},
 					{
+						path: "/Classes",
+						element: <Classes />,
+					},
+					{
 						path: "/ClassSchedule",
 						element: <Timetable />,
 					},
 					{
-						path: "/Classes",
-						element: <Classes />,
+						path: "/ClassesSchedule",
+						element: <ClassesSchedule />,
 					},
 				],
 			},
