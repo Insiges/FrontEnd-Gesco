@@ -1,7 +1,8 @@
 import { ClassTable, SearchFilter } from "./components/index";
 
-// base de dados apenas para testes
+// Para acessar a página de timeTable use o "localhost:{port}/ClassSchedule", pois ele foi substituído pelo componente ClassesSchedule (que mostra as tumas, antes de mostrar a grade de horários de cada uma)
 
+// testes
 const turmas = [
 	{ nome: "Turma A", serie: "1° ano", ano: 2021, id: 1235 },
 	{ nome: "Turma A", serie: "1° ano", ano: 2024, id: 1235 },
