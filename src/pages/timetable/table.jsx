@@ -1,33 +1,28 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { getGridByClass } from "../../services/api/timeTable";
 import { Grid, Modal, TitleClass } from "./components";
 import { ModalEdit } from "./components/modal/modalEdit";
 
-const sampleTableData = [
-	["08:00", "Math", "English", "Science", "History", "PE"],
-	["09:00", "Geography", "Math", "Art", "English", "Music"],
-	["10:00", "Science", "History", "Math", "PE", "Geography"],
-	["11:00", "English", "Science", "History", "Math", "Art"],
-	["12:00", "PE", "Geography", "Music", "Science", "History"],
-];
 export const Timetable = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [showModalEdit, setShowModalEdit] = useState(false);
 	const [selectedGrid, setSelectedGrid] = useState(null);
 	const [grid, setGrid] = useState([]);
 	const [horario, setHorario] = useState([]);
+	const { id } = useParams();
 
 	useEffect(() => {
 		async function fetchGrid() {
 			try {
-				const response = await getGridByClass(1);
+				const response = await getGridByClass(id);
 				setGrid(response);
 			} catch (error) {
 				console.error(error);
 			}
 		}
 		fetchGrid();
-	}, []);
+	}, [id]);
 
 	useEffect(() => {
 		const hora = grid.map((it) => {
@@ -41,7 +36,8 @@ export const Timetable = () => {
 
 	return (
 		<div>
-			<TitleClass title="Truma 6° - B" />
+			{/* Alterar o nome da turma conmforme o banco de dados */}
+			<TitleClass title={`Turma ${id}`} />
 			<Grid
 				table={grid}
 				horario={horario}

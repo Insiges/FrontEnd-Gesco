@@ -1,21 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { MdGroups2 } from "react-icons/md";
 import { TbEditCircle } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 
 export const ClassTable = ({ turmas }) => {
-	const [selectedTurma, setSelectedTurma] = useState(null);
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const navigate = useNavigate();
 
-	const handleEditClick = (turma) => {
-		setSelectedTurma(turma);
-		setIsModalOpen(true);
-	};
-
-	const handleSave = (updatedTurma) => {
-		// Implementar lógica para salvar turma
-
-		console.log("Updated Turma:", updatedTurma);
-		setIsModalOpen(false);
+	const handleRowClick = (id) => {
+		navigate(`/ClassSchedule/${id}`);
 	};
 
 	return (
@@ -45,7 +37,11 @@ export const ClassTable = ({ turmas }) => {
 
 					<tbody>
 						{turmas.map((turma) => (
-							<tr key={turma.id} className="bg-white ">
+							<tr
+								key={turma.id}
+								className="bg-white hover:cursor-pointer"
+								onClick={() => handleRowClick(turma.id)}
+							>
 								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
 									<div className="flex items-center justify-center">
 										<MdGroups2 className="mr-2 hidden sm:block  align-middle" />
@@ -64,7 +60,6 @@ export const ClassTable = ({ turmas }) => {
 									<button
 										type="button"
 										className="text-green-400 hover:underline"
-										onClick={() => handleEditClick(turma)}
 									>
 										<TbEditCircle />
 									</button>
@@ -73,14 +68,6 @@ export const ClassTable = ({ turmas }) => {
 						))}
 					</tbody>
 				</table>
-			)}
-			{selectedTurma && (
-				<EditModal
-					isOpen={isModalOpen}
-					onClose={() => setIsModalOpen(false)}
-					turma={selectedTurma}
-					onSave={handleSave}
-				/>
 			)}
 		</div>
 	);

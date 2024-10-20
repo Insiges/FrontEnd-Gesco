@@ -59,7 +59,7 @@ const router = createBrowserRouter([
 						element: <Classes />,
 					},
 					{
-						path: "/ClassSchedule",
+						path: "/ClassSchedule/:id",
 						element: <Timetable />,
 					},
 					{
