@@ -13,13 +13,13 @@ export async function getCounters() {
 	return request.body;
 }
 
-export async function saveEvent(formData) {
+export async function saveEvent(data) {
 	const url = "eventos/novoEvento";
 	const body = {
-		nome: formData.name,
-		descricao: formData.description,
-		dia: formData.selectedDay,
-		horario: formData.time,
+		nome: data.name,
+		descricao: data.description,
+		dia: data.currentlyClickedDate,
+		horario: data.time,
 	};
 
 	const request = await makeRequest("POST", url, body);
@@ -33,29 +33,33 @@ export async function getEvents() {
 	return request.body;
 }
 
-export async function editEvent(formData) {
-	console.log("chamou");
-
-	const url = `eventos/atualizarEvento/${formData.id}`;
+export async function editEvent(data) {
+	const url = `eventos/atualizarEvento/${data.id}`;
 
 	const body = {
-		nome: formData.name,
-		descricao: formData.description,
-		dia: formData.selectedDay,
-		horario: formData.time,
+		nome: data.name,
+		descricao: data.description,
+		dia: data.date,
+		horario: data.time,
 	};
 
 	const request = await makeRequest("PUT", url, body);
 
-	console.log(request);
+	return request.body;
+}
+
+export async function deleteEvent(data) {
+	const url = `eventos/deletarEvento/${data.eventId}`;
+
+	const request = await makeRequest("DELETE", url);
 
 	return request.body;
 }
 
-export async function deleteEvent(id) {
-	const url = `eventos/deletarEvento/${id}`;
+export async function getEventsByDate(date) {
+	const url = `eventos/params?data=${date}`;
 
-	const request = await makeRequest("DELETE", url);
+	const request = await makeRequest("GET", url);
 
 	return request.body;
 }

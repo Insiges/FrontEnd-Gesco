@@ -15,8 +15,6 @@ export const AuthProvider = ({ children }) => {
 	const login = async (credentials, role, onError, onSuccess) => {
 		try {
 			let response;
-			if (role === "admin") {
-			}
 			response = await API.post(`/${role}/auth/login`, {
 				email: credentials.username,
 				senha: credentials.password,
