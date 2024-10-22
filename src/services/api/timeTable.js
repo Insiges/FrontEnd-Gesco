@@ -17,12 +17,13 @@ export async function getHours() {
 export async function saveGrid(data) {
 	const url = "grade-horario";
 	const body = {
-		id_turma: 1,
+		id_turma: data.id,
 		id_disciplina: data.disciplina,
 		id_professor: data.professor,
 		id_semana: data.dia,
 		id_horario: data.horario,
 	};
+	console.log(data);
 
 	const request = await makeRequest("POST", url, body);
 

@@ -15,8 +15,6 @@ export async function getDisciplines() {
 }
 
 export async function saveTeacher(data) {
-	console.log(data);
-
 	const url = "professor";
 	const body = {
 		nome: data.nome,
@@ -31,7 +29,7 @@ export async function saveTeacher(data) {
 			bairro: data.bairro,
 			cep: data.cep,
 			cidade: data.cidade,
-			estado: data.estado,
+			estado: data.sigla_estado,
 			numero: data.numero,
 			complemento: data.complemento,
 		},

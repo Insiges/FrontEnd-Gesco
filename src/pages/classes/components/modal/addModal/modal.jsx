@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
+import { saveClass } from "../../../../../services/api/class";
 
 const AddClassModal = ({ isOpen, onClose, onSave }) => {
 	const [nome, setNome] = useState("");
 	const [serie, setSerie] = useState("");
 	const [ano, setAno] = useState("");
 
-	const handleSave = () => {
-		const newClass = { id: Date.now(), nome, serie, ano };
-		onSave(newClass);
+	const handleSave = async () => {
+		const newClass = { nome, serie, ano };
+
+		await saveClass(newClass);
 		onClose();
+		window.location.reload();
 	};
 
 	if (!isOpen) return null;
