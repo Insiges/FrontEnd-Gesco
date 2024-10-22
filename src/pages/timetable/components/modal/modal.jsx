@@ -7,7 +7,6 @@ import {
 } from "../../../../services/api/timeTable";
 
 export const Modal = ({ closeModal }) => {
-	const [turma, setTurma] = useState("");
 	const [materia, setMateria] = useState("");
 	const [day, setDay] = useState("");
 	const [horario, setHorario] = useState("");
@@ -17,6 +16,7 @@ export const Modal = ({ closeModal }) => {
 	const [week, setWeek] = useState([]);
 	const [cronograma, setCronograma] = useState([]);
 	const [formData, setFormData] = useState({
+		id: 0,
 		turma: 0,
 		disciplina: 0,
 		professor: 0,
@@ -74,10 +74,12 @@ export const Modal = ({ closeModal }) => {
 	};
 
 	const handleSubmitGrid = () => {
+		const path = window.location.pathname.split("/")[2];
 		formData.disciplina = materia;
 		formData.professor = selectedTeacherId;
 		formData.dia = day;
 		formData.horario = horario;
+		formData.id = path;
 
 		saveGrid(formData);
 		closeModal();

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdDelete, MdGroups2 } from "react-icons/md";
 import { TbEditCircle } from "react-icons/tb";
+import { editClass } from "../../../../services/api/class";
 import { EditModal } from "../modal/editModal/modal"; // Certifique-se de ajustar o caminho conforme necessário
 
-export const ClassTable = ({ turmas }) => {
+export const ClassTable = ({ turmas, handleDelete }) => {
 	const [selectedTurma, setSelectedTurma] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -12,10 +13,12 @@ export const ClassTable = ({ turmas }) => {
 		setIsModalOpen(true);
 	};
 
-	const handleSave = (updatedTurma) => {
+	const handleSave = async (updatedTurma) => {
+		await editClass(updatedTurma);
 		// Implement save logic here
 		console.log("Updated Turma:", updatedTurma);
 		setIsModalOpen(false); // Fechar modal após salvar
+		window.location.reload();
 	};
 
 	return (
@@ -71,6 +74,7 @@ export const ClassTable = ({ turmas }) => {
 									<button
 										type="button"
 										className="text-red-400 hover:underline"
+										onClick={() => handleDelete(turma.id)}
 									>
 										<MdDelete />
 									</button>
