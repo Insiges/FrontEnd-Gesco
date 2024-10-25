@@ -5,13 +5,10 @@ import { Modal } from "./components/Modal";
 import StudentRegistration from "./components/StudentRegistration";
 import StudentsList from "./components/StudentsList";
 
+import { editStudent } from "../../services/api/students";
 import { useAddStudentMutation } from "../../services/hooks/students/useAddStudentMutation";
 import { useDeleteStudentMutation } from "../../services/hooks/students/useDeleteStudentMutation";
 import { useStudentsQuery } from "../../services/hooks/students/useStudentsQuery";
-
-// Temporario, apenas para cumprir o necessario para API retornar o estudante.
-// Cumprir requisito de associação da query feita no spring boot
-const emails = [`${Math.random().toString(36).substring(2, 6)}@example.com`];
 
 export const Students = () => {
 	const navigate = useNavigate();
@@ -26,7 +23,7 @@ export const Students = () => {
 
 	const onAddNewStudent = async (newStudentData) => {
 		await addStudent(
-			{ ...newStudentData, emails },
+			{ ...newStudentData },
 			{
 				onSuccess: () => window.alert("Estudante Cadastrado com Sucesso!"),
 			},
@@ -35,16 +32,19 @@ export const Students = () => {
 		navigate("/students");
 	};
 
-	// @TODO - Problema no endpoint ao buscar aluno especifico
-	// solução temporariamente não implementada.
-	const onUpdateStudent = () => null;
+	const onUpdateStudent = async (dados) => {
+		await editStudent(dados);
+
+		navigate("/students");
+		window.location.reload();
+	};
 
 	const onConfirmDeleteStudent = async () => {
 		await deleteStudent(showModalWithId);
 		setShowModalWithId(null);
 	};
 
-	const students = data?.content ?? [];
+	const students = data ?? [];
 	return (
 		<section style={styles.container}>
 			<Routes>
@@ -66,7 +66,7 @@ export const Students = () => {
 					element={
 						<StudentsList
 							students={students}
-							onEdit={() => navigate(`/students/registration/edit/${id}`)}
+							onEdit={(id) => navigate(`/students/registration/edit/${id}`)}
 							onDelete={setShowModalWithId}
 						/>
 					}

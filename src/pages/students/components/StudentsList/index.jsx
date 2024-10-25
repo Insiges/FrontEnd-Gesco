@@ -35,7 +35,10 @@ export const StudentsList = ({ students = [], onEdit, onDelete }) => {
 									</tr>
 								</thead>
 								<tbody>
-									{results.map((student) => (
+									{(Array.isArray(results)
+										? results
+										: results.content || []
+									).map((student) => (
 										<tr
 											key={student.id}
 											className="border-t text-center odd:bg-white even:bg-blue-50"
@@ -47,12 +50,12 @@ export const StudentsList = ({ students = [], onEdit, onDelete }) => {
 												{student.matricula}
 											</td>
 											<td className="py-3" style={{ width: "33%" }}>
-												Missing Turma
+												{student.id_turma}
 											</td>
 											<td className="py-3" style={{ width: "33%" }}>
 												<button
 													className="text-blue-500 hover:underline mx-1"
-													onClick={() => onEdit(student.id ?? "")}
+													onClick={() => onEdit(student.id)}
 													type="button"
 												>
 													{editIcon}
