@@ -1,0 +1,1 @@
+const StudentsTable = ({ students }) => {};
