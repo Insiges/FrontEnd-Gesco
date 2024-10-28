@@ -5,6 +5,7 @@ import {
 	Classes,
 	ClassesSchedule,
 	ClassesStudents,
+	ClassesStudentsAdd,
 	Dashboard,
 	Events,
 	GestaoDocente,
@@ -70,8 +71,12 @@ const router = createBrowserRouter([
 						element: <ClassesSchedule />,
 					},
 					{
-						path: "/ClassesStudents",
+						path: "/Classes/:id/students",
 						element: <ClassesStudents />,
+					},
+					{
+						path: "/Classes/:id/students/add",
+						element: <ClassesStudentsAdd />,
 					},
 				],
 			},

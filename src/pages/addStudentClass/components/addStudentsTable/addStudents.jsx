@@ -12,7 +12,7 @@ export const AddStudentsTable = ({ students }) => {
 					<thead>
 						<tr className="bg-firstBlue">
 							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl rounded-tl-lg  text-white text-center">
-								Nome
+								Nome11
 							</th>
 
 							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl text-white text-center">
