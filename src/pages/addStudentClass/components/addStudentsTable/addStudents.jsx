@@ -6,26 +6,25 @@ export const AddStudentsTable = ({ students, onSelectionChange }) => {
 	const [selectAll, setSelectAll] = useState(false);
 
 	const handleCheckboxChange = (id) => {
-		setSelectedStudentIds((prevSelected) =>
-			prevSelected.includes(id)
+		setSelectedStudentIds((prevSelected) => {
+			const newSelected = prevSelected.includes(id)
 				? prevSelected.filter((studentId) => studentId !== id)
-				: [...prevSelected, id],
-		);
-		onSelectionChange(selectedStudentIds);
-
-		console.log(selectedStudentIds);
+				: [...prevSelected, id];
+			onSelectionChange(newSelected);
+			return newSelected;
+		});
 	};
 
 	const handleSelectAllChange = () => {
-		setSelectAll(!selectAll);
-		setSelectedStudentIds(
-			!selectAll ? students.map((student) => student.id) : [],
-		);
-		onSelectionChange(selectedStudentIds);
-	};
-
-	const handleSave = async () => {
-		// Save selected students
+		setSelectAll((prevSelectAll) => {
+			const newSelectAll = !prevSelectAll;
+			const newSelectedStudentIds = newSelectAll
+				? students.map((student) => student.id)
+				: [];
+			setSelectedStudentIds(newSelectedStudentIds);
+			onSelectionChange(newSelectedStudentIds);
+			return newSelectAll;
+		});
 	};
 
 	return (
