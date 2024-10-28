@@ -101,7 +101,7 @@ export const ClassesStudents = () => {
 				<h1 className="text-2xl font-bold text-firstBlue">
 					Estudantes - Turma {"10A"}
 				</h1>
-				<Button />
+				<Button id={students.id} />
 			</div>
 			<SearchFilter />
 			<StudentsTable students={students} />

@@ -1,4 +1,4 @@
-import { AddStudentsTable } from "./components/index";
+import { AddStudentsTable, Button, SearchFilter } from "./components/index";
 
 const students = [
 	{
@@ -96,6 +96,14 @@ const students = [
 export const ClassesStudentsAdd = () => {
 	return (
 		<div>
+			<div className="flex justify-between mx-4 items-center">
+				<h1 className="text-2xl font-bold text-firstBlue">
+					Adicionar estudantes - Turma {"10A"}
+				</h1>
+
+				<Button />
+			</div>
+			<SearchFilter />
 			<AddStudentsTable students={students} />
 		</div>
 	);
