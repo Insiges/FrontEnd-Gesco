@@ -1,4 +1,4 @@
-import { SearchFilter, StudentsTable } from "./components/index";
+import { Button, SearchFilter, StudentsTable } from "./components/index";
 
 const students = [
 	{
@@ -97,9 +97,12 @@ export const ClassesStudents = () => {
 	return (
 		<div>
 			{/* // adicionar o nome da turma */}
-			<h1 className="text-2xl font-bold text-firstBlue">
-				Estudantes - Turma {"10A"}
-			</h1>
+			<div className="flex justify-between mx-4 items-center">
+				<h1 className="text-2xl font-bold text-firstBlue">
+					Estudantes - Turma {"10A"}
+				</h1>
+				<Button />
+			</div>
 			<SearchFilter />
 			<StudentsTable students={students} />
 		</div>
