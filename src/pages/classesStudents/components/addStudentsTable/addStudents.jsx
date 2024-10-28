@@ -1,6 +1,6 @@
 import { MdDelete, MdGroups2 } from "react-icons/md";
 
-export const StudentsTable = ({ students }) => {
+export const AddStudentsTable = ({ students }) => {
 	return (
 		<div className="flex mx-4 justify-center rounded-lg shadow-lg border-firstBlue">
 			{students.length === 0 ? (
