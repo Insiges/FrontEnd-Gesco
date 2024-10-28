@@ -102,9 +102,7 @@ export const ClassesStudentsAdd = () => {
 	};
 
 	const saveStudents = () => {
-		// Lógica para salvar os estudantes selecionados
 		console.log("Estudantes selecionados salvos:", selectedStudents);
-		// Enviar os dados para uma API ou armazenamento local
 	};
 
 	return (

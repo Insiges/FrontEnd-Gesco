@@ -37,7 +37,7 @@ export const AddStudentsTable = ({ students, onSelectionChange }) => {
 				<table className="table-fixed w-full h-full rounded-lg">
 					<thead>
 						<tr className="bg-firstBlue">
-							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl rounded-tl-lg  text-white text-center">
+							<th className="w-1/12 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl rounded-tl-lg  text-white text-center">
 								<input
 									type="checkbox"
 									checked={selectAll}
@@ -59,7 +59,7 @@ export const AddStudentsTable = ({ students, onSelectionChange }) => {
 					<tbody>
 						{students.map((student) => (
 							<tr key={student.id} className="bg-white ">
-								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
+								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center ">
 									<input
 										type="checkbox"
 										checked={selectedStudentIds.includes(student.id)}
