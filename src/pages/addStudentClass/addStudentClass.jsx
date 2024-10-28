@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { AddStudentsTable, Button, SearchFilter } from "./components/index";
 
 const students = [
@@ -94,6 +95,18 @@ const students = [
 ];
 
 export const ClassesStudentsAdd = () => {
+	const [selectedStudents, setSelectedStudents] = useState([]);
+
+	const handleSelectionChange = (newSelectedStudents) => {
+		setSelectedStudents(newSelectedStudents);
+	};
+
+	const saveStudents = () => {
+		// Lógica para salvar os estudantes selecionados
+		console.log("Estudantes selecionados salvos:", selectedStudents);
+		// Enviar os dados para uma API ou armazenamento local
+	};
+
 	return (
 		<div>
 			<div className="flex justify-between mx-4 items-center">
@@ -101,10 +114,13 @@ export const ClassesStudentsAdd = () => {
 					Adicionar estudantes - Turma {"10A"}
 				</h1>
 
-				<Button />
+				<Button onSave={saveStudents} />
 			</div>
 			<SearchFilter />
-			<AddStudentsTable students={students} />
+			<AddStudentsTable
+				students={students}
+				onSelectionChange={handleSelectionChange}
+			/>
 		</div>
 	);
 };

@@ -1,6 +1,33 @@
+import React, { useState } from "react";
 import { MdDelete, MdGroups2 } from "react-icons/md";
 
-export const AddStudentsTable = ({ students }) => {
+export const AddStudentsTable = ({ students, onSelectionChange }) => {
+	const [selectedStudentIds, setSelectedStudentIds] = useState([]);
+	const [selectAll, setSelectAll] = useState(false);
+
+	const handleCheckboxChange = (id) => {
+		setSelectedStudentIds((prevSelected) =>
+			prevSelected.includes(id)
+				? prevSelected.filter((studentId) => studentId !== id)
+				: [...prevSelected, id],
+		);
+		onSelectionChange(selectedStudentIds);
+
+		console.log(selectedStudentIds);
+	};
+
+	const handleSelectAllChange = () => {
+		setSelectAll(!selectAll);
+		setSelectedStudentIds(
+			!selectAll ? students.map((student) => student.id) : [],
+		);
+		onSelectionChange(selectedStudentIds);
+	};
+
+	const handleSave = async () => {
+		// Save selected students
+	};
+
 	return (
 		<div className="flex mx-4 justify-center rounded-lg shadow-lg border-firstBlue">
 			{students.length === 0 ? (
@@ -12,17 +39,20 @@ export const AddStudentsTable = ({ students }) => {
 					<thead>
 						<tr className="bg-firstBlue">
 							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl rounded-tl-lg  text-white text-center">
-								Nome11
+								<input
+									type="checkbox"
+									checked={selectAll}
+									onChange={handleSelectAllChange}
+								/>
 							</th>
-
+							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl text-white text-center">
+								Nome
+							</th>
 							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl text-white text-center">
 								Matricula
 							</th>
-							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl text-white text-center">
+							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl rounded-tr-lg text-white text-center">
 								Data de Nascimento
-							</th>
-							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl rounded-tr-lg  text-white text-center">
-								Ação
 							</th>
 						</tr>
 					</thead>
@@ -31,6 +61,13 @@ export const AddStudentsTable = ({ students }) => {
 						{students.map((student) => (
 							<tr key={student.id} className="bg-white ">
 								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
+									<input
+										type="checkbox"
+										checked={selectedStudentIds.includes(student.id)}
+										onChange={() => handleCheckboxChange(student.id)}
+									/>
+								</td>
+								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
 									<div className="flex sm:ps-8 items-center justify-start">
 										<MdGroups2 className="mr-2 hidden sm:block  align-middle" />
 										<span className="inline-block align-middle">
@@ -38,21 +75,11 @@ export const AddStudentsTable = ({ students }) => {
 										</span>
 									</div>
 								</td>
-
 								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
 									{student.id}
 								</td>
 								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
 									{student.birthDate}
-								</td>
-								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
-									<button
-										type="button"
-										className="text-red-400 hover:underline"
-										onClick={() => handleDelete(student.id)}
-									>
-										<MdDelete />
-									</button>
 								</td>
 							</tr>
 						))}
@@ -62,3 +89,5 @@ export const AddStudentsTable = ({ students }) => {
 		</div>
 	);
 };
+
+export default AddStudentsTable;
