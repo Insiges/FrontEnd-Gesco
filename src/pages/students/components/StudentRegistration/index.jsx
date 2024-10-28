@@ -1,46 +1,86 @@
-import React, { useState } from "react";
-// import { useParams } from "react-router-dom";
-
+import React, { useEffect, useState } from "react";
+import { getStudent } from "../../../../services/api/students";
 import LoginRegistration from "./LoginRegistration";
 import PersonalInformation from "./PersonalInformation";
 import StudentAffiliation from "./StudentAffiliation";
 
-// import { useStudentQuery } from "../../../../services/hooks/students/useStudentQuery";
-
 const initialState = {
+	id: "",
 	nome: "",
 	foto: "any-value-here",
 	cpf: "",
 	datanascimento: "",
-	id_escola: 1, // @TODO - Hard coded aqui, não foi possível buscar na API resultado de escolas pra fazer escolha no form.
 	sexo: "",
 	matricula: "",
+	id_email: "",
 	emails: [],
-	telefones: [],
-	endereco: {
-		logradouro: "",
-		bairro: "",
-		cep: "",
-		cidade: "",
-		estado: "",
-		numero: "",
-		complemento: "",
-	},
+	id_telefone: "",
+	telefone: "",
+
+	id_endereco: "",
+	logradouro: "",
+	bairro: "",
+	cep: "",
+	id_cidade: "",
+	cidade: "",
+	id_estado: "",
+	nome_estado: "",
+	sigla_estado: "",
+	numero: "",
+	complemento: "",
 	responsaveis: [],
-	login: {
-		email: "",
-		senha: "",
-	},
+
+	email: "",
+	senha: "",
 };
 
 const Registration = ({ onSubmit }) => {
 	const [data, setData] = useState(initialState);
 	const [formSteps, setFormSteps] = useState(1);
 
-	// const { id } = useParams();
+	useEffect(() => {
+		if (window.location.pathname !== "/students/register") {
+			const path = window.location.pathname;
+			const pathParts = path.split("/");
+			const id = pathParts[pathParts.length - 1];
 
-	// @TODO - API apresentando problemas em relação a este endpoint (aluno/id).
-	// const { data: student } = useStudentQuery(id);
+			const fetchStudent = async () => {
+				try {
+					const response = await getStudent(id);
+
+					initialState.id = id;
+					initialState.nome = response.aluno.nome;
+					initialState.cpf = response.aluno.cpf;
+					initialState.id = response.aluno.id;
+					initialState.datanascimento = response.aluno.dataNascimento;
+					initialState.foto = response.aluno.foto;
+					initialState.matricula = response.aluno.matricula;
+					initialState.telefone = response.aluno.telefones[0].telefone;
+					initialState.id_telefone = response.aluno.telefones[0].id;
+					initialState.email = response.aluno.emails[0].email;
+					initialState.id_email = response.aluno.emails[0].id;
+					initialState.cep = response.aluno.enderecos[0].cep;
+					initialState.id_endereco = response.aluno.enderecos[0].id;
+					initialState.logradouro = response.aluno.enderecos[0].logradouro;
+					initialState.bairro = response.aluno.enderecos[0].bairro;
+					initialState.cep = response.aluno.enderecos[0].cep;
+					initialState.cidade = response.aluno.enderecos[0].cidade.nome;
+					initialState.id_cidade = response.aluno.enderecos[0].cidade.id;
+					initialState.id_estado = response.aluno.enderecos[0].cidade.estado.id;
+					initialState.nome_estado =
+						response.aluno.enderecos[0].cidade.estado.nome;
+					initialState.sigla_estado =
+						response.aluno.enderecos[0].cidade.estado.sigla;
+					initialState.sexo = response.aluno.sexo.nome;
+					initialState.responsaveis = response.responsaveis;
+				} catch (error) {
+					console.error(error);
+				}
+			};
+
+			fetchStudent();
+		}
+	}, []);
 
 	const handleChangeOnNext = (newData) => {
 		setData((prevData) => ({
@@ -79,7 +119,7 @@ const Registration = ({ onSubmit }) => {
 				<LoginRegistration
 					data={data}
 					formSteps={formSteps}
-					onSubmit={onSubmit}
+					onSubmit={(dados) => onSubmit(dados)}
 					onPrevious={() => setFormSteps(2)}
 				/>
 			)}

@@ -12,10 +12,8 @@ import { deleteIcon } from "../../common/icons";
 
 const studentAffiliation = {
 	nome: "",
-	foto: "",
 	cpf: "",
 	data_nascimento: "",
-	id_escola: 1, // @TODO - Hard coded aqui, não foi possível buscar na API resultado de escolas pra fazer escolha no form.
 	sexo: "",
 	email: "",
 	telefone: "",

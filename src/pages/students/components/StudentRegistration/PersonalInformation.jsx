@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
 	BoxView,
@@ -12,41 +12,61 @@ import {
 import { getCep } from "../../../../services/api/viacep";
 
 const PersonalInformation = ({ data, formSteps, onNext }) => {
-	const [personData, setPersonData] = useState(data);
+	const [personData, setPersonData] = useState(data || {});
+	const [cepData, setCepData] = useState({
+		cep: "",
+		logradouro: "",
+		complemento: "",
+		bairro: "",
+		uf: "",
+		estado: "",
+		cidade: "",
+	});
+
+	useEffect(() => {
+		if (data) {
+			setPersonData(data);
+		}
+	}, [data]);
 
 	const handleOnChange = (field, value) => {
 		setPersonData((prev) => ({ ...prev, [field]: value }));
 	};
 
-	const handleAddressChange = (field, value) => {
-		setPersonData((prev) => ({
-			...prev,
-			endereco: { ...prev.endereco, [field]: value },
-		}));
-	};
+	const cepOnChange = async (field, value) => {
+		console.log("value");
 
-	const cepOnChange = async (cepKey, cepValue) => {
-		handleAddressChange(cepKey, cepValue);
-
-		if (cepValue.length >= 8) {
+		if (value.length >= 8) {
 			try {
-				const cep = await getCep(cepValue);
-				setPersonData((prev) => ({
-					...prev,
-					endereco: {
-						...prev.endereco,
-						logradouro: cep.logradouro,
-						bairro: cep.bairro,
-						cidade: cep.localidade,
-						estado: cep.uf,
-						complemento: cep.complemento,
-					},
-				}));
+				const cepCerto = value.replace("-", "");
+				const cep = await getCep(cepCerto);
+
+				setCepData({
+					bairro: cep.bairro,
+					cep: cep.cep,
+					complemento: cep.complemento,
+					logradouro: cep.logradouro,
+					uf: cep.uf,
+					estado: cep.estado,
+					cidade: cep.localidade,
+				});
 			} catch (error) {
-				console.error("Error on CEP API", error);
+				console.log(error);
 			}
 		}
+
+		setPersonData((prev) => ({ ...prev, [field]: value }));
 	};
+
+	useEffect(() => {
+		if (cepData.cep !== "") {
+			setPersonData((prev) => ({ ...prev, cep: cepData.cep }));
+			setPersonData((prev) => ({ ...prev, bairro: cepData.bairro }));
+			setPersonData((prev) => ({ ...prev, logradouro: cepData.logradouro }));
+			setPersonData((prev) => ({ ...prev, sigla_estado: cepData.uf }));
+			setPersonData((prev) => ({ ...prev, cidade: cepData.cidade }));
+		}
+	}, [cepData]);
 
 	return (
 		<Flex>
@@ -64,7 +84,7 @@ const PersonalInformation = ({ data, formSteps, onNext }) => {
 								type="file"
 								style={styles.photoInput}
 								onChange={(event) => {
-									handleOnChange("foto", event.target.files[0]);
+									handleOnChange("foto", event.target.files[0].name);
 								}}
 							/>
 						</BoxView>
@@ -98,7 +118,7 @@ const PersonalInformation = ({ data, formSteps, onNext }) => {
 								<input
 									type="date"
 									id="data-de-nascimento"
-									value={personData.nascimento}
+									value={personData.datanascimento}
 									onChange={(e) =>
 										handleOnChange("datanascimento", e.target.value)
 									}
@@ -137,9 +157,7 @@ const PersonalInformation = ({ data, formSteps, onNext }) => {
 									type="text"
 									id="telefones"
 									value={personData.telefone}
-									onChange={(e) =>
-										handleOnChange("telefones", [e.target.value])
-									}
+									onChange={(e) => handleOnChange("telefone", e.target.value)}
 									className={inputClassName}
 									required
 								/>
@@ -172,7 +190,7 @@ const PersonalInformation = ({ data, formSteps, onNext }) => {
 							<input
 								type="text"
 								id="cep"
-								value={personData.endereco.cep}
+								value={personData.cep}
 								onChange={(e) => cepOnChange("cep", e.target.value)}
 								className={inputClassName}
 								required
@@ -183,8 +201,8 @@ const PersonalInformation = ({ data, formSteps, onNext }) => {
 							<input
 								type="text"
 								id="bairro"
-								value={personData.endereco.bairro}
-								onChange={(e) => handleAddressChange("bairro", e.target.value)}
+								value={personData.bairro || cepData.bairro}
+								onChange={(e) => handleOnChange("bairro", e.target.value)}
 								className={inputClassName}
 								required
 								disabled
@@ -195,8 +213,8 @@ const PersonalInformation = ({ data, formSteps, onNext }) => {
 							<input
 								type="text"
 								id="estado"
-								value={personData.endereco.nome_estado}
-								onChange={(e) => handleAddressChange("estado", e.target.value)}
+								value={personData.nome_estado || cepData.estado}
+								onChange={(e) => handleOnChange("estado", e.target.value)}
 								className={inputClassName}
 								required
 								disabled
@@ -207,10 +225,8 @@ const PersonalInformation = ({ data, formSteps, onNext }) => {
 							<input
 								type="text"
 								id="complemento"
-								value={personData.endereco.complemento}
-								onChange={(e) =>
-									handleAddressChange("complemento", e.target.value)
-								}
+								value={personData.complemento || cepData.complemento}
+								onChange={(e) => handleOnChange("complemento", e.target.value)}
 								className={inputClassName}
 								required
 							/>
@@ -224,10 +240,8 @@ const PersonalInformation = ({ data, formSteps, onNext }) => {
 							<input
 								type="text"
 								id="logradouro"
-								value={personData.endereco.logradouro}
-								onChange={(e) =>
-									handleAddressChange("logradouro", e.target.value)
-								}
+								value={personData.logradouro || cepData.logradouro}
+								onChange={(e) => handleOnChange("logradouro", e.target.value)}
 								className={inputClassName}
 								required
 								disabled
@@ -239,8 +253,8 @@ const PersonalInformation = ({ data, formSteps, onNext }) => {
 							<input
 								type="text"
 								id="cidade"
-								value={personData.endereco.cidade}
-								onChange={(e) => handleAddressChange("cidade", e.target.value)}
+								value={personData.cidade || cepData.cidade}
+								onChange={(e) => handleOnChange("cidade", e.target.value)}
 								className={inputClassName}
 								required
 								disabled
@@ -251,8 +265,8 @@ const PersonalInformation = ({ data, formSteps, onNext }) => {
 							<input
 								type="text"
 								id="numero"
-								value={personData.endereco.numero}
-								onChange={(e) => handleAddressChange("numero", e.target.value)}
+								value={personData.numero}
+								onChange={(e) => handleOnChange("numero", e.target.value)}
 								className={inputClassName}
 								required
 							/>
