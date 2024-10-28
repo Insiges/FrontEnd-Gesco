@@ -82,7 +82,6 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 								style={styles.photoInput}
 								onChange={(event) => {
 									const file = event.target.files[0];
-									console.log(file);
 									handleOnChange("foto", event.target.value);
 								}}
 							/>

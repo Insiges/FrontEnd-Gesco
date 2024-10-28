@@ -37,9 +37,7 @@ const router = createBrowserRouter([
 						element: <Dashboard />,
 					},
 					{
-						// O caractere "*" depois de "/students" indica que qualquer rota que comece com
-						// '/students' e tenha segmentos adicionais no caminho será mapeada para este elemento.
-						path: "/students/*",
+						path: "/students",
 						element: <Students />,
 					},
 					{

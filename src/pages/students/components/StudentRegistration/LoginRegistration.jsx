@@ -39,7 +39,7 @@ const LoginRegistration = ({ data, formSteps, onSubmit, onPrevious }) => {
 										onChange={(e) =>
 											setLoginData((prev) => ({
 												...prev,
-												login: { ...prev.login, email: e.target.value },
+												email: e.target.value,
 											}))
 										}
 										required
@@ -55,7 +55,7 @@ const LoginRegistration = ({ data, formSteps, onSubmit, onPrevious }) => {
 										onChange={(e) =>
 											setLoginData((prev) => ({
 												...prev,
-												login: { ...prev.login, senha: e.target.value },
+												senha: e.target.value,
 											}))
 										}
 										required
