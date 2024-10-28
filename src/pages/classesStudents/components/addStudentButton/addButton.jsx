@@ -13,7 +13,7 @@ export const Button = ({ id }) => {
 			type="button"
 			className="bg-firstBlue text-white rounded-md px-4 py-2"
 		>
-			Adicionar Estudante
+			Adicionar Estudante à Turma
 		</button>
 	);
 };
