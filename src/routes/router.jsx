@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { Default } from "../components/layouts/default";
 import Registration from "../pages/GestaoDocente/components/MembersRegistration";
 import {
+	Activities,
 	Classes,
 	ClassesSchedule,
 	Dashboard,
@@ -55,16 +56,20 @@ const router = createBrowserRouter([
 						element: <Registration />,
 					},
 					{
-						path: "/Classes",
+						path: "/classes",
 						element: <Classes />,
 					},
 					{
-						path: "/ClassSchedule/:id",
+						path: "/classSchedule/:id",
 						element: <Timetable />,
 					},
 					{
-						path: "/ClassesSchedule",
+						path: "/classesSchedule",
 						element: <ClassesSchedule />,
+					},
+					{
+						path: "/activities",
+						element: <Activities />,
 					},
 				],
 			},

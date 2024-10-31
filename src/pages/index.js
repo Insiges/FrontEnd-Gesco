@@ -4,6 +4,7 @@ export * from "./login/login";
 export * from "./events/events";
 export * from "./landingPage/landing";
 export * from "./timetable/table";
-export * from "./GestaoDocente/docents";
+export * from "./gestaoDocente/docents";
 export * from "./classes/classes";
 export * from "./classesSchedule/classesSchedule";
+export * from "./activities/activities";
