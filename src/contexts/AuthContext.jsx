@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
 				onSuccess();
 			}
 		} catch (e) {
-			onError();
+			onError(e);
 		}
 	};
 

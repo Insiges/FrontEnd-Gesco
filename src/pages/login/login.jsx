@@ -4,9 +4,11 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import notebookImage from "../../assets/login/pc.png";
 import { useAuth } from "../../contexts/AuthContext";
+import useUserInfos from "../../stores/userStore";
 import { Header } from "../login/components/header/Header";
 import { Roles } from "./components";
 import { loginSchema } from "./form/loginSchema";
+import { useGetUserInfos } from "./hooks/useGetUserInfos";
 
 //TODO
 // - Implementar o useSignIn
@@ -29,18 +31,23 @@ export function Login() {
 			password: "",
 		},
 	});
+	const { setDados, setDisciplinas, setDiplomas, userType } = useUserInfos();
+	const { data } = useGetUserInfos(userType);
 
 	const handleSignIn = ({ username, password }) => {
 		login(
 			{ username, password },
 			loginType,
-			() => {
+			(e) => {
+				console.log("error", e);
 				// Callback de erro
 				reset(); // Reseta o formulário em caso de erro
 			},
 			() => {
-				// Callback de sucesso
-				navigate("/dashboard"); // Redireciona ao dashboard
+				setDados(data.dados);
+				setDiplomas(data.diplomas);
+				setDisciplinas(data.disciplinas);
+				navigate("/dashboard");
 			},
 		);
 	};

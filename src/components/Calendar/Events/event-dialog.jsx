@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useCreateEvent } from "../../../pages/events/hooks/useCreateEvent";
-import { useDeleteEvent } from "../../../pages/events/hooks/useDeleteEvent";
 import { useGetEventsByDate } from "../../../pages/events/hooks/useGetEvents";
 import { formatToBRLDate } from "../../../utils/formatDate";
 import {
@@ -77,6 +76,7 @@ export function EventDialog({
 			<DialogContent
 				className="bg-white rounded-lg shadow-lg max-w-[90%] sm:max-w-[400px] w-full p-6 mx-auto my-10"
 				aria-describedby={undefined}
+				position="side"
 			>
 				<div className="flex justify-between text-center items-center mb-2">
 					<DialogTitle>Criar Evento</DialogTitle>
