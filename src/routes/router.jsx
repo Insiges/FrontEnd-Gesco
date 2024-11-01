@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Default } from "../components/layouts/default";
-import Registration from "../pages/gestaoDocente/components/MembersRegistration/MembersRegistration.jsx";
+import Registration from "../pages/GestaoDocente/components/MembersRegistration";
+import { StudentAttendance } from "../pages/StudentAttendance";
 import {
 	Activities,
 	Classes,
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
 						element: <Dashboard />,
 					},
 					{
-						path: "/students",
+						path: "/students/*", // Manter este asterisco.
 						element: <Students />,
 					},
 					{
@@ -105,8 +106,11 @@ const router = createBrowserRouter([
 					},
 					{
 						path: "/dashboard-teacher",
-						element: <DashboardTeacher />,
+						element: <DashboardTeacher />,						
 					},
+					{	path: "/students-attendance",
+						element: <StudentAttendance />,
+					}
 				],
 			},
 		],
