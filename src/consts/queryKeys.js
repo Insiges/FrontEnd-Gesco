@@ -4,7 +4,7 @@ const QUERY_KEYS = {
 	EVENTS: "events",
 	EVENTS_BY_DATE: "eventsByDate",
 	USER_INFO: "userInfos",
-	ACTIVIES: "activities",
+	ACTIVITIES: "activities",
 };
 
 export default QUERY_KEYS;
