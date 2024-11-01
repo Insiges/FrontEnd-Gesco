@@ -1,4 +1,5 @@
 import { FaRegCalendarAlt, FaUserTie } from "react-icons/fa";
+import { FaBook } from "react-icons/fa";
 import { FiHome } from "react-icons/fi";
 import { GiReceiveMoney } from "react-icons/gi";
 import { GrUserManager } from "react-icons/gr";
@@ -35,6 +36,7 @@ export function SideBar() {
 					icone={<IoTime />}
 					nome="Grade de Horáros"
 				/>
+				<LinkSideBar url="/sala" icone={<FaBook />} nome="Reserva de Salas" />
 			</ul>
 		</nav>
 	);

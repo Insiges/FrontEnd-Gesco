@@ -12,6 +12,8 @@ import {
 	Students,
 	Timetable,
 } from "../pages/index";
+import Room from "../pages/pages-teacher/components/roomBook/room";
+import RoomBook from "../pages/pages-teacher/components/roomBook/roomBook";
 import { ProtectedRoute } from "./ProtectedRoute";
 
 const router = createBrowserRouter([
@@ -23,7 +25,6 @@ const router = createBrowserRouter([
 		path: "/login",
 		element: <Login />,
 	},
-
 	{
 		element: <ProtectedRoute />,
 		children: [
@@ -65,6 +66,16 @@ const router = createBrowserRouter([
 					{
 						path: "/ClassesSchedule",
 						element: <ClassesSchedule />,
+					},
+					{
+						path: "/sala",
+						element: <RoomBook />,
+						children: [
+							{
+								path: ":sala",
+								element: <Room />,
+							},
+						],
 					},
 				],
 			},
