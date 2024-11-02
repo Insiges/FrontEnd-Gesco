@@ -1,7 +1,20 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
+import { useDeleteActivie } from "../hooks/useDeleteActivitie";
 
-export function ActivitiesDeleteDialog({ isOpen, onCloseDialog, onConfirm }) {
+export function ActivitiesDeleteDialog({ isOpen, onCloseDialog, activityId }) {
+	const { mutateAsync } = useDeleteActivie();
+
+	const handleConfirmDelete = async () => {
+		await mutateAsync(activityId, {
+			onSuccess: () => {
+				onCloseDialog();
+			},
+			onError: () => {
+				alert("Erro ao excluir sua atividade");
+			},
+		});
+	};
 	return (
 		<DialogPrimitive.Root open={isOpen} onOpenChange={onCloseDialog}>
 			<DialogPrimitive.Portal>
@@ -36,7 +49,7 @@ export function ActivitiesDeleteDialog({ isOpen, onCloseDialog, onConfirm }) {
 						</DialogPrimitive.Close>
 						<button
 							type="button"
-							onClick={onConfirm}
+							onClick={handleConfirmDelete}
 							className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
 						>
 							Confirmar

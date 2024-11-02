@@ -101,9 +101,7 @@ export function ActivitiesTable() {
 			<ActivitiesDeleteDialog
 				isOpen={showModalDeleteOpen}
 				onCloseDialog={closeDeletesModal}
-				onConfirm={() => {
-					console.log("Cliquei!");
-				}}
+				activityId={activityId}
 			/>
 		</div>
 	);
