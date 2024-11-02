@@ -1,36 +1,20 @@
 import { create } from "zustand";
 import { ACCESS_TOKEN } from "../consts/storageKeys";
+import { getStorage, removeStorage } from "../services/storage/storage";
 
-// Configuração da store de autenticação
 export const useAuthStore = create((set) => ({
 	token: null,
 	isAuthenticated: false,
-
-	// Define o token ao fazer login
-	setAuth: (token) => {
-		// Armazena o token no localStorage manualmente
+	isInitialized: false,
+	setToken: (token) => set({ token, isAuthenticated: !!token }),
+	initializeAuth: () => {
+		const token = getStorage(ACCESS_TOKEN);
 		if (token) {
-			localStorage.setItem(ACCESS_TOKEN, token);
-			set({ token, isAuthenticated: true });
+			set({ token, isAuthenticated: true, isInitialized: true });
 		} else {
-			localStorage.removeItem(ACCESS_TOKEN);
-			set({ token: null, isAuthenticated: false });
+			removeStorage(ACCESS_TOKEN);
+			set({ token: null, isAuthenticated: false, isInitialized: true });
 		}
 	},
-
-	// Função para logout
-	logout: () => {
-		localStorage.removeItem(ACCESS_TOKEN); // Remove o token do localStorage
-		set({ token: null, isAuthenticated: false });
-	},
+	logout: () => set({ token: null, isAuthenticated: false }),
 }));
-
-// Função para carregar o token do localStorage ao iniciar o app
-export const initializeAuthStore = () => {
-	const token = localStorage.getItem(ACCESS_TOKEN);
-	const setAuth = useAuthStore.getState().setAuth;
-
-	if (token) {
-		setAuth(token); // Define o token e autenticação no Zustand
-	}
-};

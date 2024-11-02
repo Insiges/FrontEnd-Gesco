@@ -1,3 +1,4 @@
+import useUserInfos from "../../stores/userStore";
 import { makeRequest } from "./requestProvider";
 
 export async function getAllActivitiesByProfessor(id) {
@@ -8,13 +9,14 @@ export async function getAllActivitiesByProfessor(id) {
 }
 
 export async function createActivity(data) {
+	const { userType, userInfos } = useUserInfos();
 	const url = "atividade";
 	const body = {
 		nome: data.name,
 		descricao: data.description,
 		valor: data.weight,
 		data_atividade: data.dueDate,
-		id_professor: 1,
+		id_professor: userType === "professor" ? userInfos.dados.id : 1,
 		id_turma: data.team,
 		id_tipo_atividade: 10,
 	};
