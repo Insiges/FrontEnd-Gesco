@@ -107,3 +107,9 @@ export async function getOneTeacher(id) {
 
 	return request;
 }
+
+export async function getClassByProfessor() {
+	const url = "professor/turmas";
+	const request = await makeRequest("GET", url);
+	return request.body;
+}

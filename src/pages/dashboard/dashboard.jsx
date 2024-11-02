@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
 import { getCounters } from "../../services/api/school";
+
+import useUserInfos from "../../stores/userStore";
+import { useGetUserInfos } from "../login/hooks/useGetUserInfos";
 import {
 	Calendar,
 	Counters,
