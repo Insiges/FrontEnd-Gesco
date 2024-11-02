@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MdDelete, MdGroups2 } from "react-icons/md";
 import { TbEditCircle } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 import { editClass } from "../../../../services/api/class";
 import { EditModal } from "../modal/editModal/modal"; // Certifique-se de ajustar o caminho conforme necessário
 
@@ -19,6 +20,12 @@ export const ClassTable = ({ turmas, handleDelete }) => {
 		console.log("Updated Turma:", updatedTurma);
 		setIsModalOpen(false); // Fechar modal após salvar
 		window.location.reload();
+	};
+
+	const navigate = useNavigate();
+
+	const handleClassClick = (id) => {
+		navigate(`/Classes/${id}/students`);
 	};
 
 	return (
@@ -49,7 +56,10 @@ export const ClassTable = ({ turmas, handleDelete }) => {
 					<tbody>
 						{turmas.map((turma) => (
 							<tr key={turma.id} className="bg-white ">
-								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
+								<td
+									onClick={() => handleClassClick(turma.id)}
+									className="px-2 py-4 text-xs hover:cursor-pointer font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center"
+								>
 									<div className="flex items-center justify-center">
 										<MdGroups2 className="mr-2 hidden sm:block  align-middle" />
 										<span className="inline-block align-middle">

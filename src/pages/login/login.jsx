@@ -3,18 +3,17 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import notebookImage from "../../assets/login/pc.png";
-import { useAuth } from "../../contexts/AuthContext";
+import useUserInfos from "../../stores/userStore";
 import { Header } from "../login/components/header/Header";
 import { Roles } from "./components";
 import { loginSchema } from "./form/loginSchema";
-
-//TODO
-// - Implementar o useSignIn
+import { useGetUserInfos } from "./hooks/useGetUserInfos";
+import { useSignIn } from "./hooks/useSignIn";
 
 export function Login() {
 	const [loginType, setLoginType] = useState("");
+	const [credentialsError, setCredentialsError] = useState("");
 	const navigate = useNavigate();
-	const { login } = useAuth();
 
 	const {
 		register,
@@ -29,20 +28,27 @@ export function Login() {
 			password: "",
 		},
 	});
+	const { setDados, setDisciplinas, setDiplomas, userType } = useUserInfos();
+	const { data: userInfos } = useGetUserInfos(userType);
 
-	const handleSignIn = ({ username, password }) => {
-		login(
-			{ username, password },
-			loginType,
-			() => {
-				// Callback de erro
-				reset(); // Reseta o formulário em caso de erro
+	const { mutateAsync: signIn } = useSignIn();
+
+	const handleSignIn = async (data) => {
+		const dataWIthRole = { ...data, role: loginType };
+		await signIn(dataWIthRole, {
+			onSuccess: () => {
+				if (userType === "professor") {
+					setDados(userInfos.dados);
+					setDiplomas(userInfos.diplomas);
+					setDisciplinas(userInfos.disciplinas);
+				}
+				navigate("/dashboard");
 			},
-			() => {
-				// Callback de sucesso
-				navigate("/dashboard"); // Redireciona ao dashboard
+			onError: () => {
+				setCredentialsError("Credencias erradas!");
+				reset();
 			},
-		);
+		});
 	};
 
 	const handleRules = (data) => {
@@ -95,6 +101,11 @@ export function Login() {
 							>
 								Login
 							</button>
+						</div>
+						<div className="p-4 self-center">
+							<span className="text-red-500">
+								{!!credentialsError && credentialsError}
+							</span>
 						</div>
 					</form>
 				</div>

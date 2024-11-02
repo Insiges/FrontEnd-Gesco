@@ -1,24 +1,21 @@
 import { useMutation } from "@tanstack/react-query";
-import { API } from "../../../services/api/config";
+import { signIn } from "../../../services/api/signIn";
+import { useAuthStore } from "../../../stores/authStore";
 
 export const useSignIn = () => {
-	return useMutation(
-		async ({ credentials, role }) => {
-			const response = await API.post(`/${role}/auth/login`, {
-				email: credentials.username,
-				senha: credentials.password,
-			});
-			return response.data;
+	const { setAuth } = useAuthStore();
+	return useMutation({
+		mutationFn: signIn,
+		onSuccess: (data, variables, context) => {
+			setAuth(data.token);
+			if (context?.onSuccess) {
+				context.onSuccess();
+			}
 		},
-		{
-			onSuccess: (data) => {
-				if (data.token) {
-					setStorage(ACCESS_TOKEN, data.token);
-				}
-			},
-			onError: () => {
-				console.error("Erro ao fazer login");
-			},
+		onError: (error, variables, context) => {
+			if (context?.onError) {
+				context.onError();
+			}
 		},
-	);
+	});
 };

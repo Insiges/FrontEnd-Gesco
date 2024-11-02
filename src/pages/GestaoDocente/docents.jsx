@@ -23,7 +23,7 @@ export const GestaoDocente = () => {
 				console.error("Error fetching teachers", error);
 			}
 		};
-		fetchTeachers();
+		// fetchTeachers();
 	}, []);
 
 	const handleAdicionarDocente = (dadosCadastrais) => {

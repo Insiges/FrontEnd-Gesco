@@ -1,9 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Default } from "../components/layouts/default";
-import Registration from "../pages/GestaoDocente/components/MembersRegistration";
+
 import {
+	Activities,
 	Classes,
 	ClassesSchedule,
+	ClassesStudents,
+	ClassesStudentsAdd,
 	Dashboard,
 	Events,
 	GestaoDocente,
@@ -12,6 +15,7 @@ import {
 	Students,
 	Timetable,
 } from "../pages/index";
+import Registration from "../pages/students/components/StudentRegistration";
 import Room from "../pages/pages-teacher/components/roomBook/room";
 import RoomBook from "../pages/pages-teacher/components/roomBook/roomBook";
 import { ProtectedRoute } from "./ProtectedRoute";
@@ -56,26 +60,36 @@ const router = createBrowserRouter([
 						element: <Registration />,
 					},
 					{
-						path: "/Classes",
+						path: "/Classes/",
 						element: <Classes />,
 					},
 					{
-						path: "/ClassSchedule/:id",
+						path: "/classSchedule/:id",
 						element: <Timetable />,
 					},
 					{
-						path: "/ClassesSchedule",
+						path: "/classesSchedule",
 						element: <ClassesSchedule />,
 					},
+          {
+						path: "/activities",
+						element: <Activities />,
+					},
 					{
+						path: "/Classes/:id/students",
+						element: <ClassesStudents />,
+					},
+					{
+						path: "/Classes/:id/students/add",
+						element: <ClassesStudentsAdd />,
+					},
+          {
 						path: "/sala",
 						element: <RoomBook />,
 						children: [
 							{
 								path: ":sala",
 								element: <Room />,
-							},
-						],
 					},
 				],
 			},
