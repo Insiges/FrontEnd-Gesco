@@ -7,4 +7,5 @@ export const activitySchema = z.object({
 		required_error: "A data de entrega é obrigatória",
 		invalid_type_error: "Data de entrega inválida",
 	}),
+	team: z.string().min(1, "Selecione uma classe"),
 });

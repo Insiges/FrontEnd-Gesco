@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import { X } from "lucide-react";
 import { useState } from "react";
 import { useCreateActivities } from "../../hooks/useCreateActivities";
+import { useGetClassByProfessor } from "../../hooks/useGetClassByProfessor";
 import { activitySchema } from "./schema";
 
 registerLocale("pt-BR", ptBR);
@@ -15,6 +16,7 @@ registerLocale("pt-BR", ptBR);
 export function ActivitiesCreateDialog({ isOpen, onCloseDialog }) {
 	const [errorCreate, setErrorCreate] = useState("");
 	const { mutateAsync: createActivity } = useCreateActivities();
+	const { data: classes } = useGetClassByProfessor();
 	const {
 		register,
 		handleSubmit,
@@ -28,6 +30,7 @@ export function ActivitiesCreateDialog({ isOpen, onCloseDialog }) {
 			description: "",
 			weight: 0,
 			dueDate: null,
+			team: "",
 		},
 	});
 
@@ -35,6 +38,7 @@ export function ActivitiesCreateDialog({ isOpen, onCloseDialog }) {
 		const date = new Date(data.dueDate);
 		const formattedDate = format(date, "yyyy-MM-dd");
 		const dateFormatted = { ...data, dueDate: formattedDate };
+
 		await createActivity(dateFormatted, {
 			onSuccess: () => {
 				reset();
@@ -123,6 +127,26 @@ export function ActivitiesCreateDialog({ isOpen, onCloseDialog }) {
 							)}
 						</div>
 
+						<select
+							className=" w-full outline-none p-1 shadow-md rounded-md"
+							{...register("team")}
+						>
+							<option value="">Selecione a turma</option>
+							{!!classes &&
+								classes.length > 0 &&
+								classes.map((team) => {
+									return (
+										<option key={team.id} value={`${team.id}`}>
+											{team.serie}
+										</option>
+									);
+								})}
+						</select>
+
+						{errors.team && (
+							<p className="text-red-500 text-sm">{errors.team.message}</p>
+						)}
+
 						<div>
 							<label className="block text-gray-700 dark:text-gray-200">
 								Data de entrega
@@ -150,6 +174,7 @@ export function ActivitiesCreateDialog({ isOpen, onCloseDialog }) {
 								<p className="text-red-500 text-sm">{errors.dueDate.message}</p>
 							)}
 						</div>
+
 						<div className=" p-1 mt-2 rounded-lg ">
 							<span className="text-red-500">{errorCreate && errorCreate}</span>
 						</div>

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { BoxView, Button, Flex, Title } from "../../components/ui";
 import { ActivitiesCreateDialog, ActivitiesTable } from "./components";
-import { useGetActivies } from "./hooks/useGetActivities";
 
 export function Activities() {
 	const [showCreateModal, setShowCreateModal] = useState(false);

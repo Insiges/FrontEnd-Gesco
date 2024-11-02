@@ -15,7 +15,7 @@ export async function createActivity(data) {
 		valor: data.weight,
 		data_atividade: data.dueDate,
 		id_professor: 1,
-		id_turma: 1,
+		id_turma: data.team,
 		id_tipo_atividade: 10,
 	};
 	const request = await makeRequest("POST", url, body);
