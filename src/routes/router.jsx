@@ -4,6 +4,8 @@ import Registration from "../pages/GestaoDocente/components/MembersRegistration"
 import {
 	Classes,
 	ClassesSchedule,
+	ClassesStudents,
+	ClassesStudentsAdd,
 	Dashboard,
 	Events,
 	GestaoDocente,
@@ -55,7 +57,7 @@ const router = createBrowserRouter([
 						element: <Registration />,
 					},
 					{
-						path: "/Classes",
+						path: "/Classes/",
 						element: <Classes />,
 					},
 					{
@@ -65,6 +67,14 @@ const router = createBrowserRouter([
 					{
 						path: "/ClassesSchedule",
 						element: <ClassesSchedule />,
+					},
+					{
+						path: "/Classes/:id/students",
+						element: <ClassesStudents />,
+					},
+					{
+						path: "/Classes/:id/students/add",
+						element: <ClassesStudentsAdd />,
 					},
 				],
 			},
