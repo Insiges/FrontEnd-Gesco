@@ -8,3 +8,5 @@ export * from "./gestaoDocente/docents";
 export * from "./classes/classes";
 export * from "./classesSchedule/classesSchedule";
 export * from "./activities/activities";
+export * from "./classesStudents/classesStudents";
+export * from "./addStudentClass/addStudentClass";
