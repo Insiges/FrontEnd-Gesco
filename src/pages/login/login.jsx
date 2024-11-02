@@ -4,11 +4,13 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import notebookImage from "../../assets/login/pc.png";
 import { useAuth } from "../../contexts/AuthContext";
+import { useAuthStore } from "../../stores/authStore";
 import useUserInfos from "../../stores/userStore";
 import { Header } from "../login/components/header/Header";
 import { Roles } from "./components";
 import { loginSchema } from "./form/loginSchema";
 import { useGetUserInfos } from "./hooks/useGetUserInfos";
+import { useSignIn } from "./hooks/useSignIn";
 
 //TODO
 // - Implementar o useSignIn
@@ -32,24 +34,25 @@ export function Login() {
 		},
 	});
 	const { setDados, setDisciplinas, setDiplomas, userType } = useUserInfos();
-	const { data } = useGetUserInfos(userType);
+	const { data: userInfos } = useGetUserInfos(userType);
 
-	const handleSignIn = ({ username, password }) => {
-		login(
-			{ username, password },
-			loginType,
-			(e) => {
-				console.log("error", e);
-				// Callback de erro
-				reset(); // Reseta o formulário em caso de erro
-			},
-			() => {
-				setDados(data.dados);
-				setDiplomas(data.diplomas);
-				setDisciplinas(data.disciplinas);
+	const { mutateAsync: signIn } = useSignIn();
+
+	const handleSignIn = async (data) => {
+		const dataWIthRole = { ...data, role: loginType };
+		await signIn(dataWIthRole, {
+			onSuccess: () => {
+				if (userType === "professor") {
+					setDados(userInfos.dados);
+					setDiplomas(userInfos.diplomas);
+					setDisciplinas(userInfos.disciplinas);
+				}
 				navigate("/dashboard");
 			},
-		);
+			onError: () => {
+				reset();
+			},
+		});
 	};
 
 	const handleRules = (data) => {

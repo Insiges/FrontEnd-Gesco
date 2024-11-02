@@ -15,6 +15,8 @@ export const useCreateActivities = () => {
 			if (context?.onSuccess) {
 				context.onSuccess();
 			}
+		},
+		onError: (error, variables, context) => {
 			if (context?.onError) {
 				context.onError();
 			}
