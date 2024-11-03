@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+import { useGetEvents } from "../../pages/events/hooks/useGetEvents";
+import { getEvents } from "../../services/api/school";
+
 const events = [
 	{
 		id: 1,
@@ -20,6 +24,18 @@ const events = [
 ];
 
 const EventsTable = () => {
+	const [events, setEvents] = useState([]);
+
+	useEffect(() => {
+		const fetchEvents = async () => {
+			const response = await getEvents();
+			setEvents(response.eventos);
+		};
+		fetchEvents();
+	}, []);
+
+	console.log(events);
+
 	return (
 		<section className="p-6 max-w-7xl mx-auto">
 			<h2 className="text-3xl font-bold mb-4 text-firstBlue">
@@ -37,9 +53,9 @@ const EventsTable = () => {
 				<tbody>
 					{events.map((event) => (
 						<tr key={event.id} className="text-center">
-							<td className="py-5 px-4 border-b">{event.name}</td>
-							<td className="py-5 px-4 border-b">{event.date}</td>
-							<td className="py-5 px-4 border-b">{event.time}</td>
+							<td className="py-5 px-4 border-b">{event.nome}</td>
+							<td className="py-5 px-4 border-b">{event.dia}</td>
+							<td className="py-5 px-4 border-b">{event.horario}</td>
 						</tr>
 					))}
 				</tbody>

@@ -69,11 +69,11 @@ const router = createBrowserRouter([
 						element: <ClassesSchedule />,
 					},
 					{
-						path: "/Classes/:id/students",
+						path: "/classes/:id/students",
 						element: <ClassesStudents />,
 					},
 					{
-						path: "/Classes/:id/students/add",
+						path: "/classes/:id/students/add",
 						element: <ClassesStudentsAdd />,
 					},
 				],

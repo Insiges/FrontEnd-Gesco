@@ -25,7 +25,7 @@ export const ClassTable = ({ turmas, handleDelete }) => {
 	const navigate = useNavigate();
 
 	const handleClassClick = (id) => {
-		navigate(`/Classes/${id}/students`);
+		navigate(`/classes/${id}/students`);
 	};
 
 	return (
