@@ -12,7 +12,7 @@ export const StudentsList = ({ students = [], onEdit, onDelete }) => {
 		<div>
 			<Flex direction="row" className="p-4">
 				<Title fontSize={34}>Estudantes</Title>
-				<Button onClick={() => navigate("/students/register")}>
+				<Button onClick={() => navigate("register")}>
 					Adicionar Estudante
 				</Button>
 			</Flex>

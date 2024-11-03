@@ -70,7 +70,7 @@ export const ModalEdit = ({ closeModal, id }) => {
 		fetchGrid();
 		fetchCrono();
 		fetchWeek();
-		fetchDocents();
+		// fetchDocents();
 	}, [id]);
 
 	// Manipular a seleção do professor

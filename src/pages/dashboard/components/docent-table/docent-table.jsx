@@ -6,19 +6,19 @@ export function DocentTable() {
 	const [docentes, setDocentes] = useState([]);
 
 	// useEffect para chamar a função assíncrona e definir o estado
-	useEffect(() => {
-		async function fetchDocents() {
-			try {
-				const response = await getDocents();
+	// useEffect(() => {
+	// 	async function fetchDocents() {
+	// 		try {
+	// 			const response = await getDocents();
 
-				setDocentes(response); // Aqui você assume que a resposta é a lista de docentes
-			} catch (error) {
-				console.error("Erro ao buscar docentes:", error);
-			}
-		}
+	// 			setDocentes(response); // Aqui você assume que a resposta é a lista de docentes
+	// 		} catch (error) {
+	// 			console.error("Erro ao buscar docentes:", error);
+	// 		}
+	// 	}
 
-		fetchDocents(); // Chama a função assim que o componente é montado
-	}, []);
+	// 	fetchDocents(); // Chama a função assim que o componente é montado
+	// }, []);
 
 	return (
 		<div className="bg-white shadow-lg rounded-lg p-6">

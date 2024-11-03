@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Default } from "../components/layouts/default";
-import Registration from "../pages/GestaoDocente/components/MembersRegistration";
+
+import Registration from "../pages/gestaoDocente/components/MembersRegistration/MembersRegistration.jsx";
 import {
+	Activities,
 	Classes,
 	ClassesSchedule,
 	ClassesStudents,
@@ -14,6 +16,8 @@ import {
 	Students,
 	Timetable,
 } from "../pages/index";
+
+import StudentsRegistration from "../pages/students/components/StudentRegistration/StudentsRegistration.jsx";
 import { ProtectedRoute } from "./ProtectedRoute";
 
 const router = createBrowserRouter([
@@ -41,6 +45,14 @@ const router = createBrowserRouter([
 						element: <Students />,
 					},
 					{
+						path: "/students/register",
+						element: <StudentsRegistration />,
+					},
+					{
+						path: "/students/registration/edit/:id",
+						element: <StudentsRegistration />,
+					},
+					{
 						path: "/events",
 						element: <Events />,
 					},
@@ -61,12 +73,16 @@ const router = createBrowserRouter([
 						element: <Classes />,
 					},
 					{
-						path: "/ClassSchedule/:id",
+						path: "/classSchedule/:id",
 						element: <Timetable />,
 					},
 					{
-						path: "/ClassesSchedule",
+						path: "/classesSchedule",
 						element: <ClassesSchedule />,
+					},
+					{
+						path: "/activities",
+						element: <Activities />,
 					},
 					{
 						path: "/classes/:id/students",
