@@ -17,6 +17,7 @@ import {
 	Timetable,
 } from "../pages/index";
 
+import StudentsRegistration from "../pages/students/components/StudentRegistration/StudentsRegistration.jsx";
 import { ProtectedRoute } from "./ProtectedRoute";
 
 const router = createBrowserRouter([
@@ -42,6 +43,14 @@ const router = createBrowserRouter([
 					{
 						path: "/students",
 						element: <Students />,
+					},
+					{
+						path: "/students/register",
+						element: <StudentsRegistration />,
+					},
+					{
+						path: "/students/registration/edit/:id",
+						element: <StudentsRegistration />,
 					},
 					{
 						path: "/events",

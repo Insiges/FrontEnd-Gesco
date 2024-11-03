@@ -34,7 +34,7 @@ const initialState = {
 	senha: "",
 };
 
-const Registration = ({ onSubmit }) => {
+const StudentsRegistration = ({ onSubmit }) => {
 	const [data, setData] = useState(initialState);
 	const [formSteps, setFormSteps] = useState(1);
 
@@ -127,4 +127,4 @@ const Registration = ({ onSubmit }) => {
 	);
 };
 
-export default Registration;
+export default StudentsRegistration;
