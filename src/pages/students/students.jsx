@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { Modal } from "./components/Modal";
-import StudentRegistration from "./components/StudentRegistration";
+import StudentRegistration from "./components/StudentRegistration/StudentsRegistration";
 import StudentsList from "./components/StudentsList";
 
 import { editStudent } from "../../services/api/students";

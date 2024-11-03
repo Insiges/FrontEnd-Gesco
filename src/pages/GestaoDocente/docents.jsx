@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 import MembersList from "./components/MembersList";
-import Registration from "./components/MembersRegistration";
 import LoginRegistration from "./components/MembersRegistration/LoginRegistration";
+import Registration from "./components/MembersRegistration/MembersRegistration";
 
 import { getDocents } from "../../services/api/school";
 import { deleteTeacher } from "../../services/api/teachers";
@@ -23,7 +23,7 @@ export const GestaoDocente = () => {
 				console.error("Error fetching teachers", error);
 			}
 		};
-		// fetchTeachers();
+		fetchTeachers();
 	}, []);
 
 	const handleAdicionarDocente = (dadosCadastrais) => {
