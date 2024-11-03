@@ -85,11 +85,11 @@ const router = createBrowserRouter([
 						element: <Activities />,
 					},
 					{
-						path: "/Classes/:id/students",
+						path: "/classes/:id/students",
 						element: <ClassesStudents />,
 					},
 					{
-						path: "/Classes/:id/students/add",
+						path: "/classes/:id/students/add",
 						element: <ClassesStudentsAdd />,
 					},
 				],

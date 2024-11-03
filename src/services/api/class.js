@@ -47,3 +47,28 @@ export async function deleteClass(id) {
 
 	return request;
 }
+
+export async function getStudentsByClass(id) {
+	const url = `turmas/alunos/${id}`;
+	const request = await makeRequest("GET", url);
+
+	return request.body;
+}
+
+export async function getStudentsNoClass() {
+	const url = "aluno/turmas";
+	const request = await makeRequest("GET", url);
+
+	return request.body;
+}
+
+export async function saveStudentInOneClass(turma, alunos) {
+	const url = "aluno-turma/lista";
+	const body = {
+		turma: turma,
+		alunos: alunos,
+	};
+	const request = await makeRequest("POST", url, body);
+
+	return request;
+}

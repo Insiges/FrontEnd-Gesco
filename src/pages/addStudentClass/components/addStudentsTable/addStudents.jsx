@@ -70,15 +70,15 @@ export const AddStudentsTable = ({ students, onSelectionChange }) => {
 									<div className="flex sm:ps-8 items-center justify-start">
 										<MdGroups2 className="mr-2 hidden sm:block  align-middle" />
 										<span className="inline-block align-middle">
-											{student.name}
+											{student.nome}
 										</span>
 									</div>
 								</td>
 								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
-									{student.id}
+									{student.matricula}
 								</td>
 								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
-									{student.birthDate}
+									{student.dataNascimento}
 								</td>
 							</tr>
 						))}
