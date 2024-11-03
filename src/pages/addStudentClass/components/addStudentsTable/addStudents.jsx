@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { MdDelete, MdGroups2 } from "react-icons/md";
+import { useGetStudents } from "../../hooks/useGetStudents";
 
-export const AddStudentsTable = ({ students, onSelectionChange }) => {
+export const AddStudentsTable = ({ onSelectionChange }) => {
+	const { data: students, isLoading: isLoadingStudents } = useGetStudents();
 	const [selectedStudentIds, setSelectedStudentIds] = useState([]);
 	const [selectAll, setSelectAll] = useState(false);
 

@@ -8,7 +8,6 @@ import { AddStudentsTable, Button, SearchFilter } from "./components/index";
 
 export const ClassesStudentsAdd = () => {
 	const [selectedStudents, setSelectedStudents] = useState([]);
-	const [student, setStudent] = useState([]);
 	const navigate = useNavigate();
 	const { id } = useParams();
 
@@ -22,18 +21,6 @@ export const ClassesStudentsAdd = () => {
 		navigate(`/classes/${id}/students`);
 	};
 
-	useEffect(() => {
-		const fetchStudents = async () => {
-			try {
-				const response = await getStudentsNoClass();
-				setStudent(response);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-		fetchStudents();
-	}, []);
-
 	return (
 		<div>
 			<div className="flex justify-between mx-4 items-center">
@@ -44,10 +31,7 @@ export const ClassesStudentsAdd = () => {
 				<Button onSave={saveStudents} />
 			</div>
 			<SearchFilter />
-			<AddStudentsTable
-				students={student}
-				onSelectionChange={handleSelectionChange}
-			/>
+			<AddStudentsTable onSelectionChange={handleSelectionChange} />
 		</div>
 	);
 };

@@ -6,6 +6,7 @@ const QUERY_KEYS = {
 	USER_INFO: "userInfos",
 	ACTIVITIES: "activities",
 	CLASS_BY_PROFESSOR: "classByProfessor",
+	STUDENTS: "students",
 };
 
 export default QUERY_KEYS;
