@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Calendar from "../../../components/Calendar/Calendar";
 import { getCounters } from "../../../services/api/school";
-import { Counters } from "../../dashboard/components";
-import { PostedActivities } from "../components/activities/activities";
+import { Activities } from "../../activities/activities";
+import { Calendar, Counters } from "../../dashboard/components";
+
+const events = [
+	{ day: 3, eventName: "Meeting" },
+	{ day: 8, eventName: "Class Presentation" },
+	{ day: 20, eventName: "Workshop" },
+	{ day: 25, eventName: "Holiday" },
+];
 
 const DashboardTeacher = () => {
 	const [counters, setCounter] = useState([]);
@@ -21,30 +27,30 @@ const DashboardTeacher = () => {
 	}, []);
 
 	return (
-		<div class="flex h-screen font-alatsi bg-white text-[#060343]">
-			<div class="flex-1 flex flex-col p-4">
+		<div class="flex flex-col font-alatsi bg-white text-[#060343]">
+			<div class="flex-1 flex flex-col p-4 max-h-[calc(100vh-58px)]">
 				<header class="mb-4">
 					<h1 class="text-2xl font-bold">Dashboard Docente</h1>
 				</header>
 
-				<div class="flex justify-center mb-8">
+				<div class="flex flex-col md:flex-row justify-center mb-8 space-y-4 md:space-y-0">
 					<div class="flex flex-col space-y-4">
 						<div class="h-[200px] mb-0">
 							<Counters counters={counters} />
 						</div>
 
-						<div class="w-[500px]">
-							<PostedActivities />
+						<div class="w-full">
+							<Activities />
 						</div>
 					</div>
 
-					<div class="flex w-[450px] h-[500px] rounded-lg ml-3 border border-[#060343]">
-						<Calendar />
+					<div class="flex w-[450px] h-auto rounded-lg ml-3">
+						<Calendar events={events} />
 					</div>
 				</div>
 
 				<div class="flex justify-center">
-					<div class="text-center bg-[#f4f4f4] p-4 rounded-lg mt-1 text-[#060343] w-[970px] mb-[10px]">
+					<div class="text-center bg-[#f4f4f4] p-4 rounded-lg mt-1 text-[#060343] w-[970px] mb-[20px]">
 						<h3 class="text-lg font-bold">Grade de horários</h3>
 						<table class="w-full border-collapse mt-2">
 							<thead>

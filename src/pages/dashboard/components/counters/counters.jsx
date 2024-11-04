@@ -2,7 +2,7 @@ import { Calendar, User } from "lucide-react";
 
 export function Counters({ counters }) {
 	return (
-		<div className="bg-transparent shadow-xl rounded-lg py-8 px-10 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8">
+		<div className="bg-transparent shadow-sm rounded-lg py-11 px-10 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8">
 			<div className="flex items-center gap-4">
 				<div className="bg-[#28C2A0] grid place-items-center p-4 rounded-2xl max-h-max">
 					<User size={40} color="#fff" />

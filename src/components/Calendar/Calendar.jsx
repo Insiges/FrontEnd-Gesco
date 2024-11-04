@@ -37,6 +37,8 @@ export default function Calendar({ title }) {
 			setDayEvents([]); // Não há eventos para o dia
 		}
 
+		onDateSelect(fullDate);
+
 		setSelectedDay(day);
 
 		setShowModal(true);

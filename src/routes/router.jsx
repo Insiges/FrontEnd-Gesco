@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Default } from "../components/layouts/default";
-
 import Registration from "../pages/gestaoDocente/components/MembersRegistration/MembersRegistration.jsx";
 import {
 	Activities,
@@ -16,7 +15,9 @@ import {
 	Students,
 	Timetable,
 } from "../pages/index";
-
+import DashboardTeacher from "../pages/pages-teacher/dashboard/dashboardTeacher.jsx";
+import Room from "../pages/pages-teacher/roomBook/room.jsx";
+import RoomBook from "../pages/pages-teacher/roomBook/roomBook.jsx";
 import StudentsRegistration from "../pages/students/components/StudentRegistration/StudentsRegistration.jsx";
 import { ProtectedRoute } from "./ProtectedRoute";
 
@@ -91,6 +92,20 @@ const router = createBrowserRouter([
 					{
 						path: "/classes/:id/students/add",
 						element: <ClassesStudentsAdd />,
+					},
+					{
+						path: "/sala",
+						element: <RoomBook />,
+						children: [
+							{
+								path: ":sala",
+								element: <Room />,
+							},
+						],
+					},
+					{
+						path: "/dashboard-teacher",
+						element: <DashboardTeacher />,
 					},
 				],
 			},
