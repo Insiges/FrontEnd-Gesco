@@ -28,11 +28,3 @@ API.interceptors.request.use(
 		return Promise.reject(error);
 	},
 );
-
-// curl --location 'http://localhost:8080/escola/auth/login' \
-// --header 'Content-Type: application/json' \
-// --header 'User-Agent: insomnia/10.0.0' \
-// --data-raw ' {
-//   "email": "bb@gmail.com",
-//   "senha": "123"
-//  }'
