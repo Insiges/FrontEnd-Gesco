@@ -3,11 +3,11 @@ import { signIn } from "../../../services/api/signIn";
 import { useAuthStore } from "../../../stores/authStore";
 
 export const useSignIn = () => {
-	const { setAuth } = useAuthStore();
+	const { setToken } = useAuthStore();
 	return useMutation({
 		mutationFn: signIn,
 		onSuccess: (data, variables, context) => {
-			setAuth(data.token);
+			setToken(data.token);
 			if (context?.onSuccess) {
 				context.onSuccess();
 			}
