@@ -3,7 +3,7 @@ import { MdDelete, MdGroups2 } from "react-icons/md";
 import { useGetStudents } from "../../hooks/useGetStudents";
 
 export const AddStudentsTable = ({ onSelectionChange }) => {
-	const { data: students, isLoading: isLoadingStudents } = useGetStudents();
+	const { data: students } = useGetStudents();
 	const [selectedStudentIds, setSelectedStudentIds] = useState([]);
 	const [selectAll, setSelectAll] = useState(false);
 

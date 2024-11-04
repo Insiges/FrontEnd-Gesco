@@ -5,20 +5,28 @@ import {
 	saveStudentInOneClass,
 } from "../../services/api/class";
 import { AddStudentsTable, Button, SearchFilter } from "./components/index";
+import { useAddStudentInClass } from "./hooks/useAddStudentInClass";
 
 export const ClassesStudentsAdd = () => {
 	const [selectedStudents, setSelectedStudents] = useState([]);
 	const navigate = useNavigate();
 	const { id } = useParams();
+	const { mutateAsync: addStudent } = useAddStudentInClass();
 
 	const handleSelectionChange = (newSelectedStudents) => {
 		setSelectedStudents(newSelectedStudents);
 	};
 
 	const saveStudents = async () => {
-		await saveStudentInOneClass(id, selectedStudents);
 		console.log("Estudantes selecionados salvos:", selectedStudents);
-		navigate(`/classes/${id}/students`);
+		await addStudent(id, selectedStudents, {
+			onSuccess: () => {
+				navigate(`/classes/${id}/students`);
+			},
+			onError: () => {
+				alert("Erro ao tentar adicionar estudante na turma!");
+			},
+		});
 	};
 
 	return (

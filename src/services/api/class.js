@@ -63,12 +63,13 @@ export async function getStudentsNoClass() {
 }
 
 export async function saveStudentInOneClass(turma, alunos) {
-	const url = "aluno-turma/lista";
-	const body = {
-		turma: turma,
-		alunos: alunos,
-	};
-	const request = await makeRequest("POST", url, body);
+	console.log();
+	// const url = "aluno-turma/lista";
+	// const body = {
+	// 	turma: turma,
+	// 	alunos: alunos,
+	// };
+	// const request = await makeRequest("POST", url, body);
 
-	return request;
+	// return request;
 }

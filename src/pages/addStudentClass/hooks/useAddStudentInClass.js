@@ -1,18 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
 import QUERY_KEYS from "../../../consts/queryKeys";
-import { createActivity } from "../../../services/api/activities";
+import { saveStudentInOneClass } from "../../../services/api/class";
 
-export const useCreateActivities = () => {
+export function useAddStudentInClass() {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: createActivity,
+		mutationFn: saveStudentInOneClass,
 		onSuccess: (data, variables, context) => {
 			queryClient.invalidateQueries({
-				queryKey: [QUERY_KEYS.ACTIVITIES],
+				queryKey: [QUERY_KEYS.STUDENTS],
 			});
-
 			if (context?.onSuccess) {
 				context.onSuccess();
 			}
@@ -23,4 +21,4 @@ export const useCreateActivities = () => {
 			}
 		},
 	});
-};
+}
