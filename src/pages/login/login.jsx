@@ -1,10 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import notebookImage from "../../assets/login/pc.png";
-import { ACCESS_TOKEN } from "../../consts/storageKeys";
-import { removeStorage } from "../../services/storage/storage";
+
 import { useAuthStore } from "../../stores/authStore";
 import useUserInfos from "../../stores/userStore";
 import { Header } from "../login/components/header/Header";
@@ -42,11 +41,11 @@ export function Login() {
 		const dataWIthRole = { ...data, role: loginType };
 		await signIn(dataWIthRole, {
 			onSuccess: () => {
-				// if (userType === "professor") {
-				// 	setDados(userInfos.dados);
-				// 	setDiplomas(userInfos.diplomas);
-				// 	setDisciplinas(userInfos.disciplinas);
-				// }
+				if (userType === "professor") {
+					setDados(userInfos.dados);
+					setDiplomas(userInfos.diplomas);
+					setDisciplinas(userInfos.disciplinas);
+				}
 				navigate("/dashboard");
 			},
 			onError: () => {
@@ -59,13 +58,6 @@ export function Login() {
 	const handleRules = (data) => {
 		setLoginType(data);
 	};
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	useEffect(() => {
-		if (isAuthenticated) {
-			removeStorage(ACCESS_TOKEN);
-		}
-	}, []);
 
 	if (loginType === "") return <Roles setRole={handleRules} />;
 
