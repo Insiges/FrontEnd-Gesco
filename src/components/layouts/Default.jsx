@@ -9,10 +9,11 @@ export function Default() {
 				<SideBar />
 			</aside>
 
-			<main className="p-6 h-[calc(100vh-58px)] overflow-y-auto">
+			<main className="p-6 h-[calc(100vh-32px)] overflow-y-auto">
 				<Outlet />
 			</main>
-			<footer className="col-span-2 bg-gray-800 text-white p-4 text-center">
+
+			<footer className="bg-gray-800 text-white p-1 text-center">
 				<div>Footer content here</div>
 			</footer>
 		</div>

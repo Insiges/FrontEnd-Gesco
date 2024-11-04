@@ -10,6 +10,7 @@ import logoImg from "/logoGesco.png";
 import LinkSideBar from "./LinkSideBar/LinkSideBar";
 
 export function SideBar() {
+	const sideBarOptions = [...sideBarOptionsAdmin, ...sideBarOptionsTeacher];
 	return (
 		<nav className="lg:min-w-full max-w-10 min-h-screen bg-firstBlue  flex flex-col items-center gap-7 overflow-visible relative">
 			<Link
@@ -22,15 +23,6 @@ export function SideBar() {
 				</h2>
 			</Link>
 			<ul className="flex flex-col gap-3 w-full pt-20">
-
-				<LinkSideBar url="/dashboard" icone={<FiHome />} nome="Dashboard" />
-				<LinkSideBar url="/students" icone={<GrUserManager />} nome="Alunos" />
-				<LinkSideBar url="/docents" icone={<FaUserTie />} nome="Docentes" />
-				<LinkSideBar url="/events" icone={<FaRegCalendarAlt />} nome="Eventos"/>
-				<LinkSideBar url="/Classes" icone={<MdGroups2 />} nome="Turmas" />
-				<LinkSideBar url="/ClassesSchedule" icone={<IoTime />} nome="Grade de Horáros" />
-				<LinkSideBar url="/sala" icone={<FaBook />} nome="Reserva de Salas" />
-          
 				{sideBarOptions.map((sideBarOption) => {
 					return (
 						<LinkSideBar
@@ -41,13 +33,27 @@ export function SideBar() {
 						/>
 					);
 				})}
-
 			</ul>
 		</nav>
 	);
 }
 
-const sideBarOptions = [
+const sideBarOptionsTeacher = [
+	{
+		id: "1866",
+		name: "Reserva de Salas",
+		url: "/sala",
+		icon: <FaBook />,
+	},
+	{
+		id: "1415",
+		name: "Dashboard Professor",
+		url: "/dashboard-teacher",
+		icon: <FiHome />,
+	},
+];
+
+const sideBarOptionsAdmin = [
 	{
 		id: "1234",
 		name: "Dashboard",
