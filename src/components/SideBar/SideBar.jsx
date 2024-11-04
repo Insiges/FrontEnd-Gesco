@@ -1,5 +1,6 @@
 import { GraduationCap } from "lucide-react";
 import { FaRegCalendarAlt, FaUserTie } from "react-icons/fa";
+import { FaBook } from "react-icons/fa";
 import { FiHome } from "react-icons/fi";
 import { GrUserManager } from "react-icons/gr";
 import { IoTime } from "react-icons/io5";
@@ -9,6 +10,7 @@ import logoImg from "/logoGesco.png";
 import LinkSideBar from "./LinkSideBar/LinkSideBar";
 
 export function SideBar() {
+	const sideBarOptions = [...sideBarOptionsAdmin, ...sideBarOptionsTeacher];
 	return (
 		<nav className="lg:min-w-full max-w-10 min-h-screen bg-firstBlue  flex flex-col items-center gap-7 overflow-visible relative">
 			<Link
@@ -36,7 +38,22 @@ export function SideBar() {
 	);
 }
 
-const sideBarOptions = [
+const sideBarOptionsTeacher = [
+	{
+		id: "1866",
+		name: "Reserva de Salas",
+		url: "/sala",
+		icon: <FaBook />,
+	},
+	{
+		id: "1415",
+		name: "Dashboard Professor",
+		url: "/dashboard-teacher",
+		icon: <FiHome />,
+	},
+];
+
+const sideBarOptionsAdmin = [
 	{
 		id: "1234",
 		name: "Dashboard",
