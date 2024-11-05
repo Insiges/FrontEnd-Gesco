@@ -51,6 +51,12 @@ const sideBarOptionsTeacher = [
 		url: "/dashboard-teacher",
 		icon: <FiHome />,
 	},
+	{
+		id: "1415",
+		name: "Presença",
+		url: "/students-attendance",
+		icon: <FiHome />,
+	},
 ];
 
 const sideBarOptionsAdmin = [

@@ -1,8 +1,11 @@
 import { MdDelete, MdGroups2 } from "react-icons/md";
+import { useParams } from "react-router";
+import { deleteStudentClass } from "../../../../services/api/class";
 
 export const StudentsTable = ({ students }) => {
-	const handleDelete = (id) => {
-		console.log({ id });
+	const { id } = useParams();
+	const handleDelete = async (aluno) => {
+		await deleteStudentClass(aluno, id);
 	};
 	return (
 		<div className="flex mx-4 justify-center rounded-lg shadow-lg border-firstBlue">

@@ -1,50 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getStudentsByClass } from "../../services/api/class";
+import { saveFrequency } from "../../services/api/frequency";
+import useUserInfos from "../../stores/userStore";
 import { inputClassName } from "../GestaoDocente/common";
-
-const mockData = [
-	{
-		id: 1,
-		nome: "Alice Silva",
-		matricula: "123456",
-		presenca: "",
-		id_escola: 101,
-	},
-	{
-		id: 2,
-		nome: "Bob Souza",
-		matricula: "123457",
-		presenca: "",
-		id_escola: 101,
-	},
-	{
-		id: 3,
-		nome: "Carlos Oliveira",
-		matricula: "123458",
-		presenca: "",
-		id_escola: 102,
-	},
-	{
-		id: 4,
-		nome: "Diana Santos",
-		matricula: "123459",
-		presenca: "",
-		id_escola: 102,
-	},
-	{
-		id: 5,
-		nome: "Eduardo Almeida",
-		matricula: "123460",
-		presenca: "",
-		id_escola: 103,
-	},
-	{
-		id: 6,
-		nome: "Fernanda Costa",
-		matricula: "123461",
-		presenca: "",
-		id_escola: 103,
-	},
-];
+import { useGetClassByProfessor } from "../activities/hooks/useGetClassByProfessor";
 
 // tabela disciplinas joined com prof
 const profDisciplinasFromApi = [
@@ -59,9 +18,13 @@ const profDisciplinasFromApi = [
 // Caso contrário, teremos que capturar a id do professor via query param na url, ou seja lá
 // como for…
 export const StudentAttendance = ({ professorId = null }) => {
-	const [students, setStudents] = useState(mockData);
+	const [students, setStudents] = useState([]);
+	const { data: classes } = useGetClassByProfessor();
 	const [disciplineId, setDisciplineId] = useState(null);
+	const [classId, setClassId] = useState(null);
 	const [isPosting, setIsPosting] = useState(false);
+	const [date, setDate] = useState("");
+	const { userInfos } = useUserInfos();
 
 	const dateNow = new Date().toLocaleDateString("pt-BR");
 
@@ -77,8 +40,19 @@ export const StudentAttendance = ({ professorId = null }) => {
 		setStudents(student);
 	};
 
-	// Integrar com a API
-	// Simulando o POST
+	useEffect(() => {
+		const fetchStudents = async () => {
+			try {
+				const response = await getStudentsByClass(classId);
+				setStudents(response);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+
+		fetchStudents();
+	}, [classId]);
+
 	const onSubmit = async () => {
 		if (!disciplineId) {
 			alert("Por favor, selecione uma matéria antes de enviar presenças.");
@@ -86,31 +60,30 @@ export const StudentAttendance = ({ professorId = null }) => {
 		}
 
 		const onlyPresentStudents = students
-			.map((student) =>
-				student.presenca === "PRESENTE"
-					? {
-							idAluno: student.id,
-							disciplinaId: Number(disciplineId),
-							professorId,
-							dia: dateNow,
-							presenca: student.presenca,
-						}
-					: false,
-			)
+			.map((student) => (student.presenca === "PRESENTE" ? student.id : false))
 			.filter(Boolean);
 
-		setIsPosting(true);
+		console.log(onlyPresentStudents);
 
-		// A documentação sugere que a API aceita 1 objeto (presença-aluno) por POST request(???)
-		// Neste caso teriamos que loopar 'onlyPresentStudents' postando programaticamente cada
-		// um deles. Talvez sendo melhor o uso de for loop para assegurar operação async await.
-		for (const studentToBePosted of onlyPresentStudents) {
-			await new Promise((resolve) => setTimeout(resolve, 1500));
-			alert("STUDENT POSTED", JSON.stringify(studentToBePosted));
-			console.log("STUDENT POSTED", JSON.stringify(studentToBePosted));
-		}
+		const submitFrequency = async () => {
+			const body = {
+				alunos: onlyPresentStudents,
+				disciplina: Number(disciplineId),
+				professor: userInfos.dados.id,
+				dia: date,
+				presenca: "PRESENTE",
+				turma: classId,
+			};
 
-		setIsPosting(false);
+			try {
+				await saveFrequency(body);
+				alert("Os dados foram salvo com sucesso");
+			} catch (error) {
+				console.error(error);
+			}
+		};
+
+		submitFrequency();
 	};
 
 	return (
@@ -124,9 +97,31 @@ export const StudentAttendance = ({ professorId = null }) => {
 			{/* Header da pagina */}
 			<div className="gap-12 p-4">
 				<div className="flex justify-between bg-firstBlue text-white h-16 rounded-t-lg items-center w-full p-4">
-					<p className="text-lg font-medium p-8 my-4">{dateNow}</p>
-					<p className="text-lg font-medium p-8 my-4">PROF NAME FROM API</p>
-					<p className="text-lg font-medium p-8 my-4">TURMA FROM API</p>
+					<input
+						onChange={(e) => setDate(e.target.value)}
+						type="date"
+						className="text-black px-4 py-2 border border-gray-300 rounded-md"
+					/>
+					<p className="text-lg font-medium p-8 my-4">
+						{" "}
+						{userInfos.dados.nome}
+					</p>
+					<select
+						className={inputClassName}
+						style={{ color: "black" }}
+						onChange={(e) => setClassId(e.target.value)}
+					>
+						<option value="">Selecione a turma</option>
+						{!!classes &&
+							classes.length > 0 &&
+							classes.map((team) => {
+								return (
+									<option key={team.id} value={`${team.id}`}>
+										{team.serie} {team.nome} {team.ano}
+									</option>
+								);
+							})}
+					</select>
 					<select
 						className={inputClassName}
 						style={{ color: "black" }}
@@ -135,7 +130,7 @@ export const StudentAttendance = ({ professorId = null }) => {
 						<option value="" disabled selected>
 							Selecione uma disciplina
 						</option>
-						{profDisciplinasFromApi.map((it) => (
+						{userInfos.disciplinas.map((it) => (
 							<option key={it.id} value={it.id}>
 								{it.nome}
 							</option>
