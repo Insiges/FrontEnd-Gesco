@@ -14,7 +14,7 @@ export const Grid = ({ table, horario, openModal, selectedGrid }) => {
 	];
 	// Função para encontrar o horário correspondente a um dia e hora
 	const getHorario = (dia, hora) => {
-		return table.find((h) => h.dia === dia && h.hora === hora);
+		return !!table && table.find((h) => h.dia === dia && h.hora === hora);
 	};
 
 	return (

@@ -10,6 +10,8 @@ const QUERY_KEYS = {
 	STUDENTS_BY_CLASS: "studentsByClass",
 	CLASSES: "classes",
 	ALL_CLASSES: "allClasses",
+	GRID_CLASSES: "gridClasses",
+	ONE_CLASS_GRID: "oneClassGrid",
 };
 
 export default QUERY_KEYS;
