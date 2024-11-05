@@ -15,7 +15,7 @@ const ThirdSection = () => {
 						className="w-full md:w-auto"
 						style={{
 							width: "100%",
-							maxWidth: "908px",
+							maxWidth: "900px",
 							height: "auto",
 							maxHeight: "580px",
 							objectFit: "cover",
@@ -26,22 +26,21 @@ const ThirdSection = () => {
 			</div>
 
 			<div className="flex-grow ml-0 md:ml-8 mr-4 md:mr-32 ">
-				<h1 className="text-4xl md:text-6xl text-center md:text-right font-bold w-full mt-8 mx-auto">
+				<h1 className="text-[#060343] text-4xl md:text-5xl text-center font-bold w-full mt-8 mx-auto">
 					Fale com a nossa
 					<br />
-					<span className="text-secondBlue block text-center md:text-right">
-						equipe:
-					</span>
+					<span className="text-[#FFB400] block text-center">equipe:</span>
 				</h1>
 
-				<p className="text-center md:text-right w-full font-semibold mt-8 mx-auto">
-					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas
-					sint aliquam eveniet dignissimos temporibus. Nihil animi fugit
-					deleniti! Illum facere quam earum quidem dolorem magni, a quae
-					exercitationem omnis iusto? Lorem ipsum dolor sit amet consectetur
-					adipisicing elit. Consequatur exercitationem harum nulla, et explicabo
-					nemo cupiditate asperiores mollitia dolorum illum quod atque quos
-					similique culpa animi voluptates laudantium! Quas, totam?
+				<p className="text-center w-full mt-8 mx-auto">
+					Quer saber mais?{" "}
+					<span className="font-semibold">
+						Dê o próximo passo e transforme sua Instituição com o Gesco!
+					</span>{" "}
+					Se você deseja que sua escola aproveite todos os benefícios que o
+					oferecemos, entre em contato conosco! Nossa equipe está pronta para
+					responder suas perguntas e apresentar soluções personalizadas que
+					farão a diferença na gestão educacional.
 				</p>
 			</div>
 		</div>
