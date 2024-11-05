@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { deleteClass, getClasses } from "../../services/api/class";
 import { Button, ClassTable, SearchFilter } from "./components/index";
+import { useDeleteClasses } from "./hooks/useDeleteClasses";
 import { useGetClasses } from "./hooks/useGetClasses";
 
 export const Classes = () => {
 	const [showModalDelete, setShowModalDelete] = useState(false);
 	const [idClass, setIdClass] = useState("");
 	const { data: classes } = useGetClasses();
+	const { mutateAsync: deleteClass } = useDeleteClasses();
 
 	const handleDeletarClass = (id) => {
 		setShowModalDelete(true);
@@ -14,13 +15,11 @@ export const Classes = () => {
 	};
 
 	const handleDeleteClassConfirm = async () => {
-		await deleteClass(idClass);
-
-		setShowModalDelete(false);
-		setTimeout(async () => {
-			const response = await getClasses();
-			setClasse(response);
-		}, 2000);
+		await deleteClass(idClass, {
+			onSuccess: () => {
+				setShowModalDelete(false);
+			},
+		});
 	};
 
 	const closeModal = () => {
