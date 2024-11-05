@@ -28,14 +28,14 @@ export function Roles({ setRole }) {
 								<button
 									type="button"
 									onClick={() => handleSelectRole("escola")}
-									className="w-full bg-custom-blue from-[#7C93C3] to-[#C5CFE4] text-[#060273] px-4 py-2 font-bold border-2 rounded-full hover:bg-white hover:border-[#FFC436] hover:text-[#060273] text-[15px] mt-[10px]"
+									className="w-full bg-custom-blue-2 from-[#7C93C3] to-[#C5CFE4] text-[#060273] px-4 py-2 font-bold border-2 rounded-full hover:bg-white hover:border-[#FFC436] hover:text-[#060273] text-[15px] mt-[10px]"
 								>
 									Administração
 								</button>
 								<button
 									type="button"
 									onClick={() => handleSelectRole("professor")}
-									className="w-full bg-custom-blue text-[#060273] px-4 py-2  font-bold border-2 rounded-full hover:bg-white hover:border-[#FFC436] hover:text-[#060273] text-[15px]"
+									className="w-full bg-custom-blue-2 text-[#060273] px-4 py-2  font-bold border-2 rounded-full hover:bg-white hover:border-[#FFC436] hover:text-[#060273] text-[15px]"
 								>
 									Professor
 								</button>

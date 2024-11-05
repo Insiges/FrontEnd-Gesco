@@ -19,7 +19,8 @@ export default {
 				darkGray: "#34495E",
 			},
 			backgroundImage: {
-				"custom-blue": "linear-gradient(to right, #7C93C3 0%, #C5CFE4 100%)",
+				"custom-blue": "linear-gradient(to right, #6B71F2 0%, #3E418C 100%)",
+				"custom-blue-2": "linear-gradient(to right, #7C93C3 0%, #C5CFE4 100%)",
 				"custom-yellow": "linear-gradient(to right, #F9F45C 0%, #FFB600 100%)",
 			},
 		},

@@ -1,6 +1,6 @@
 const Card = ({ imageSrc, title, text }) => {
 	return (
-		<div className="border-2 border-yellow rounded-lg p-4 shadow-lg shadow-gray-500/50 w-full max-w-md md:max-w-lg lg:max-w-xl">
+		<div className="border-2 border-[#FFB400] rounded-lg p-4 shadow-lg shadow-gray-500/50 w-full max-w-md md:max-w-lg lg:max-w-xl">
 			<img
 				src={imageSrc}
 				alt={title}
