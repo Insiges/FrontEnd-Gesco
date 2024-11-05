@@ -75,8 +75,8 @@ export async function saveStudentInOneClass(data) {
 	return request;
 }
 
-export async function deleteStudentClass(aluno, turma) {
-	const url = `/aluno-turma/aluno/${aluno}/turma/${turma}`;
+export async function deleteStudentClass(data) {
+	const url = `/aluno-turma/aluno/${data.aluno}/turma/${data.turma}`;
 	const request = await makeRequest("DELETE", url);
 
 	return request;
