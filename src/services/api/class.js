@@ -58,18 +58,18 @@ export async function getStudentsByClass(id) {
 export async function getStudentsNoClass() {
 	const url = "aluno/turmas";
 	const request = await makeRequest("GET", url);
-
 	return request.body;
 }
 
-export async function saveStudentInOneClass(turma, alunos) {
-	console.log();
-	// const url = "aluno-turma/lista";
-	// const body = {
-	// 	turma: turma,
-	// 	alunos: alunos,
-	// };
-	// const request = await makeRequest("POST", url, body);
+export async function saveStudentInOneClass(data) {
+	const { id_turma, id_aluno } = data;
+	const url = "aluno-turma";
+	const body = {
+		id_aluno,
+		id_turma,
+	};
 
-	// return request;
+	const request = await makeRequest("POST", url, body);
+
+	return request;
 }

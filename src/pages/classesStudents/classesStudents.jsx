@@ -23,7 +23,7 @@ export const ClassesStudents = () => {
 		<div>
 			{/* // adicionar o nome da turma */}
 			<div className="flex justify-between mx-4 items-center">
-				<h1 className="text-2xl font-bold text-firstBlue">Estudantes -</h1>
+				<h1 className="text-2xl font-bold text-firstBlue">Estudantes - </h1>
 				<Button id={id} />
 			</div>
 			<SearchFilter />

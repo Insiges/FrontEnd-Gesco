@@ -18,15 +18,18 @@ export const ClassesStudentsAdd = () => {
 	};
 
 	const saveStudents = async () => {
-		console.log("Estudantes selecionados salvos:", selectedStudents);
-		await addStudent(id, selectedStudents, {
-			onSuccess: () => {
-				navigate(`/classes/${id}/students`);
+		console.log("Estudantes selecionados salvos:", id);
+		await addStudent(
+			{ id_turma: id, id_aluno: selectedStudents },
+			{
+				onSuccess: () => {
+					navigate(`/classes/${id}/students`);
+				},
+				onError: () => {
+					alert("Erro ao tentar adicionar estudante na turma!");
+				},
 			},
-			onError: () => {
-				alert("Erro ao tentar adicionar estudante na turma!");
-			},
-		});
+		);
 	};
 
 	return (

@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import { ProtectedRoute } from "../../routes/ProtectedRoute";
 import { SideBar } from "../SideBar/SideBar";
 
 export function Default() {
@@ -13,9 +12,9 @@ export function Default() {
 				<Outlet />
 			</main>
 
-			<footer className="bg-gray-800 text-white p-1 text-center">
-				<div>Footer content here</div>
-			</footer>
+			{/* <footer className="bg-gray-800 text-white p-1 text-center">
+				<div>GESCO LTDA</div>
+			</footer> */}
 		</div>
 	);
 }

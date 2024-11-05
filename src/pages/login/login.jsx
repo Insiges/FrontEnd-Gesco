@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import notebookImage from "../../assets/login/pc.png";
-
-import { useAuthStore } from "../../stores/authStore";
 import useUserInfos from "../../stores/userStore";
 import { Header } from "../login/components/header/Header";
 import { Roles } from "./components";
@@ -34,8 +32,6 @@ export function Login() {
 	const { data: userInfos } = useGetUserInfos(userType);
 
 	const { mutateAsync: signIn } = useSignIn();
-
-	const { isAuthenticated } = useAuthStore();
 
 	const handleSignIn = async (data) => {
 		const dataWIthRole = { ...data, role: loginType };
