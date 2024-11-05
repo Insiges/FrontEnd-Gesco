@@ -9,6 +9,7 @@ const QUERY_KEYS = {
 	STUDENTS_WITHOUT_CLASS: "studentsWithOutClass",
 	STUDENTS_BY_CLASS: "studentsByClass",
 	CLASSES: "classes",
+	ALL_CLASSES: "allClasses",
 };
 
 export default QUERY_KEYS;
