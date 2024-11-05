@@ -66,8 +66,8 @@ export async function saveStudentInOneClass(data) {
 	const url = "aluno-turma/lista";
 
 	const body = {
-		aluno: id_aluno,
 		turma: id_turma,
+		alunos: id_aluno,
 	};
 
 	const request = await makeRequest("POST", url, body);
