@@ -63,10 +63,11 @@ export async function getStudentsNoClass() {
 
 export async function saveStudentInOneClass(data) {
 	const { id_turma, id_aluno } = data;
-	const url = "aluno-turma";
+	const url = "aluno-turma/lista";
+
 	const body = {
-		id_aluno,
-		id_turma,
+		aluno: id_aluno,
+		turma: id_turma,
 	};
 
 	const request = await makeRequest("POST", url, body);
