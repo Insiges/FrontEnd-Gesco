@@ -9,7 +9,7 @@ export function useAddStudentInClass() {
 		mutationFn: saveStudentInOneClass,
 		onSuccess: (data, variables, context) => {
 			queryClient.invalidateQueries({
-				queryKey: [QUERY_KEYS.STUDENTS],
+				queryKey: [QUERY_KEYS.STUDENTS_WITHOUT_CLASS],
 			});
 			if (context?.onSuccess) {
 				context.onSuccess();

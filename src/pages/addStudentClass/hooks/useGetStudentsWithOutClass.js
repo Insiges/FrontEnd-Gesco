@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import QUERY_KEYS from "../../../consts/queryKeys";
 import { getStudentsNoClass } from "../../../services/api/class";
 
-export function useGetStudents() {
+export function useGetStudentsWithOutClass() {
 	return useQuery({
-		queryKey: [QUERY_KEYS.STUDENTS],
+		queryKey: [QUERY_KEYS.STUDENTS_WITHOUT_CLASS],
 		queryFn: getStudentsNoClass,
 	});
 }

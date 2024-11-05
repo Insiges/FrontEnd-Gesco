@@ -18,7 +18,6 @@ export const ClassesStudentsAdd = () => {
 	};
 
 	const saveStudents = async () => {
-		console.log("Estudantes selecionados salvos:", id);
 		await addStudent(
 			{ id_turma: id, id_aluno: selectedStudents },
 			{
