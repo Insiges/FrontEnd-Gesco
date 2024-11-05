@@ -1,21 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { deleteClass, getClasses } from "../../services/api/class";
 import { Button, ClassTable, SearchFilter } from "./components/index";
+import { useGetClasses } from "./hooks/useGetClasses";
 
 export const Classes = () => {
-	const [classe, setClasse] = useState([]);
 	const [showModalDelete, setShowModalDelete] = useState(false);
 	const [idClass, setIdClass] = useState("");
-
-	useEffect(() => {
-		const fetchClasse = async () => {
-			const response = await getClasses();
-
-			setClasse(response);
-		};
-
-		fetchClasse();
-	}, []);
+	const { data: classes } = useGetClasses();
 
 	const handleDeletarClass = (id) => {
 		setShowModalDelete(true);
@@ -44,7 +35,7 @@ export const Classes = () => {
 				<Button />
 			</div>
 			<SearchFilter />
-			<ClassTable turmas={classe} handleDelete={handleDeletarClass} />
+			<ClassTable turmas={classes} handleDelete={handleDeletarClass} />
 			{showModalDelete && (
 				<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
 					<div className="bg-white max-h-96  w-[20%] min-w-64 p-3 rounded-lg shadow-lg">
