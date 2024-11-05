@@ -1,23 +1,26 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getStudentsByClass } from "../../services/api/class";
+import { useGetStudentsWithOutClass } from "../addStudentClass/hooks/useGetStudentsWithOutClass";
 import { Button, SearchFilter, StudentsTable } from "./components/index";
+import { useGetStudentsByClass } from "./hooks/useGetStudentsByClass";
 
 export const ClassesStudents = () => {
-	const [student, setStudent] = useState([]);
+	// const { data: students } = useGetStudentsWithOutClass();
 	const { id } = useParams();
+	const { data: studentsByClass } = useGetStudentsByClass(id);
 
-	useEffect(() => {
-		const fetchStudents = async () => {
-			try {
-				const response = await getStudentsByClass(id);
-				setStudent(response);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-		fetchStudents();
-	}, [id]);
+	// useEffect(() => {
+	// 	const fetchStudents = async () => {
+	// 		try {
+	// 			const response = await getStudentsByClass(id);
+	// 			setStudent(response);
+	// 		} catch (error) {
+	// 			console.error(error);
+	// 		}
+	// 	};
+	// 	fetchStudents();
+	// }, [id]);
 
 	return (
 		<div>
@@ -27,7 +30,7 @@ export const ClassesStudents = () => {
 				<Button id={id} />
 			</div>
 			<SearchFilter />
-			<StudentsTable students={student} />
+			<StudentsTable students={studentsByClass} />
 		</div>
 	);
 };

@@ -2,11 +2,11 @@ import { MdDelete, MdGroups2 } from "react-icons/md";
 
 export const StudentsTable = ({ students }) => {
 	const handleDelete = (id) => {
-		console.log(id);
+		console.log({ id });
 	};
 	return (
 		<div className="flex mx-4 justify-center rounded-lg shadow-lg border-firstBlue">
-			{students.length === 0 ? (
+			{!students || (!!students && students.length <= 0) ? (
 				<p className="text-center text-xl text-gray-500 py-4">
 					Não há estudantes cadastrados
 				</p>

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { MdDelete, MdGroups2 } from "react-icons/md";
-import { useGetStudents } from "../../hooks/useGetStudents";
+import { useGetStudentsWithOutClass } from "../../hooks/useGetStudentsWithOutClass";
 
 export const AddStudentsTable = ({ onSelectionChange }) => {
-	const { data: students } = useGetStudents();
+	const { data: students } = useGetStudentsWithOutClass();
 	const [selectedStudentIds, setSelectedStudentIds] = useState([]);
 	const [selectAll, setSelectAll] = useState(false);
 
@@ -31,7 +31,7 @@ export const AddStudentsTable = ({ onSelectionChange }) => {
 
 	return (
 		<div className="flex mx-4 justify-center rounded-lg shadow-lg border-firstBlue">
-			{!!students && students.length === 0 ? (
+			{!students || (!!students && students.length <= 0) ? (
 				<p className="text-center text-xl text-gray-500 py-4">
 					Não há estudantes cadastrados
 				</p>
