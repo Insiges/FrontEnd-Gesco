@@ -9,7 +9,7 @@ export function Counters({ counters }) {
 				</div>
 				<div>
 					<p className="text-[#4A90E2] font-medium">Estudantes</p>
-					<p className="text-3xl font-bold">{counters.alunos || 0}</p>
+					<p className="text-3xl font-bold">{counters?.alunos ?? 0}</p>
 				</div>
 			</div>
 
@@ -19,7 +19,7 @@ export function Counters({ counters }) {
 				</div>
 				<div>
 					<p className="text-[#4A90E2] font-medium">Eventos</p>
-					<p className="text-3xl font-bold">{counters.eventos || 0}</p>
+					<p className="text-3xl font-bold">{counters?.eventos ?? 0}</p>
 				</div>
 			</div>
 
@@ -29,7 +29,7 @@ export function Counters({ counters }) {
 				</div>
 				<div>
 					<p className="text-[#4A90E2] font-medium">Professores</p>
-					<p className="text-3xl font-bold">{counters.professores || 0}</p>
+					<p className="text-3xl font-bold">{counters?.professores ?? 0}</p>
 				</div>
 			</div>
 		</div>

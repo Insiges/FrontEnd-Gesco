@@ -8,10 +8,3 @@ export const useGetDocents = () => {
 		queryFn: getDocents,
 	});
 };
-
-export const useGetCounters = () => {
-	return useQuery({
-		queryKey: [QUERY_KEYS.COUNTERS],
-		queryFn: getCounters,
-	});
-};
