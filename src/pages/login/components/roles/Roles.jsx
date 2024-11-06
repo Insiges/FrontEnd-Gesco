@@ -1,5 +1,7 @@
 import React from "react";
 import peopleImage from "../../../../assets/login/people.png";
+import { TYPE_OF_SIGNIN } from "../../../../consts/storageKeys";
+import { setStorage } from "../../../../services/storage/storage";
 import useUserInfos from "../../../../stores/userStore";
 import { Header } from "../header/Header";
 
@@ -7,6 +9,7 @@ export function Roles({ setRole }) {
 	const { setUserType } = useUserInfos();
 
 	const handleSelectRole = (role) => {
+		setStorage(TYPE_OF_SIGNIN, role);
 		setUserType(role);
 		setRole(role);
 	};
