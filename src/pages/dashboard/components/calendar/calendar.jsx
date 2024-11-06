@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useState } from "react";
 
 // TODO
@@ -98,9 +99,9 @@ export function Calendar({ events }) {
 				<button
 					type="button"
 					onClick={prevMonth}
-					className="p-2 bg-gray-200 rounded-full"
+					className="p-2  rounded-md hover:bg-gray-100"
 				>
-					&lt;
+					<ChevronLeft />
 				</button>
 				<h2 className="text-lg font-bold text-center">
 					{getMonthName(currentMonth)} {currentYear}
@@ -108,9 +109,9 @@ export function Calendar({ events }) {
 				<button
 					type="button"
 					onClick={nextMonth}
-					className="p-2 bg-gray-200 rounded-full"
+					className="p-2  rounded-md hover:bg-gray-100"
 				>
-					&gt;
+					<ChevronRight />
 				</button>
 			</div>
 			<div className="grid grid-cols-7 text-center font-medium text-gray-500">

@@ -16,9 +16,9 @@ import {
 	Students,
 	Timetable,
 } from "../pages/index";
-import DashboardTeacher from "../pages/pages-teacher/dashboard/dashboardTeacher.jsx";
-import Room from "../pages/pages-teacher/roomBook/room.jsx";
-import RoomBook from "../pages/pages-teacher/roomBook/roomBook.jsx";
+
+import Room from "../pages/roomReservation/roomBook/room.jsx";
+import RoomBook from "../pages/roomReservation/roomBook/roomBook.jsx";
 import StudentsRegistration from "../pages/students/components/StudentRegistration/StudentsRegistration.jsx";
 import { ProtectedRoute } from "./ProtectedRoute";
 
@@ -103,10 +103,6 @@ const router = createBrowserRouter([
 								element: <Room />,
 							},
 						],
-					},
-					{
-						path: "/dashboard-teacher",
-						element: <DashboardTeacher />,
 					},
 					{ path: "/students-attendance", element: <StudentAttendance /> },
 				],

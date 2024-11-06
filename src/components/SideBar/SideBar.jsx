@@ -1,16 +1,20 @@
-import { GraduationCap } from "lucide-react";
+import { GraduationCap, ListChecks, Projector } from "lucide-react";
 import { FaRegCalendarAlt, FaUserTie } from "react-icons/fa";
-import { FaBook } from "react-icons/fa";
 import { FiHome } from "react-icons/fi";
 import { GrUserManager } from "react-icons/gr";
 import { IoTime } from "react-icons/io5";
 import { MdGroups2 } from "react-icons/md";
 import { Link } from "react-router-dom";
 import logoImg from "/logoGesco.png";
+import useUserInfos from "../../stores/userStore";
 import LinkSideBar from "./LinkSideBar/LinkSideBar";
 
 export function SideBar() {
-	const sideBarOptions = [...sideBarOptionsAdmin, ...sideBarOptionsTeacher];
+	const { userType } = useUserInfos();
+	const sideBarOptions =
+		userType === "professor"
+			? [...commonSideBarOptions, ...sideBarOptionsTeacher]
+			: [...commonSideBarOptions, ...sideBarOptionsAdmin];
 	return (
 		<nav className="lg:min-w-full max-w-10 min-h-screen bg-firstBlue  flex flex-col items-center gap-7 overflow-visible relative">
 			<Link
@@ -40,32 +44,47 @@ export function SideBar() {
 
 const sideBarOptionsTeacher = [
 	{
-		id: "1866",
-		name: "Reserva de Salas",
-		url: "/sala",
-		icon: <FaBook />,
-	},
-	{
-		id: "1415",
-		name: "Dashboard Professor",
-		url: "/dashboard-teacher",
-		icon: <FiHome />,
-	},
-	{
 		id: "1415",
 		name: "Presença",
 		url: "/students-attendance",
-		icon: <FiHome />,
+		icon: <ListChecks />,
+	},
+	{
+		id: "1314",
+		name: "Atividades",
+		url: "/activities",
+		icon: <GraduationCap />,
+	},
+	{
+		id: "1213",
+		name: "Grade de Horáros",
+		url: "/classesSchedule",
+		icon: <IoTime />,
+	},
+	{
+		id: "1866",
+		name: "Reserva de Salas",
+		url: "/sala",
+		icon: <Projector />,
 	},
 ];
 
-const sideBarOptionsAdmin = [
+const commonSideBarOptions = [
 	{
 		id: "1234",
 		name: "Dashboard",
 		url: "/dashboard",
 		icon: <FiHome />,
 	},
+	{
+		id: "1011",
+		name: "Eventos",
+		url: "/events",
+		icon: <FaRegCalendarAlt />,
+	},
+];
+
+const sideBarOptionsAdmin = [
 	{
 		id: "4567",
 		name: "Alunos",
@@ -78,28 +97,11 @@ const sideBarOptionsAdmin = [
 		url: "/docents",
 		icon: <FaUserTie />,
 	},
-	{
-		id: "1011",
-		name: "Eventos",
-		url: "/events",
-		icon: <FaRegCalendarAlt />,
-	},
+
 	{
 		id: "1112",
 		name: "Turmas",
 		url: "/classes",
 		icon: <MdGroups2 />,
-	},
-	{
-		id: "1213",
-		name: "Grade de Horáros",
-		url: "/classesSchedule",
-		icon: <IoTime />,
-	},
-	{
-		id: "1314",
-		name: "Atividades",
-		url: "/activities",
-		icon: <GraduationCap />,
 	},
 ];
