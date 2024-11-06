@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 
+import dayjs from "dayjs";
 import { getCounters } from "../../services/api/school";
 
-import useUserInfos from "../../stores/userStore";
-import { useGetUserInfos } from "../login/hooks/useGetUserInfos";
 import {
 	Calendar,
 	Counters,
@@ -11,16 +10,13 @@ import {
 	DonutChart,
 	SchoolPerformanceChart,
 } from "./components";
+import { useGetEventsByMonth } from "./hooks/useGetEventsByMonth";
 
-const events = [
-	{ day: 3, eventName: "Meeting" },
-	{ day: 8, eventName: "Class Presentation" },
-	{ day: 20, eventName: "Workshop" },
-	{ day: 25, eventName: "Holiday" },
-];
+const currentlyMonth = dayjs().month();
 
 export function Dashboard() {
 	const [counters, setCounter] = useState([]);
+	const { data: events } = useGetEventsByMonth(currentlyMonth + 1);
 
 	useEffect(() => {
 		async function fetchCounters() {
@@ -50,6 +46,7 @@ export function Dashboard() {
 			</div>
 			<div className="space-y-4">
 				<div className="bg-white  rounded-lg p-6">
+					{" "}
 					<Calendar events={events} />
 				</div>
 				<div className="bg-white shadow-xl rounded-lg p-6">

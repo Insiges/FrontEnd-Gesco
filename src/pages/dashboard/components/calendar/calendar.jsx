@@ -25,7 +25,10 @@ export function Calendar({ events }) {
 
 	// Função para verificar se um dia tem eventos
 	const hasEvent = (day) => {
-		const eventDay = events.find((event) => event.day === day);
+		const eventDay =
+			!!events &&
+			events.length > 0 &&
+			events.find((event) => event.day === day);
 		return !!eventDay; // Retorna true se houver evento no dia
 	};
 

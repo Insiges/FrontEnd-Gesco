@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import QUERY_KEYS from "../../../consts/QueryKeys";
+import QUERY_KEYS from "../../../consts/queryKeys";
 import { getEvents, getEventsByDate } from "../../../services/api/school";
 
 export const useGetEvents = () => {

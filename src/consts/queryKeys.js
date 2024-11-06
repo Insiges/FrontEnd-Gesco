@@ -3,6 +3,7 @@ const QUERY_KEYS = {
 	COUNTERS: "counters",
 	EVENTS: "events",
 	EVENTS_BY_DATE: "eventsByDate",
+	EVENTS_BY_MONTH: "eventsByMonth",
 	USER_INFO: "userInfos",
 	ACTIVITIES: "activities",
 	CLASS_BY_PROFESSOR: "classByProfessor",
