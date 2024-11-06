@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { getStudentsByClass } from "../../services/api/class";
 import { saveFrequency } from "../../services/api/frequency";
 import useUserInfos from "../../stores/userStore";
-import { inputClassName } from "../GestaoDocente/common";
+
 import { useGetClassByProfessor } from "../activities/hooks/useGetClassByProfessor";
+import { inputClassName } from "../gestaoDocente/common";
 
 // tabela disciplinas joined com prof
 const profDisciplinasFromApi = [

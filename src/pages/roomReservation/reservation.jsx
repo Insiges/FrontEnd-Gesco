@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import "react-datepicker/dist/react-datepicker.css";
 import ptBR from "date-fns/locale/pt-BR";
 
-const Room = () => {
+export function Reservation() {
 	const sala = decodeURIComponent(useParams().sala);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [reservas, setReservas] = useState([
@@ -187,6 +187,4 @@ const Room = () => {
 			</div>
 		</div>
 	);
-};
-
-export default Room;
+}
