@@ -13,10 +13,6 @@ import { useGetUserInfos } from "./hooks/useGetUserInfos";
 import { useSignIn } from "./hooks/useSignIn";
 
 export function Login() {
-	// TODO
-	// - Armazenar o tipo de login("professor" ou "escola") no localStorage
-	// = Caso clique em fazer login, tirar o token e o tipo de login no localStorage
-
 	const [loginType, setLoginType] = useState("");
 	const [credentialsError, setCredentialsError] = useState("");
 	const navigate = useNavigate();
