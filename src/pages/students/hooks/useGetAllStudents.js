@@ -1,12 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
+import QUERY_KEYS from "../../../consts/queryKeys";
+import { getStudents } from "../../../services/api/students";
 
-import { getStudents } from "../../api/students";
-
-import { queryStudentsKey } from "./queryKeyFactory";
-
-export const useStudentsQuery = () =>
-	useQuery({
-		queryKey: queryStudentsKey.all,
+export const useGetAllStudents = () => {
+	return useQuery({
+		queryKey: [QUERY_KEYS.STUDENTS],
 		queryFn: getStudents,
 		onSuccess: (data) => {
 			console.log("Fetched students successfully", data);
@@ -15,3 +13,4 @@ export const useStudentsQuery = () =>
 			console.error("Error fetching students", error);
 		},
 	});
+};

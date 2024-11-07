@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { MdDelete, MdGroups2 } from "react-icons/md";
+import { useGetStudentsWithOutClass } from "../../hooks/useGetStudentsWithOutClass";
 
-export const AddStudentsTable = ({ students, onSelectionChange }) => {
+export const AddStudentsTable = ({ onSelectionChange }) => {
+	const { data: students } = useGetStudentsWithOutClass();
 	const [selectedStudentIds, setSelectedStudentIds] = useState([]);
 	const [selectAll, setSelectAll] = useState(false);
 
@@ -29,7 +31,7 @@ export const AddStudentsTable = ({ students, onSelectionChange }) => {
 
 	return (
 		<div className="flex mx-4 justify-center rounded-lg shadow-lg border-firstBlue">
-			{students.length === 0 ? (
+			{!students || (!!students && students.length <= 0) ? (
 				<p className="text-center text-xl text-gray-500 py-4">
 					Não há estudantes cadastrados
 				</p>
@@ -57,31 +59,33 @@ export const AddStudentsTable = ({ students, onSelectionChange }) => {
 					</thead>
 
 					<tbody>
-						{students.map((student) => (
-							<tr key={student.id} className="bg-white ">
-								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center ">
-									<input
-										type="checkbox"
-										checked={selectedStudentIds.includes(student.id)}
-										onChange={() => handleCheckboxChange(student.id)}
-									/>
-								</td>
-								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
-									<div className="flex sm:ps-8 items-center justify-start">
-										<MdGroups2 className="mr-2 hidden sm:block  align-middle" />
-										<span className="inline-block align-middle">
-											{student.nome}
-										</span>
-									</div>
-								</td>
-								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
-									{student.matricula}
-								</td>
-								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
-									{student.dataNascimento}
-								</td>
-							</tr>
-						))}
+						{!!students &&
+							students.length > 0 &&
+							students.map((student) => (
+								<tr key={student.id} className="bg-white ">
+									<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center ">
+										<input
+											type="checkbox"
+											checked={selectedStudentIds.includes(student.id)}
+											onChange={() => handleCheckboxChange(student.id)}
+										/>
+									</td>
+									<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
+										<div className="flex sm:ps-8 items-center justify-start">
+											<MdGroups2 className="mr-2 hidden sm:block  align-middle" />
+											<span className="inline-block align-middle">
+												{student.nome}
+											</span>
+										</div>
+									</td>
+									<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
+										{student.matricula}
+									</td>
+									<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
+										{student.dataNascimento}
+									</td>
+								</tr>
+							))}
 					</tbody>
 				</table>
 			)}

@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useState } from "react";
 
 // TODO
@@ -25,7 +26,10 @@ export function Calendar({ events }) {
 
 	// Função para verificar se um dia tem eventos
 	const hasEvent = (day) => {
-		const eventDay = events.find((event) => event.day === day);
+		const eventDay =
+			!!events &&
+			events.length > 0 &&
+			events.find((event) => event.day === day);
 		return !!eventDay; // Retorna true se houver evento no dia
 	};
 
@@ -95,9 +99,9 @@ export function Calendar({ events }) {
 				<button
 					type="button"
 					onClick={prevMonth}
-					className="p-2 bg-gray-200 rounded-full"
+					className="p-2  rounded-md hover:bg-gray-100"
 				>
-					&lt;
+					<ChevronLeft />
 				</button>
 				<h2 className="text-lg font-bold text-center">
 					{getMonthName(currentMonth)} {currentYear}
@@ -105,9 +109,9 @@ export function Calendar({ events }) {
 				<button
 					type="button"
 					onClick={nextMonth}
-					className="p-2 bg-gray-200 rounded-full"
+					className="p-2  rounded-md hover:bg-gray-100"
 				>
-					&gt;
+					<ChevronRight />
 				</button>
 			</div>
 			<div className="grid grid-cols-7 text-center font-medium text-gray-500">

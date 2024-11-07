@@ -5,34 +5,31 @@ import {
 	saveStudentInOneClass,
 } from "../../services/api/class";
 import { AddStudentsTable, Button, SearchFilter } from "./components/index";
+import { useAddStudentInClass } from "./hooks/useAddStudentInClass";
 
 export const ClassesStudentsAdd = () => {
 	const [selectedStudents, setSelectedStudents] = useState([]);
-	const [student, setStudent] = useState([]);
 	const navigate = useNavigate();
 	const { id } = useParams();
+	const { mutateAsync: addStudent } = useAddStudentInClass();
 
 	const handleSelectionChange = (newSelectedStudents) => {
 		setSelectedStudents(newSelectedStudents);
 	};
 
 	const saveStudents = async () => {
-		await saveStudentInOneClass(id, selectedStudents);
-		console.log("Estudantes selecionados salvos:", selectedStudents);
-		navigate(`/classes/${id}/students`);
+		await addStudent(
+			{ id_turma: id, id_aluno: selectedStudents },
+			{
+				onSuccess: () => {
+					navigate(`/classes/${id}/students`);
+				},
+				onError: () => {
+					alert("Erro ao tentar adicionar estudante na turma!");
+				},
+			},
+		);
 	};
-
-	useEffect(() => {
-		const fetchStudents = async () => {
-			try {
-				const response = await getStudentsNoClass();
-				setStudent(response);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-		fetchStudents();
-	}, []);
 
 	return (
 		<div>
@@ -44,10 +41,7 @@ export const ClassesStudentsAdd = () => {
 				<Button onSave={saveStudents} />
 			</div>
 			<SearchFilter />
-			<AddStudentsTable
-				students={student}
-				onSelectionChange={handleSelectionChange}
-			/>
+			<AddStudentsTable onSelectionChange={handleSelectionChange} />
 		</div>
 	);
 };

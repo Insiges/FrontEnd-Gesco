@@ -1,21 +1,13 @@
-import { useEffect, useState } from "react";
-import { deleteClass, getClasses } from "../../services/api/class";
+import { useState } from "react";
 import { Button, ClassTable, SearchFilter } from "./components/index";
+import { useDeleteClasses } from "./hooks/useDeleteClasses";
+import { useGetClasses } from "./hooks/useGetClasses";
 
 export const Classes = () => {
-	const [classe, setClasse] = useState([]);
 	const [showModalDelete, setShowModalDelete] = useState(false);
 	const [idClass, setIdClass] = useState("");
-
-	useEffect(() => {
-		const fetchClasse = async () => {
-			const response = await getClasses();
-
-			setClasse(response);
-		};
-
-		fetchClasse();
-	}, []);
+	const { data: classes } = useGetClasses();
+	const { mutateAsync: deleteClass } = useDeleteClasses();
 
 	const handleDeletarClass = (id) => {
 		setShowModalDelete(true);
@@ -23,13 +15,11 @@ export const Classes = () => {
 	};
 
 	const handleDeleteClassConfirm = async () => {
-		await deleteClass(idClass);
-
-		setShowModalDelete(false);
-		setTimeout(async () => {
-			const response = await getClasses();
-			setClasse(response);
-		}, 2000);
+		await deleteClass(idClass, {
+			onSuccess: () => {
+				setShowModalDelete(false);
+			},
+		});
 	};
 
 	const closeModal = () => {
@@ -44,7 +34,7 @@ export const Classes = () => {
 				<Button />
 			</div>
 			<SearchFilter />
-			<ClassTable turmas={classe} handleDelete={handleDeletarClass} />
+			<ClassTable turmas={classes} handleDelete={handleDeletarClass} />
 			{showModalDelete && (
 				<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
 					<div className="bg-white max-h-96  w-[20%] min-w-64 p-3 rounded-lg shadow-lg">

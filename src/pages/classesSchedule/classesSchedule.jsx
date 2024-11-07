@@ -1,19 +1,8 @@
-import { useEffect, useState } from "react";
-import { getClasses } from "../../services/api/class";
 import { ClassTable, SearchFilter } from "./components/index";
+import { useGetAllClasses } from "./hooks/useGetAllClasses";
 
 export const ClassesSchedule = () => {
-	const [classe, setClasse] = useState([]);
-
-	useEffect(() => {
-		const fetchClasse = async () => {
-			const response = await getClasses();
-
-			setClasse(response);
-		};
-
-		fetchClasse();
-	}, []);
+	const { data: classe } = useGetAllClasses();
 
 	return (
 		<div>

@@ -1,21 +1,32 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useEffect } from "react";
+
 import { RouterProvider } from "react-router-dom";
+
+import { useEffect } from "react";
+import { useHasTypeUser } from "./hooks/useHasTypeUser";
 import router from "./routes/router";
 import { useAuthStore } from "./stores/authStore";
 
 const queryClient = new QueryClient();
 
 export function App() {
-	const { initializeAuth } = useAuthStore();
-
-	useEffect(() => {
-		initializeAuth();
-	}, [initializeAuth]);
-
 	return (
 		<QueryClientProvider client={queryClient}>
-			<RouterProvider router={router} />
+			<AppWithInitialization />
 		</QueryClientProvider>
 	);
+}
+
+function AppWithInitialization() {
+	const { initializeAuth } = useAuthStore();
+	const { pushTypeUser, fetchUserInfos } = useHasTypeUser();
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		initializeAuth();
+		pushTypeUser();
+		fetchUserInfos();
+	}, [initializeAuth]);
+
+	return <RouterProvider router={router} />;
 }

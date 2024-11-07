@@ -5,21 +5,22 @@ import { Modal } from "./components/Modal";
 import StudentRegistration from "./components/StudentRegistration/StudentsRegistration";
 import StudentsList from "./components/StudentsList";
 
-import { editStudent } from "../../services/api/students";
-import { useAddStudentMutation } from "../../services/hooks/students/useAddStudentMutation";
-import { useDeleteStudentMutation } from "../../services/hooks/students/useDeleteStudentMutation";
-import { useStudentsQuery } from "../../services/hooks/students/useStudentsQuery";
+import { useCreateStudent } from "./hooks/useCreateStudent";
+import { useDeleteStudent } from "./hooks/useDeleteStudent";
+import { useEditStudent } from "./hooks/useEditStudent";
+import { useGetAllStudents } from "./hooks/useGetAllStudents";
 
 export const Students = () => {
 	const navigate = useNavigate();
 
 	const [showModalWithId, setShowModalWithId] = useState(null);
 
-	const { data } = useStudentsQuery();
+	const { data } = useGetAllStudents();
 
-	const { mutateAsync: addStudent } = useAddStudentMutation();
+	const { mutateAsync: addStudent } = useCreateStudent();
 
-	const { mutateAsync: deleteStudent } = useDeleteStudentMutation();
+	const { mutateAsync: deleteStudent } = useDeleteStudent();
+	const { mutateAsync: editStudent } = useEditStudent();
 
 	const onAddNewStudent = async (newStudentData) => {
 		await addStudent(
@@ -33,10 +34,11 @@ export const Students = () => {
 	};
 
 	const onUpdateStudent = async (dados) => {
-		await editStudent(dados);
-
-		navigate("/students");
-		window.location.reload();
+		await editStudent(dados, {
+			onSuccess: () => {
+				navigate("/students");
+			},
+		});
 	};
 
 	const onConfirmDeleteStudent = async () => {

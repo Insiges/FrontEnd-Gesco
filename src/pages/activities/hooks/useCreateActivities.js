@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import QUERY_KEYS from "../../../consts/QueryKeys";
+
+import QUERY_KEYS from "../../../consts/queryKeys";
 import { createActivity } from "../../../services/api/activities";
 
 export const useCreateActivities = () => {

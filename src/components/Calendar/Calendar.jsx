@@ -52,11 +52,6 @@ export default function Calendar({ title }) {
 	if (isLoading) return <div>Loading...</div>;
 	if (eventsError) return <div>Error loading events</div>;
 
-	// TODO
-	// - Mudar a aparencia do component que cria os eventos
-	// - Passar as infos do evento para um zustand
-	// - Criar um select para horário
-
 	return (
 		<div className="w-full h-full bg-white shadow-lg rounded-lg p-6">
 			<CalendarHeader

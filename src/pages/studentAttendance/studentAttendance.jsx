@@ -2,14 +2,9 @@ import React, { useEffect, useState } from "react";
 import { getStudentsByClass } from "../../services/api/class";
 import { saveFrequency } from "../../services/api/frequency";
 import useUserInfos from "../../stores/userStore";
-import { inputClassName } from "../GestaoDocente/common";
-import { useGetClassByProfessor } from "../activities/hooks/useGetClassByProfessor";
 
-// tabela disciplinas joined com prof
-const profDisciplinasFromApi = [
-	{ id: 1, nome: "Matematica" },
-	{ id: 2, nome: "Outra" },
-];
+import { useGetClassByProfessor } from "../activities/hooks/useGetClassByProfessor";
+import { inputClassName } from "../gestaoDocente/common";
 
 // Não é claro se este componente será importado dentro de algum modulo ou
 // se ele será acessado no root das rotas. Por isso coloquei como prop 'professorId'
@@ -59,11 +54,14 @@ export const StudentAttendance = ({ professorId = null }) => {
 			return;
 		}
 
-		const onlyPresentStudents = students
-			.map((student) => (student.presenca === "PRESENTE" ? student.id : false))
-			.filter(Boolean);
-
-		console.log(onlyPresentStudents);
+		const onlyPresentStudents =
+			!!students &&
+			students.length > 0 &&
+			students
+				.map((student) =>
+					student.presenca === "PRESENTE" ? student.id : false,
+				)
+				.filter(Boolean);
 
 		const submitFrequency = async () => {
 			const body = {
@@ -130,7 +128,7 @@ export const StudentAttendance = ({ professorId = null }) => {
 						<option value="" disabled selected>
 							Selecione uma disciplina
 						</option>
-						{userInfos.disciplinas.map((it) => (
+						{userInfos?.disciplinas?.map((it) => (
 							<option key={it.id} value={it.id}>
 								{it.nome}
 							</option>

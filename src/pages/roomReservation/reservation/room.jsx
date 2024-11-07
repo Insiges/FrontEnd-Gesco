@@ -3,7 +3,7 @@ import { FaBook } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router";
 import { Outlet } from "react-router-dom";
 
-const RoomBook = () => {
+export function Room() {
 	const navigate = useNavigate();
 
 	const handleReserveClick = (sala) => {
@@ -90,6 +90,4 @@ const RoomBook = () => {
 			<Outlet />
 		</div>
 	);
-};
-
-export default RoomBook;
+}

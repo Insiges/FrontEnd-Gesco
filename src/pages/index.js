@@ -10,3 +10,6 @@ export * from "./classesSchedule/classesSchedule";
 export * from "./activities/activities";
 export * from "./classesStudents/classesStudents";
 export * from "./addStudentClass/addStudentClass";
+export * from "./roomReservation/reservation";
+export * from "./roomReservation/reservation/room";
+export * from "./studentAttendance/studentAttendance";

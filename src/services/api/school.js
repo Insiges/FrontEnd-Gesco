@@ -63,3 +63,11 @@ export async function getEventsByDate(date) {
 
 	return request.body;
 }
+
+export async function getEventsByMonth(month) {
+	const url = `eventos/params?mes=${month}`;
+
+	const request = await makeRequest("GET", url);
+
+	return request.body;
+}

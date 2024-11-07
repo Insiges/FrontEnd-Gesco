@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ACCESS_TOKEN } from "../consts/storageKeys";
+import { ACCESS_TOKEN, TYPE_OF_SIGNIN } from "../consts/storageKeys";
 import { getStorage, removeStorage } from "../services/storage/storage";
 
 export const useAuthStore = create((set) => ({
@@ -16,5 +16,9 @@ export const useAuthStore = create((set) => ({
 			set({ token: null, isAuthenticated: false, isInitialized: true });
 		}
 	},
-	logout: () => set({ token: null, isAuthenticated: false }),
+	logout: () => {
+		removeStorage(ACCESS_TOKEN);
+		// removeStorage(TYPE_OF_SIGNIN);
+		set({ token: null, isAuthenticated: false });
+	},
 }));

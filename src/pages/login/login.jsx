@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import notebookImage from "../../assets/login/pc.png";
-
+import { useHasTokenInLocal } from "../../hooks/useHasTokenInLocal";
 import { useAuthStore } from "../../stores/authStore";
 import useUserInfos from "../../stores/userStore";
 import { Header } from "../login/components/header/Header";
@@ -16,6 +16,8 @@ export function Login() {
 	const [loginType, setLoginType] = useState("");
 	const [credentialsError, setCredentialsError] = useState("");
 	const navigate = useNavigate();
+
+	const { hasToken } = useHasTokenInLocal();
 
 	const {
 		register,
@@ -30,22 +32,18 @@ export function Login() {
 			password: "",
 		},
 	});
-	const { setDados, setDisciplinas, setDiplomas, userType } = useUserInfos();
-	const { data: userInfos } = useGetUserInfos(userType);
+	const { fetchUserInfos } = useHasTypeUser();
+
+	const { logout } = useAuthStore();
 
 	const { mutateAsync: signIn } = useSignIn();
 
-	const { isAuthenticated } = useAuthStore();
-
 	const handleSignIn = async (data) => {
-		const dataWIthRole = { ...data, role: loginType };
-		await signIn(dataWIthRole, {
+		if (hasToken) logout();
+		const dataWithRole = { ...data, role: loginType };
+		await signIn(dataWithRole, {
 			onSuccess: () => {
-				if (userType === "professor") {
-					setDados(userInfos.dados);
-					setDiplomas(userInfos.diplomas);
-					setDisciplinas(userInfos.disciplinas);
-				}
+				fetchUserInfos();
 				navigate("/dashboard");
 			},
 			onError: () => {

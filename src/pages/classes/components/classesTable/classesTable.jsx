@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { MdDelete, MdGroups2 } from "react-icons/md";
 import { TbEditCircle } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
-import { editClass } from "../../../../services/api/class";
-import { EditModal } from "../modal/editModal/modal"; // Certifique-se de ajustar o caminho conforme necessário
+import { useEditClasses } from "../../hooks/useEditClasses";
+import { EditModal } from "../modal/editModal/modal";
 
 export const ClassTable = ({ turmas, handleDelete }) => {
 	const [selectedTurma, setSelectedTurma] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const { mutateAsync: editClass } = useEditClasses();
 
 	const handleEditClick = (turma) => {
 		setSelectedTurma(turma);
@@ -15,11 +16,11 @@ export const ClassTable = ({ turmas, handleDelete }) => {
 	};
 
 	const handleSave = async (updatedTurma) => {
-		await editClass(updatedTurma);
-		// Implement save logic here
-		console.log("Updated Turma:", updatedTurma);
-		setIsModalOpen(false); // Fechar modal após salvar
-		window.location.reload();
+		await editClass(updatedTurma, {
+			onSuccess: () => {
+				setIsModalOpen(false);
+			},
+		});
 	};
 
 	const navigate = useNavigate();
@@ -30,7 +31,7 @@ export const ClassTable = ({ turmas, handleDelete }) => {
 
 	return (
 		<div className="flex mx-4 justify-center rounded-lg shadow-lg border-firstBlue">
-			{turmas.length === 0 ? (
+			{!turmas || (!!turmas && turmas.length === 0) ? (
 				<p className="text-center text-xl text-gray-500 py-4">
 					Não há turmas cadastradas
 				</p>
