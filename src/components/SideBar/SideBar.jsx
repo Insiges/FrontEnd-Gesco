@@ -76,12 +76,6 @@ const commonSideBarOptions = [
 		url: "/dashboard",
 		icon: <FiHome />,
 	},
-	{
-		id: "1011",
-		name: "Eventos",
-		url: "/events",
-		icon: <FaRegCalendarAlt />,
-	},
 ];
 
 const sideBarOptionsAdmin = [
@@ -103,5 +97,11 @@ const sideBarOptionsAdmin = [
 		name: "Turmas",
 		url: "/classes",
 		icon: <MdGroups2 />,
+	},
+	{
+		id: "1011",
+		name: "Eventos",
+		url: "/events",
+		icon: <FaRegCalendarAlt />,
 	},
 ];
