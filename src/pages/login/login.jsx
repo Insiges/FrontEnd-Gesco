@@ -32,8 +32,8 @@ export function Login() {
 			password: "",
 		},
 	});
-	const { setDados, setDisciplinas, setDiplomas, userType } = useUserInfos();
-	const { data: userInfos } = useGetUserInfos(userType);
+	const { fetchUserInfos } = useHasTypeUser();
+
 	const { logout } = useAuthStore();
 
 	const { mutateAsync: signIn } = useSignIn();
@@ -43,11 +43,7 @@ export function Login() {
 		const dataWithRole = { ...data, role: loginType };
 		await signIn(dataWithRole, {
 			onSuccess: () => {
-				if (userType === "professor") {
-					setDados(userInfos.dados);
-					setDiplomas(userInfos.diplomas);
-					setDisciplinas(userInfos.disciplinas);
-				}
+				fetchUserInfos();
 				navigate("/dashboard");
 			},
 			onError: () => {
