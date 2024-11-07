@@ -1,6 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useEffect } from "react";
+
 import { RouterProvider } from "react-router-dom";
+
+import { useEffect } from "react";
 import { useHasTypeUser } from "./hooks/useHasTypeUser";
 import router from "./routes/router";
 import { useAuthStore } from "./stores/authStore";
@@ -8,18 +10,23 @@ import { useAuthStore } from "./stores/authStore";
 const queryClient = new QueryClient();
 
 export function App() {
+	return (
+		<QueryClientProvider client={queryClient}>
+			<AppWithInitialization />
+		</QueryClientProvider>
+	);
+}
+
+function AppWithInitialization() {
 	const { initializeAuth } = useAuthStore();
-	const { pushTypeUser } = useHasTypeUser();
+	const { pushTypeUser, fetchUserInfos } = useHasTypeUser();
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		initializeAuth();
 		pushTypeUser();
+		fetchUserInfos();
 	}, [initializeAuth]);
 
-	return (
-		<QueryClientProvider client={queryClient}>
-			<RouterProvider router={router} />
-		</QueryClientProvider>
-	);
+	return <RouterProvider router={router} />;
 }
