@@ -6,12 +6,6 @@ import useUserInfos from "../../stores/userStore";
 import { useGetClassByProfessor } from "../activities/hooks/useGetClassByProfessor";
 import { inputClassName } from "../gestaoDocente/common";
 
-// tabela disciplinas joined com prof
-const profDisciplinasFromApi = [
-	{ id: 1, nome: "Matematica" },
-	{ id: 2, nome: "Outra" },
-];
-
 // Não é claro se este componente será importado dentro de algum modulo ou
 // se ele será acessado no root das rotas. Por isso coloquei como prop 'professorId'
 // para caso de que este componente seja acessado trazendo informações de algum parente.
@@ -60,11 +54,14 @@ export const StudentAttendance = ({ professorId = null }) => {
 			return;
 		}
 
-		const onlyPresentStudents = students
-			.map((student) => (student.presenca === "PRESENTE" ? student.id : false))
-			.filter(Boolean);
-
-		console.log(onlyPresentStudents);
+		const onlyPresentStudents =
+			!!students &&
+			students.length > 0 &&
+			students
+				.map((student) =>
+					student.presenca === "PRESENTE" ? student.id : false,
+				)
+				.filter(Boolean);
 
 		const submitFrequency = async () => {
 			const body = {
@@ -131,7 +128,7 @@ export const StudentAttendance = ({ professorId = null }) => {
 						<option value="" disabled selected>
 							Selecione uma disciplina
 						</option>
-						{userInfos.disciplinas.map((it) => (
+						{userInfos?.disciplinas?.map((it) => (
 							<option key={it.id} value={it.id}>
 								{it.nome}
 							</option>
