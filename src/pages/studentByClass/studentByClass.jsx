@@ -1,4 +1,6 @@
+import { useParams } from "react-router-dom";
 import { StudentData } from "./components/index";
+
 export const StudentByClass = () => {
 	const student = {
 		id: "12345",
@@ -27,6 +29,9 @@ export const StudentByClass = () => {
 		email: "jane.doe@example.com",
 		senha: "password123",
 	};
+
+	const { id } = useParams();
+	// const { data: student } = useGetStudent(id);
 
 	return (
 		<div>
