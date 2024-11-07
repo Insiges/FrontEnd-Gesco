@@ -5,6 +5,7 @@ export * from "./events/events";
 export * from "./landingPage/landing";
 export * from "./timetable/table";
 export * from "./gestaoDocente/docents";
+export * from "./gestaoDocente/registerDocente/registerDocente";
 export * from "./classes/classes";
 export * from "./classesSchedule/classesSchedule";
 export * from "./activities/activities";

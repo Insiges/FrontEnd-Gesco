@@ -4,7 +4,7 @@ import { saveFrequency } from "../../services/api/frequency";
 import useUserInfos from "../../stores/userStore";
 
 import { useGetClassByProfessor } from "../activities/hooks/useGetClassByProfessor";
-import { inputClassName } from "../gestaoDocente/common";
+import { inputClassName } from "../gestaoDocente/const/classConst";
 
 export const StudentAttendance = () => {
 	const [students, setStudents] = useState([]);

@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Default } from "../components/layouts/default";
 
-import Registration from "../pages/gestaoDocente/components/MembersRegistration/MembersRegistration.jsx";
 import {
 	Activities,
 	Classes,
@@ -13,6 +12,7 @@ import {
 	GestaoDocente,
 	LandingPage,
 	Login,
+	RegisterDocente,
 	Reservation,
 	Room,
 	StudentAttendance,
@@ -59,17 +59,27 @@ const router = createBrowserRouter([
 						path: "/events",
 						element: <Events />,
 					},
+					// {
+					// 	path: "/docents",
+					// 	element: <GestaoDocente />,
+					// },
+					// {
+					// 	path: "/docents/register/:id?",
+					// 	element: <Registration />,
+					// },
 					{
 						path: "/docents",
 						element: <GestaoDocente />,
+						// children: [
+						// 	{
+						// 		path: "register/:id?",
+						// 		element: <RegisterDocent />,
+						// 	},
+						// ],
 					},
 					{
-						path: "/docents/register",
-						element: <Registration />,
-					},
-					{
-						path: "docents/edit/:id",
-						element: <Registration />,
+						path: "/docents/register/:id?",
+						element: <RegisterDocente />,
 					},
 					{
 						path: "/Classes/",
