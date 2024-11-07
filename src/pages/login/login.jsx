@@ -4,12 +4,11 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import notebookImage from "../../assets/login/pc.png";
 import { useHasTokenInLocal } from "../../hooks/useHasTokenInLocal";
+import { useHasTypeUser } from "../../hooks/useHasTypeUser";
 import { useAuthStore } from "../../stores/authStore";
-import useUserInfos from "../../stores/userStore";
 import { Header } from "../login/components/header/Header";
 import { Roles } from "./components";
 import { loginSchema } from "./form/loginSchema";
-import { useGetUserInfos } from "./hooks/useGetUserInfos";
 import { useSignIn } from "./hooks/useSignIn";
 
 export function Login() {

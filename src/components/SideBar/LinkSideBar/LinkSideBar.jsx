@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const LinkSideBar = ({ url, icone, nome }) => {
 	const location = useLocation();
-	const isActive = location.pathname === url;
+	const isActive = location.pathname.includes(url);
 
 	return (
 		<li className="list-none lg:pl-4">

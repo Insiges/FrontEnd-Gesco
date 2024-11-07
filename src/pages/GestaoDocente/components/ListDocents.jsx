@@ -1,20 +1,20 @@
 import { useNavigate } from "react-router-dom";
-import { BoxView, Button, Flex, Title } from "../../common";
-import { deleteIcon, editIcon } from "../../common/icons";
-import { TableSearchFilter } from "../SearchFilter";
+import { deleteIcon, editIcon } from "../../../assets/icons";
 
-export const MembersList = ({ docentes, onEditar, onDeletar }) => {
+import { BoxView, Button, Flex, Title } from "../../../components/ui";
+import { FilterDocents } from "./FilterDocentes";
+
+export const ListDocents = ({ docentes, onEditar, onDeletar }) => {
 	const navigate = useNavigate();
+
 	return (
 		<div>
 			<Flex direction="row" className="p-4">
 				<Title fontSize={34}>Docentes</Title>
-				<Button onClick={() => navigate("/docents/register")}>
-					Adicionar Docente
-				</Button>
+				<Button onClick={() => navigate("register")}>Adicionar Docente</Button>
 			</Flex>
 
-			<TableSearchFilter
+			<FilterDocents
 				label="Buscar Docente"
 				placeholder="Digite o nome ou a disciplina desejada…"
 				filtroParam1="nome"
@@ -75,9 +75,9 @@ export const MembersList = ({ docentes, onEditar, onDeletar }) => {
 						</div>
 					</BoxView>
 				)}
-			</TableSearchFilter>
+			</FilterDocents>
 		</div>
 	);
 };
 
-export default MembersList;
+export default ListDocents;

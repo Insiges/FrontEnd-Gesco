@@ -1,63 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import MembersList from "./components/MembersList";
-import LoginRegistration from "./components/MembersRegistration/LoginRegistration";
-import Registration from "./components/MembersRegistration/MembersRegistration";
+import ListDocents from "./components/ListDocents";
 
 import { getDocents } from "../../services/api/school";
 import { deleteTeacher } from "../../services/api/teachers";
+import { useDeleteDocent } from "./hooks/useDeleteDocent";
+import { useGetDocents } from "./hooks/useGetDocents";
 
-export const GestaoDocente = () => {
+export function GestaoDocente() {
 	const [showModalDelete, setShowModalDelete] = useState(false);
-	const [docentes, setDocentes] = useState([]);
 	const [idDocente, setIdDocente] = useState("");
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		const fetchTeachers = async () => {
-			try {
-				const response = await getDocents();
-				setDocentes(response);
-			} catch (error) {
-				console.error("Error fetching teachers", error);
-			}
-		};
-		fetchTeachers();
-	}, []);
+	const { data: docentes } = useGetDocents();
+	const { mutateAsync: deleteDocent } = useDeleteDocent();
 
-	const handleAdicionarDocente = (dadosCadastrais) => {
-		setDocentes((prevDocentes) => {
-			if (dadosCadastrais?.id) {
-				return prevDocentes.map((docente) =>
-					docente.id === dadosCadastrais.id
-						? { ...docente, ...dadosCadastrais }
-						: docente,
-				);
-			}
+	const handleEditDocent = (id) => navigate(`register/${id}`);
 
-			return [
-				...prevDocentes,
-				{ id: prevDocentes.length + 1, ...dadosCadastrais },
-			];
-		});
-	};
-
-	const handleEditarDocente = (id) => navigate(`/docents/edit/${id}`);
-
-	const handleDeletarDocente = (id) => {
+	const handleDelete = (id) => {
 		setShowModalDelete(true);
 		setIdDocente(id);
 	};
 
-	const handleDeleteTeacherConfirm = async () => {
-		await deleteTeacher(idDocente);
-
-		setShowModalDelete(false);
-		setTimeout(async () => {
-			const response = await getDocents();
-			setDocentes(response);
-		}, 2000);
+	const handleConfirmDelete = async () => {
+		await deleteDocent(idDocente, {
+			onSuccess: () => {
+				setShowModalDelete(false);
+			},
+		});
 	};
 
 	const closeModal = () => {
@@ -67,18 +38,11 @@ export const GestaoDocente = () => {
 
 	return (
 		<section style={styles.container}>
-			<Routes>
-				<Route
-					path="/"
-					element={
-						<MembersList
-							docentes={docentes}
-							onEditar={handleEditarDocente}
-							onDeletar={handleDeletarDocente}
-						/>
-					}
-				/>
-			</Routes>
+			<ListDocents
+				docentes={docentes ?? []}
+				onEditar={handleEditDocent}
+				onDeletar={handleDelete}
+			/>
 
 			{showModalDelete && (
 				<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -96,7 +60,7 @@ export const GestaoDocente = () => {
 							</button>
 							<button
 								type="button"
-								onClick={(e) => handleDeleteTeacherConfirm()}
+								onClick={(e) => handleConfirmDelete()}
 								className="w-[40%] px-2 py-1 bg-green-500 text-white rounded"
 							>
 								Excluir
@@ -107,7 +71,7 @@ export const GestaoDocente = () => {
 			)}
 		</section>
 	);
-};
+}
 
 const styles = {
 	container: {

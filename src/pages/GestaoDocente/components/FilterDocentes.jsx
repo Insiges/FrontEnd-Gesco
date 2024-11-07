@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { BoxView, Flex } from "../../common";
+import { BoxView, Flex } from "../../../components/ui";
 
-export const TableSearchFilter = ({
+export const FilterDocents = ({
 	label,
 	placeholder,
 	filtroParam1,
