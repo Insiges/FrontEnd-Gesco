@@ -3,12 +3,12 @@ import { SideBar } from "../SideBar/SideBar";
 
 export function Default() {
 	return (
-		<div className="grid grid-cols-[40px] grid-rows-[1fr_auto] min-h-screengrid font-alatsi lg:grid-cols-[250px_1fr]">
-			<aside className="row-span-2 bg-gray-200 lg:max-w-full max-w-10">
+		<div className="grid grid-cols-[auto_auto] grid-rows-[1fr_auto] min-h-screengrid font-alatsi lg:grid-cols-[250px_1fr]">
+			<aside className="lg:row-span-2 bg-gray-200 lg:max-w-full max-w-10">
 				<SideBar />
 			</aside>
 
-			<main className="p-6 h-[calc(100vh-32px)] overflow-y-auto">
+			<main className="p-6 h-[calc(100vh-32px)] overflow-y-auto  ">
 				<Outlet />
 			</main>
 
