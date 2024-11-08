@@ -1,9 +1,8 @@
+import { SquarePen, Trash2 } from "lucide-react";
 import React, { useState } from "react";
-import { MdDelete, MdGroups2 } from "react-icons/md";
-import { TbEditCircle } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import { useEditClasses } from "../../hooks/useEditClasses";
-import { EditModal } from "../modal/editModal/modal";
+import { EditModal } from "../EditModal/EditModal";
 
 export const ClassTable = ({ turmas, handleDelete }) => {
 	const [selectedTurma, setSelectedTurma] = useState(null);
@@ -30,7 +29,7 @@ export const ClassTable = ({ turmas, handleDelete }) => {
 	};
 
 	return (
-		<div className="flex mx-4 justify-center rounded-lg shadow-lg border-firstBlue">
+		<div className="flex mx-4 justify-center rounded-lg shadow-lg border-firstBlue ">
 			{!turmas || (!!turmas && turmas.length === 0) ? (
 				<p className="text-center text-xl text-gray-500 py-4">
 					Não há turmas cadastradas
@@ -62,7 +61,6 @@ export const ClassTable = ({ turmas, handleDelete }) => {
 									className="px-2 py-4 text-xs hover:cursor-pointer font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center"
 								>
 									<div className="flex items-center justify-center">
-										<MdGroups2 className="mr-2 hidden sm:block  align-middle" />
 										<span className="inline-block align-middle">
 											{turma.nome}
 										</span>
@@ -74,20 +72,20 @@ export const ClassTable = ({ turmas, handleDelete }) => {
 								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
 									{turma.ano}
 								</td>
-								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
+								<td className="flex place-content-center gap-4 px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
 									<button
 										type="button"
 										className="text-green-400 hover:underline"
 										onClick={() => handleEditClick(turma)}
 									>
-										<TbEditCircle />
+										<SquarePen className="text-gray-500 hover:text-blue-500" />
 									</button>
 									<button
 										type="button"
 										className="text-red-400 hover:underline"
 										onClick={() => handleDelete(turma.id)}
 									>
-										<MdDelete />
+										<Trash2 className="text-gray-500 hover:text-red-500" />
 									</button>
 								</td>
 							</tr>

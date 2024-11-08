@@ -37,11 +37,11 @@ export function Dashboard() {
 						<TeachersTable />
 					</Link>
 				</div>
-				{userType !== "professor" && (
+				{/* {userType !== "professor" && (
 					<div className="bg-white shadow-xl rounded-lg p-6">
 						<SchoolPerformanceChart />
 					</div>
-				)}
+				)} */}
 			</div>
 			<div className="space-y-4">
 				{userType !== "professor" && (
@@ -49,11 +49,11 @@ export function Dashboard() {
 						<Calendar events={events} />
 					</div>
 				)}
-				{userType !== "professor" && (
+				{/* {userType !== "professor" && (
 					<div className="bg-white shadow-xl rounded-lg p-6">
 						<DonutChart title="School Calendar" />
 					</div>
-				)}
+				)} */}
 			</div>
 			{userType === "professor" && (
 				<div className="lg:col-span-2 w-full bg-white  rounded-lg p-6 ">
