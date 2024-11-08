@@ -1,22 +1,7 @@
 import { useGetEvents } from "../../pages/events/hooks/useGetEvents";
 
 const EventsTable = () => {
-	// const [events, setEvents] = useState([]);
-
-	// useEffect(() => {
-	// 	const fetchEvents = async () => {
-	// 		const response = await getEvents();
-	// 		setEvents(response.eventos);
-	// 	};
-	// 	fetchEvents();
-	// }, []);
-
-	//TODO
-	// - Tirar o select quando tiver nessa página
-
 	const { data: events, isLoading } = useGetEvents(true);
-
-	console.log(events);
 
 	return (
 		<section className="p-6 max-w-7xl mx-auto">
