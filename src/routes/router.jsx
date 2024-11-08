@@ -9,14 +9,14 @@ import {
 	ClassesStudentsAdd,
 	Dashboard,
 	Events,
-	GestaoDocente,
 	LandingPage,
 	Login,
-	RegisterDocente,
+	RegisterTeacher,
 	Reservation,
 	Room,
 	StudentAttendance,
 	Students,
+	TeacherManagement,
 	Timetable,
 } from "../pages/index";
 
@@ -59,27 +59,14 @@ const router = createBrowserRouter([
 						path: "/events",
 						element: <Events />,
 					},
-					// {
-					// 	path: "/docents",
-					// 	element: <GestaoDocente />,
-					// },
-					// {
-					// 	path: "/docents/register/:id?",
-					// 	element: <Registration />,
-					// },
+
 					{
 						path: "/docents",
-						element: <GestaoDocente />,
-						// children: [
-						// 	{
-						// 		path: "register/:id?",
-						// 		element: <RegisterDocent />,
-						// 	},
-						// ],
+						element: <TeacherManagement />,
 					},
 					{
 						path: "/docents/register/:id?",
-						element: <RegisterDocente />,
+						element: <RegisterTeacher />,
 					},
 					{
 						path: "/Classes/",

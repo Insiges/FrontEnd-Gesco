@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
-import { saveClass } from "../../../../../services/api/class";
 
-const AddClassModal = ({ isOpen, onClose, onSave }) => {
+import { useCreateClass } from "../../hooks/useCreateClass";
+
+const AddClassModal = ({ isOpen, onClose }) => {
 	const [nome, setNome] = useState("");
 	const [serie, setSerie] = useState("");
 	const [ano, setAno] = useState("");
 
+	const { mutateAsync: createClass } = useCreateClass();
+
 	const handleSave = async () => {
 		const newClass = { nome, serie, ano };
-
-		await saveClass(newClass);
-		onClose();
-		window.location.reload();
+		await createClass(newClass, {
+			onSuccess: () => {
+				onClose();
+			},
+		});
 	};
 
 	if (!isOpen) return null;

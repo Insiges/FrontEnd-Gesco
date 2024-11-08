@@ -1,30 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import ListDocents from "./components/ListDocents";
+import ListTeachers from "./components/ListTeachers";
 
-import { getDocents } from "../../services/api/school";
-import { deleteTeacher } from "../../services/api/teachers";
-import { useDeleteDocent } from "./hooks/useDeleteDocent";
-import { useGetDocents } from "./hooks/useGetDocents";
+import { useDeleteTeacher } from "./hooks/useDeleteTeacher";
+import { useGetTeachers } from "./hooks/useGetTeachers";
 
-export function GestaoDocente() {
+export function TeacherManagement() {
 	const [showModalDelete, setShowModalDelete] = useState(false);
-	const [idDocente, setIdDocente] = useState("");
+	const [idTeacher, setIdTeacher] = useState("");
 	const navigate = useNavigate();
 
-	const { data: docentes } = useGetDocents();
-	const { mutateAsync: deleteDocent } = useDeleteDocent();
+	const { data: teachers } = useGetTeachers();
+	const { mutateAsync: deleteTeacher } = useDeleteTeacher();
 
-	const handleEditDocent = (id) => navigate(`register/${id}`);
+	const handleEditTeacher = (id) => navigate(`register/${id}`);
 
 	const handleDelete = (id) => {
 		setShowModalDelete(true);
-		setIdDocente(id);
+		setIdTeacher(id);
 	};
 
 	const handleConfirmDelete = async () => {
-		await deleteDocent(idDocente, {
+		await deleteTeacher(idTeacher, {
 			onSuccess: () => {
 				setShowModalDelete(false);
 			},
@@ -38,9 +36,9 @@ export function GestaoDocente() {
 
 	return (
 		<section style={styles.container}>
-			<ListDocents
-				docentes={docentes ?? []}
-				onEditar={handleEditDocent}
+			<ListTeachers
+				teachers={teachers ?? []}
+				onEditar={handleEditTeacher}
 				onDeletar={handleDelete}
 			/>
 

@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-	editTeacher,
-	getOneTeacher,
-	saveTeacher,
-} from "../../../services/api/teachers";
+import { getOneTeacher } from "../../../services/api/teachers";
 import { FormLayout } from "../components/RegisterForm/FormLayout";
 import DisciplinesStep from "../components/RegisterSteps/DisciplinesStep";
 import EducationStep from "../components/RegisterSteps/EducationStep";
 import LoginStep from "../components/RegisterSteps/LoginStep";
 import PersonalInformationStep from "../components/RegisterSteps/PersonalInformationStep";
-import { useCreateDocent } from "../hooks/useCreateDocent";
-import { useEditDocent } from "../hooks/useEditDocent";
+import { useCreateTeacher } from "../hooks/useCreateTeacher";
+import { useEditTeacher } from "../hooks/useEditTeacher";
 
-export function RegisterDocente({ onAdicionar, docentes = [] }) {
+export function RegisterTeacher() {
 	const navigate = useNavigate();
 
 	const { id } = useParams();
 	const isEditMode = Boolean(id);
 
-	const { mutateAsync: editDocent } = useEditDocent();
-	const { mutateAsync: createDocent } = useCreateDocent();
+	const { mutateAsync: editTeacher } = useEditTeacher();
+	const { mutateAsync: createTeacher } = useCreateTeacher();
 
 	const [docenteId, setDocenteId] = useState(null);
 	const [etapasCadastrais, setEtapasCadastrais] = useState(1);
@@ -94,16 +90,17 @@ export function RegisterDocente({ onAdicionar, docentes = [] }) {
 		}
 	}, []);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		if (id) {
-			const docente = docentes.find(
+			const docente = teacher.find(
 				(docente) => docente.id === Number.parseInt(id),
 			);
 			if (docente) {
 				setData(docente);
 			}
 		}
-	}, [id, docentes]);
+	}, [id, teacher]);
 
 	const handleChangeOnNext = (vals) => {
 		setData((dadosPrevios) => ({
@@ -115,7 +112,7 @@ export function RegisterDocente({ onAdicionar, docentes = [] }) {
 	const handleSubmit = async (e, finalData) => {
 		e.preventDefault();
 		if (isEditMode) {
-			await editDocent(
+			await editTeacher(
 				{ ...finalData, id: id },
 				{
 					onSuccess: () => {
@@ -127,7 +124,7 @@ export function RegisterDocente({ onAdicionar, docentes = [] }) {
 				},
 			);
 		} else {
-			await createDocent(finalData, {
+			await createTeacher(finalData, {
 				onSuccess: () => {
 					navigate("/docents");
 				},

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BoxView, Flex } from "../../../components/ui";
 
-export const FilterDocents = ({
+export const FilterTeachers = ({
 	label,
 	placeholder,
 	filtroParam1,

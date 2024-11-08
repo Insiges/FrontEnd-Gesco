@@ -1,3 +1,4 @@
-export * from "./searchFilter/searchFilter";
-export * from "./header/button";
-export * from "./classesTable/classesTable";
+export * from "./SearchFilter/searchFilter";
+export * from "./ClassesTable/classesTable";
+export * from "./AddModal/AddModal";
+export * from "./EditModal/EditModal";
