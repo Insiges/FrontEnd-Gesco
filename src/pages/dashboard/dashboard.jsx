@@ -21,8 +21,6 @@ export function Dashboard() {
 	const { data: counters } = useGetCounters();
 	const { userType } = useUserInfos();
 
-	console.log({ userType });
-
 	return (
 		<div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
 			<div className="space-y-4">
@@ -46,9 +44,11 @@ export function Dashboard() {
 				)}
 			</div>
 			<div className="space-y-4">
-				<div className="">
-					<Calendar events={events} />
-				</div>
+				{userType !== "professor" && (
+					<div>
+						<Calendar events={events} />
+					</div>
+				)}
 				{userType !== "professor" && (
 					<div className="bg-white shadow-xl rounded-lg p-6">
 						<DonutChart title="School Calendar" />

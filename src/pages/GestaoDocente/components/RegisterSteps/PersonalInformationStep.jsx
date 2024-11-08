@@ -1,16 +1,9 @@
 import { useEffect, useState } from "react";
-
+import { BoxView, Button, Flex } from "../../../../components/ui";
 import { getCep } from "../../../../services/api/viacep";
-import {
-	BoxView,
-	Button,
-	Flex,
-	FormGuiaEtapas,
-	Title,
-	inputClassName,
-} from "../../common";
+import { inputClassName } from "../../const/classConst";
 
-const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
+const PersonalInformationStep = ({ dadosPessoais, etapas, onNext }) => {
 	const [personData, setPersonData] = useState(dadosPessoais || {});
 	const [cepData, setCepData] = useState({
 		cep: "",
@@ -66,13 +59,7 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 	}, [cepData]);
 
 	return (
-		<Flex>
-			<Title fontSize={34} subTitle="Dados Pessoais">
-				Adicionar Docentes
-			</Title>
-
-			<FormGuiaEtapas etapas={etapas} />
-
+		<>
 			<Flex direction="row" justify="start" className="flex-wrap p-2">
 				<Flex style={{ flex: 1 }}>
 					<Flex direction="row" justify="center" className="flex-wrap gap-2">
@@ -268,7 +255,7 @@ const PersonalInformation = ({ dadosPessoais, etapas, onNext }) => {
 					Próxima Etapa
 				</Button>
 			</Flex>
-		</Flex>
+		</>
 	);
 };
 
@@ -291,4 +278,4 @@ const styles = {
 	},
 };
 
-export default PersonalInformation;
+export default PersonalInformationStep;

@@ -4,15 +4,9 @@ import { saveFrequency } from "../../services/api/frequency";
 import useUserInfos from "../../stores/userStore";
 
 import { useGetClassByProfessor } from "../activities/hooks/useGetClassByProfessor";
-import { inputClassName } from "../gestaoDocente/common";
+import { inputClassName } from "../gestaoDocente/const/classConst";
 
-// Não é claro se este componente será importado dentro de algum modulo ou
-// se ele será acessado no root das rotas. Por isso coloquei como prop 'professorId'
-// para caso de que este componente seja acessado trazendo informações de algum parente.
-
-// Caso contrário, teremos que capturar a id do professor via query param na url, ou seja lá
-// como for…
-export const StudentAttendance = ({ professorId = null }) => {
+export const StudentAttendance = () => {
 	const [students, setStudents] = useState([]);
 	const { data: classes } = useGetClassByProfessor();
 	const [disciplineId, setDisciplineId] = useState(null);
@@ -95,15 +89,15 @@ export const StudentAttendance = ({ professorId = null }) => {
 			{/* Header da pagina */}
 			<div className="gap-12 p-4">
 				<div className="flex justify-between bg-firstBlue text-white h-16 rounded-t-lg items-center w-full p-4">
+					<p className="text-lg font-medium p-8 my-4">
+						{" "}
+						{userInfos.dados.nome}
+					</p>
 					<input
 						onChange={(e) => setDate(e.target.value)}
 						type="date"
 						className="text-black px-4 py-2 border border-gray-300 rounded-md"
 					/>
-					<p className="text-lg font-medium p-8 my-4">
-						{" "}
-						{userInfos.dados.nome}
-					</p>
 					<select
 						className={inputClassName}
 						style={{ color: "black" }}

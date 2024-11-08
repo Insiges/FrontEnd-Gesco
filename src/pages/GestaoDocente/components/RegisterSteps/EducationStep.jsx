@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
-import {
-	BoxView,
-	Button,
-	Flex,
-	FormGuiaEtapas,
-	Title,
-	containerClass,
-	inputClassName,
-} from "../../common";
 
+import { deleteIcon } from "../../../../assets/icons";
+import { BoxView, Button, Flex } from "../../../../components/ui";
 import { getEducationType } from "../../../../services/api/teachers";
-import { deleteIcon } from "../../common/icons";
+import { inputClassName } from "../../const/classConst";
 
-const MemberEducation = ({
+const EducationStep = ({
 	formacaoDados,
 	etapas,
 	onChange,
@@ -100,13 +93,7 @@ const MemberEducation = ({
 	};
 
 	return (
-		<Flex>
-			<Title fontSize={34} subTitle="Formação Acadêmica">
-				Adicionar Docentes
-			</Title>
-
-			<FormGuiaEtapas etapas={etapas} />
-
+		<>
 			<form onSubmit={handleSubmit}>
 				<Flex direction="row" justify="center" className="flex-wrap gap-4">
 					{/* Formulario para adicionar formações */}
@@ -217,8 +204,8 @@ const MemberEducation = ({
 					</Flex>
 				</Flex>
 			</form>
-		</Flex>
+		</>
 	);
 };
 
-export default MemberEducation;
+export default EducationStep;

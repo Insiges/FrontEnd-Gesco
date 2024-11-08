@@ -45,8 +45,9 @@ export async function saveTeacher(data) {
 	return request.body;
 }
 
-export async function editTeacher(data, id) {
-	const url = `professor/${id}`;
+export async function editTeacher(data) {
+	console.log(data);
+	const url = `professor/${data.id}`;
 	const body = {
 		nome: data.nome,
 		foto: data.foto,
