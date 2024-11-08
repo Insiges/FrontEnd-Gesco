@@ -16,17 +16,17 @@ export function SideBar() {
 			? [...commonSideBarOptions, ...sideBarOptionsTeacher]
 			: [...commonSideBarOptions, ...sideBarOptionsAdmin];
 	return (
-		<nav className="lg:min-w-full max-w-10 min-h-screen bg-firstBlue  flex flex-col items-center gap-7 overflow-visible relative">
+		<nav className="lg:min-w-full max-w-10 min-h-screen bg-[#E7E7EC] flex flex-col items-center gap-7 overflow-visible relative">
 			<Link
 				to="/"
-				className="flex items-center justify-center gap-2 p-3 no-underline absolute top-0 left-0 w-[100%] border-white"
+				className="flex items-center justify-start ml-2 gap-4 p-6 no-underline absolute top-0 left-0 w-[100%]"
 			>
 				<img src={logoImg} alt="Logo" className="w-12" />
-				<h2 className="text-2xl text-lightGray font-bold hidden lg:block">
+				<h2 className="text-2xl text-[#060273] tracking-wide font-semibold hidden lg:block">
 					Gesco
 				</h2>
 			</Link>
-			<ul className="flex flex-col gap-3 w-full pt-20">
+			<ul className="flex flex-col gap-3 w-full pt-20 mt-6">
 				{sideBarOptions.map((sideBarOption) => {
 					return (
 						<LinkSideBar

@@ -55,7 +55,7 @@ export function SchoolPerformanceChart() {
 			/>
 			<VictoryLine
 				data={dataLastWeek}
-				style={{ data: { stroke: "#28C2A0", strokeWidth: 3 } }}
+				style={{ data: { stroke: "#060343", strokeWidth: 3 } }}
 				interpolation="natural"
 				labels={({ datum }) => `${datum.y}`}
 				labelComponent={<VictoryTooltip />}

@@ -11,7 +11,7 @@ export const StudentsList = ({ students = [], onEdit, onDelete }) => {
 	return (
 		<div>
 			<Flex direction="row" className="p-4">
-				<Title fontSize={34}>Estudantes</Title>
+				<Title fontSize={24}>Estudantes</Title>
 				<Button onClick={() => navigate("register")}>
 					Adicionar Estudante
 				</Button>
@@ -24,9 +24,9 @@ export const StudentsList = ({ students = [], onEdit, onDelete }) => {
 			>
 				{(results) => (
 					<BoxView>
-						<div className="bg-blue-800">
+						<div className="bg-[#E7E7EC]">
 							<table className="min-w-full table-auto">
-								<thead className="text-white">
+								<thead className="text-[#060343]">
 									<tr>
 										<th className="px-6 py-2">Estudante</th>
 										<th className="px-6 py-2">Matricula</th>
@@ -41,7 +41,7 @@ export const StudentsList = ({ students = [], onEdit, onDelete }) => {
 									).map((student) => (
 										<tr
 											key={student.id}
-											className="border-t text-center odd:bg-white even:bg-blue-50"
+											className="border-t text-center odd:bg-white even:bg-[#f4f4f4]"
 										>
 											<td className="py-3" style={{ width: "33%" }}>
 												{student.nome}
@@ -74,7 +74,7 @@ export const StudentsList = ({ students = [], onEdit, onDelete }) => {
 							</table>
 							{results.length === 0 && (
 								<Flex className="flex-col ">
-									<p className="mt-4 text-center text-white">
+									<p className="mt-4 text-center text-[#060343]">
 										<strong>Nenhum estudante localizado.</strong>
 									</p>
 								</Flex>

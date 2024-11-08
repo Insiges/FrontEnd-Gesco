@@ -7,7 +7,7 @@ export const ClassesSchedule = () => {
 	return (
 		<div>
 			<div className="flex justify-between mx-4 items-center">
-				<h1 className="text-2xl font-bold text-firstBlue">Grade de Horários</h1>
+				<h1 className="text-2xl font-bold text-[#060343]">Grade de Horários</h1>
 			</div>
 			<SearchFilter />
 			<ClassTable turmas={classe} />

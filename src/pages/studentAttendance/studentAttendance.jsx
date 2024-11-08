@@ -81,14 +81,14 @@ export const StudentAttendance = () => {
 	return (
 		<div>
 			<div className="flex justify-between mx-4 items-center">
-				<h1 className="text-2xl font-bold text-firstBlue">
+				<h1 className="text-2xl font-bold text-[#060343]">
 					Frequência de Alunos
 				</h1>
 			</div>
 
 			{/* Header da pagina */}
 			<div className="gap-12 p-4">
-				<div className="flex justify-between bg-firstBlue text-white h-16 rounded-t-lg items-center w-full p-4">
+				<div className="flex justify-between bg-[#C5CFE4] text-[#060343] h-16 rounded-t-lg items-center w-full p-4">
 					<p className="text-lg font-medium p-8 my-4">
 						{" "}
 						{userInfos.dados.nome}
@@ -179,7 +179,7 @@ export const StudentAttendance = () => {
 			<div className="m-4 w-full">
 				<button
 					type="submit"
-					className="w-full sm:w-auto px-4 py-2 bg-firstBlue text-white rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+					className="w-full sm:w-auto px-4 py-2 bg-custom-blue text-white rounded-md shadow-sm hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
 					onClick={onSubmit}
 				>
 					Enviar

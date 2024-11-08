@@ -20,10 +20,10 @@ export function Roles({ setRole }) {
 				<div className="flex flex-grow justify-center mt-0">
 					<div className="flex flex-col md:flex-row w-full max-w-7xl bg-white gap-0">
 						<div className="w-full md:w-[850px] p-2 flex flex-col justify-center items-center text-center mx-auto md:ml-[150px]">
-							<h1 className="text-[28px] md:text-[38px] font-bold mb-1 whitespace-nowrap">
+							<h1 className="text-[28px] md:text-[44px] font-bold mb-1 whitespace-nowrap">
 								<span style={{ color: "#060273" }}>Qual o seu tipo de</span>
 							</h1>
-							<h1 className="text-[28px] md:text-[38px] font-bold mb-6">
+							<h1 className="text-[28px] md:text-[44px] font-bold mb-6">
 								<span style={{ color: "#FFB400" }}>usuário?</span>
 							</h1>
 

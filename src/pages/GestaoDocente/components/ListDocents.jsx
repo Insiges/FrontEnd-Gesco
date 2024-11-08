@@ -10,7 +10,7 @@ export const ListDocents = ({ docentes, onEditar, onDeletar }) => {
 	return (
 		<div>
 			<Flex direction="row" className="p-4">
-				<Title fontSize={34}>Docentes</Title>
+				<Title fontSize={24}>Docentes</Title>
 				<Button onClick={() => navigate("register")}>Adicionar Docente</Button>
 			</Flex>
 
@@ -23,9 +23,9 @@ export const ListDocents = ({ docentes, onEditar, onDeletar }) => {
 			>
 				{(resultados) => (
 					<BoxView>
-						<div className="bg-blue-800">
+						<div className="bg-[#C5CFE4] rounded-lg">
 							<table className="min-w-full table-auto">
-								<thead className="text-white">
+								<thead className="text-[#060343] text-[17px]">
 									<tr>
 										<th className="px-6 py-2">Nome</th>
 										<th className="px-6 py-2">Disciplina</th>
@@ -67,7 +67,7 @@ export const ListDocents = ({ docentes, onEditar, onDeletar }) => {
 							</table>
 							{resultados.length === 0 && (
 								<Flex className="flex-col ">
-									<p className="mt-4 text-center text-white">
+									<p className="mt-4 text-center text-[#060343] text-[17px]">
 										<strong>Nenhum docente localizado.</strong>
 									</p>
 								</Flex>

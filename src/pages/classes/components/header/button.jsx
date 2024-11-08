@@ -15,7 +15,7 @@ export const Button = () => {
 			<button
 				onClick={() => setModalIsOpen(true)}
 				type="button"
-				className="bg-firstBlue text-white rounded-md px-4 py-2"
+				className="bg-custom-blue text-white rounded-md px-4 py-2"
 			>
 				Adicionar Turma
 			</button>

@@ -27,7 +27,7 @@ export const BoxView = ({ children, className = "", ...props }) => (
 
 export const Title = ({ style, fontSize, subTitle, children }) => (
 	<>
-		<h1 className="text-blue-800 font-bold" style={{ ...style, fontSize }}>
+		<h1 className="text-[#060273] font-bold" style={{ ...style, fontSize }}>
 			{children}
 		</h1>
 		{subTitle && <span className="text-slate-500">{subTitle}</span>}
@@ -37,7 +37,7 @@ export const Title = ({ style, fontSize, subTitle, children }) => (
 export const Button = ({ style, onClick, children, className, ...props }) => {
 	return (
 		<button
-			className={`rounded-xl bg-gradient-to-r from-blue-400 to-blue-700 text-white px-4 py-2 font-bold hover:from-blue-500 hover:to-blue-800 transition duration-300 ease-in-out ${className}`}
+			className={`rounded-xl bg-custom-blue text-white tracking-wider px-3 py-1 font-semibold hover:opacity-80 transition duration-300 ease-in-out ${className}`}
 			style={style}
 			onClick={onClick}
 			{...props}
@@ -49,8 +49,8 @@ export const Button = ({ style, onClick, children, className, ...props }) => {
 
 export const FormStepsGuide = ({ etapas }) => {
 	const changeOnIndex = (step) => ({
-		iconColor: step <= etapas ? "text-yellow" : "",
-		hrBorderColor: step <= etapas ? "#2196F3" : "#d4d4d4",
+		iconColor: step <= etapas ? "text-[#FFB400]" : "",
+		hrBorderColor: step <= etapas ? "#060273" : "#d4d4d4",
 		bgIcon: step <= etapas ? "bg-blue-800 text-white" : "bg-blue-200",
 	});
 
@@ -61,7 +61,7 @@ export const FormStepsGuide = ({ etapas }) => {
 				<div
 					className={`w-12 h-12 ${
 						changeOnIndex(1).bgIcon
-					} text-blue-600 square-full mx-auto flex items-center justify-center`}
+					} text-[#060273] square-full mx-auto flex items-center justify-center`}
 				>
 					<span className={changeOnIndex(1).iconColor}>{personIcon}</span>
 				</div>

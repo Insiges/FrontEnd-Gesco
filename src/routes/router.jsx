@@ -59,17 +59,17 @@ const router = createBrowserRouter([
 						path: "/events",
 						element: <Events />,
 					},
-					// {
-					// 	path: "/docents",
-					// 	element: <GestaoDocente />,
-					// },
-					// {
-					// 	path: "/docents/register/:id?",
-					// 	element: <Registration />,
-					// },
+					{
+						// 	path: "/docents",
+						// 	element: <GestaoDocente />,
+						// },
+						// {
+						// 	path: "/docents/register/:id?",
+						// 	element: <Registration />,
+					},
 					{
 						path: "/docents",
-						element: <GestaoDocente />,
+						element: <GestaoDocente />, //ok
 						// children: [
 						// 	{
 						// 		path: "register/:id?",
@@ -86,7 +86,7 @@ const router = createBrowserRouter([
 						element: <Classes />,
 					},
 					{
-						path: "/classSchedule/:id",
+						path: "/classesSchedule/:id",
 						element: <Timetable />,
 					},
 					{
@@ -115,7 +115,10 @@ const router = createBrowserRouter([
 							},
 						],
 					},
-					{ path: "/students-attendance", element: <StudentAttendance /> },
+					{
+						path: "/students-attendance",
+						element: <StudentAttendance />,
+					},
 				],
 			},
 		],

@@ -54,7 +54,7 @@ export function GestaoDocente() {
 							<button
 								type="button"
 								onClick={closeModal}
-								className="w-[40%] px-2 py-1 bg-red-500 text-white rounded"
+								className="w-[40%] px-3 py-1 bg-red-500 text-white rounded"
 							>
 								Cancelar
 							</button>

@@ -28,7 +28,7 @@ const EducationStep = ({
 				const response = await getEducationType();
 				setTypeEducation(response);
 			} catch (error) {
-				console.error("Erro ao buscar tipos de educacao:", error);
+				console.error("Erro ao buscar tipos de educação:", error);
 			}
 		}
 		fetchTypeEducation();
@@ -162,8 +162,8 @@ const EducationStep = ({
 					<Flex className="flex-1">
 						<BoxView>
 							<div className=" rounded-md ">
-								<div className="bg-blue-800 min-w-full rounded-md p-6">
-									<p className="text-white">
+								<div className="bg-[#C5CFE4] min-w-full rounded-md p-6">
+									<p className="text-[#060343]">
 										<strong>Lista de Formações</strong>
 									</p>
 								</div>
