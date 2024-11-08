@@ -93,7 +93,7 @@ const router = createBrowserRouter([
 						element: <ClassesStudents />,
 					},
 					{
-						path: "/classes/student/:id", // usar o classes/:id/students/:id
+						path: "/classes/student/:id",
 						element: <StudentByClass />,
 					},
 					{
