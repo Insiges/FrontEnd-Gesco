@@ -11,7 +11,7 @@ export function CalendarHeader({ title, currentDate, setCurrentDate }) {
 
 	return (
 		<div className="flex flex-col lg:gap-0 gap-2 lg:flex-row justify-between items-center mb-4">
-			<h2 className="text-2xl text-blue-800 font-bold">{title}</h2>
+			<h2 className="text-3xl text-firstBlue font-bold">{title}</h2>
 			<div className="flex items-center space-x-4 border border-blue-800 rounded-md">
 				<button
 					type="button"

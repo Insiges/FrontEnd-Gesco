@@ -6,10 +6,10 @@ import { ActivitiesTable } from "../activities/components";
 import {
 	Calendar,
 	Counters,
-	DocentTable,
 	DonutChart,
 	ScheduleTeacher,
 	SchoolPerformanceChart,
+	TeachersTable,
 } from "./components";
 import { useGetCounters } from "./hooks/useGetCounters";
 import { useGetEventsByMonth } from "./hooks/useGetEventsByMonth";
@@ -34,7 +34,7 @@ export function Dashboard() {
 				</div>
 				<div className="bg-white rounded-lg p-4">
 					<Link to={"/docents"}>
-						<DocentTable />
+						<TeachersTable />
 					</Link>
 				</div>
 				{userType !== "professor" && (

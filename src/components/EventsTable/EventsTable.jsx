@@ -4,7 +4,7 @@ const EventsTable = () => {
 	const { data: events, isLoading } = useGetEvents(true);
 
 	return (
-		<section className="p-6 max-w-7xl mx-auto">
+		<section className="p-6 max-w-[1450px] mx-auto">
 			<h2 className="text-3xl font-bold mb-4 text-firstBlue">
 				Eventos Cadastrados
 			</h2>

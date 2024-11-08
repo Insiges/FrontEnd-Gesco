@@ -1,6 +1,6 @@
 const QUERY_KEYS = {
-	DOCENTS: "docents",
-	DOCENTS_BY_ID: "docentsById",
+	TEACHERS: "teachers",
+	TEACHER_BY_ID: "teacherById",
 	COUNTERS: "counters",
 	EVENTS: "events",
 	EVENTS_BY_DATE: "eventsByDate",

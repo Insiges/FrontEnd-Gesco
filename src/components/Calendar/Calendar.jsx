@@ -51,7 +51,7 @@ export default function Calendar({ title }) {
 	if (eventsError) return <div>Error loading events</div>;
 
 	return (
-		<div className="w-full h-full bg-white shadow-lg rounded-lg p-6">
+		<div className="bg-white shadow-lg rounded-lg lg:p-10 max-w-[1400px] mx-auto border">
 			<CalendarHeader
 				title={title}
 				currentDate={currentDate}
