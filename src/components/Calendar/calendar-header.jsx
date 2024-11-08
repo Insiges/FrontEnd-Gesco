@@ -1,3 +1,5 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
 export function CalendarHeader({ title, currentDate, setCurrentDate }) {
 	const prevMonth = () => {
 		setCurrentDate(currentDate.subtract(1, "month"));
@@ -8,17 +10,17 @@ export function CalendarHeader({ title, currentDate, setCurrentDate }) {
 	};
 
 	return (
-		<div className="flex justify-between items-center mb-4">
-			<h2 className="text-lg font-bold">{title}</h2>
-			<div className="flex items-center space-x-4">
+		<div className="flex flex-col lg:gap-0 gap-2 lg:flex-row justify-between items-center mb-4">
+			<h2 className="text-2xl text-blue-800 font-bold">{title}</h2>
+			<div className="flex items-center space-x-4 border border-blue-800 rounded-md">
 				<button
 					type="button"
 					onClick={prevMonth}
 					className="p-2 text-gray-500 hover:text-black"
 				>
-					&lt;
+					<ChevronLeft color="#1e40af" />
 				</button>
-				<span className="text-lg font-semibold">
+				<span className="text-lg font-semibold text-navyBlue">
 					{currentDate.format("MMMM YYYY")}
 				</span>
 				<button
@@ -26,7 +28,7 @@ export function CalendarHeader({ title, currentDate, setCurrentDate }) {
 					onClick={nextMonth}
 					className="p-2 text-gray-500 hover:text-black"
 				>
-					&gt;
+					<ChevronRight color="#1e40af" />
 				</button>
 			</div>
 		</div>

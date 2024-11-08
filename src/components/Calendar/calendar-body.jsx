@@ -41,7 +41,7 @@ export function CalendarBody({ currentDate, today, events, onDayClick }) {
 				))}
 			</div>
 
-			<div className="grid grid-cols-10 gap-2 mt-4">
+			<div className="grid grid-cols-5 lg:grid-cols-10 gap-2 mt-4">
 				{emptyDays}
 				{days}
 			</div>
