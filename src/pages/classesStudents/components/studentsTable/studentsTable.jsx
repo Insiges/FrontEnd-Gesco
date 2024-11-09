@@ -1,13 +1,20 @@
 import { MdDelete, MdGroups2 } from "react-icons/md";
 import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useDeleteStudentOnClass } from "../../hooks/useDeleteStudentOnClass";
 
 export const StudentsTable = ({ students }) => {
+	const navigate = useNavigate();
 	const { id } = useParams();
 	const { mutateAsync: deleteStudentClass } = useDeleteStudentOnClass();
 	const handleDelete = async (aluno) => {
 		await deleteStudentClass({ aluno, turma: id });
 	};
+
+	const handleStudentClick = (id) => {
+		navigate(`/classes/student/${id}`);
+	};
+
 	return (
 		<div className="flex mx-4 justify-center rounded-lg shadow-lg border-firstBlue">
 			{!students || (!!students && students.length <= 0) ? (
@@ -40,7 +47,10 @@ export const StudentsTable = ({ students }) => {
 								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
 									<div className="flex sm:ps-8 items-center justify-start">
 										<MdGroups2 className="mr-2 hidden sm:block  align-middle" />
-										<span className="inline-block align-middle">
+										<span
+											className="inline-block align-middle cursor-pointer hover:underline"
+											onClick={() => handleStudentClick(student.id)}
+										>
 											{student.nome}
 										</span>
 									</div>

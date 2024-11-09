@@ -15,6 +15,7 @@ import {
 	Reservation,
 	Room,
 	StudentAttendance,
+	StudentByClass,
 	Students,
 	TeacherManagement,
 	Timetable,
@@ -87,6 +88,10 @@ const router = createBrowserRouter([
 					{
 						path: "/classes/:id/students",
 						element: <ClassesStudents />,
+					},
+					{
+						path: "/classes/student/:id",
+						element: <StudentByClass />,
 					},
 					{
 						path: "/classes/:id/students/add",

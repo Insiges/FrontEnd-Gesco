@@ -14,3 +14,4 @@ export * from "./addStudentClass/addStudentClass";
 export * from "./roomReservation/reservation/reservation";
 export * from "./roomReservation/room";
 export * from "./studentAttendance/studentAttendance";
+export * from "./studentByClass/studentByClass";
