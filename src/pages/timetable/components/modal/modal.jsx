@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getDocents } from "../../../../services/api/school";
+
+import { getTeachers } from "../../../../services/api/school";
 import {
 	getHours,
 	getWeek,
@@ -27,7 +28,7 @@ export const Modal = ({ closeModal }) => {
 	useEffect(() => {
 		async function fetchDocents() {
 			try {
-				const response = await getDocents();
+				const response = await getTeachers();
 				setDocentes(response);
 			} catch (error) {
 				console.error("Erro ao buscar docentes:", error);

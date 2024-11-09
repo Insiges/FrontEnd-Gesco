@@ -121,8 +121,6 @@ export function EventDialog({
 							className="w-[50%] px-2 py-1 bg-green-500 text-white rounded disabled:cursor-not-allowed disabled:bg-green-300"
 							disabled={!isDirty || !isValid}
 						>
-							{/* {isEditing ? "Salvar" : "Criar"}
-							 */}
 							Criar
 						</button>
 						<DialogClose asChild>

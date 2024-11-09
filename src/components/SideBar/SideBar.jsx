@@ -1,9 +1,15 @@
-import { GraduationCap, ListChecks, Projector } from "lucide-react";
-import { FaRegCalendarAlt, FaUserTie } from "react-icons/fa";
-import { FiHome } from "react-icons/fi";
-import { GrUserManager } from "react-icons/gr";
-import { IoTime } from "react-icons/io5";
-import { MdGroups2 } from "react-icons/md";
+import {
+	BookOpenCheck,
+	CalendarDays,
+	GraduationCap,
+	House,
+	ListChecks,
+	Projector,
+	Ruler,
+	UserRound,
+	Users,
+} from "lucide-react";
+
 import { Link } from "react-router-dom";
 import logoImg from "/logoGesco.png";
 import useUserInfos from "../../stores/userStore";
@@ -59,7 +65,7 @@ const sideBarOptionsTeacher = [
 		id: "1213",
 		name: "Grade de Horáros",
 		url: "/classesSchedule",
-		icon: <IoTime />,
+		icon: <BookOpenCheck />,
 	},
 	{
 		id: "1866",
@@ -74,7 +80,7 @@ const commonSideBarOptions = [
 		id: "1234",
 		name: "Dashboard",
 		url: "/dashboard",
-		icon: <FiHome />,
+		icon: <House />,
 	},
 ];
 
@@ -83,25 +89,25 @@ const sideBarOptionsAdmin = [
 		id: "4567",
 		name: "Alunos",
 		url: "/students",
-		icon: <GrUserManager />,
+		icon: <UserRound />,
 	},
 	{
 		id: "7891",
 		name: "Docentes",
 		url: "/docents",
-		icon: <FaUserTie />,
+		icon: <Ruler />,
 	},
 
 	{
 		id: "1112",
 		name: "Turmas",
 		url: "/classes",
-		icon: <MdGroups2 />,
+		icon: <Users />,
 	},
 	{
 		id: "1011",
 		name: "Eventos",
 		url: "/events",
-		icon: <FaRegCalendarAlt />,
+		icon: <CalendarDays />,
 	},
 ];
