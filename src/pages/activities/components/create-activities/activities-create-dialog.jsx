@@ -39,6 +39,8 @@ export function ActivitiesCreateDialog({ isOpen, onCloseDialog }) {
 		const formattedDate = format(date, "yyyy-MM-dd");
 		const dateFormatted = { ...data, dueDate: formattedDate };
 
+		console.log(dateFormatted);
+
 		await createActivity(dateFormatted, {
 			onSuccess: () => {
 				reset();

@@ -62,12 +62,6 @@ const sideBarOptionsTeacher = [
 		icon: <GraduationCap />,
 	},
 	{
-		id: "1213",
-		name: "Grade de Horáros",
-		url: "/classesSchedule",
-		icon: <BookOpenCheck />,
-	},
-	{
 		id: "1866",
 		name: "Reserva de Salas",
 		url: "/sala",
@@ -109,5 +103,11 @@ const sideBarOptionsAdmin = [
 		name: "Eventos",
 		url: "/events",
 		icon: <CalendarDays />,
+	},
+	{
+		id: "1213",
+		name: "Grade de Horáros",
+		url: "/classesSchedule",
+		icon: <BookOpenCheck />,
 	},
 ];

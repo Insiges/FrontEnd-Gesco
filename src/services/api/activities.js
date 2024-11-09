@@ -3,6 +3,7 @@ import { makeRequest } from "./requestProvider";
 
 export async function getAllActivitiesByProfessor(id) {
 	const url = `atividade/professor/${id}`;
+
 	const request = await makeRequest("GET", url);
 
 	return request.body;
@@ -18,7 +19,7 @@ export async function createActivity(data) {
 		data_atividade: data.dueDate,
 		id_professor: userType === "professor" ? userInfos.dados.id : 1,
 		id_turma: data.team,
-		id_tipo_atividade: 10,
+		id_tipo_atividade: 1,
 	};
 	const request = await makeRequest("POST", url, body);
 
