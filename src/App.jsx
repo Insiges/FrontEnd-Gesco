@@ -26,7 +26,7 @@ function AppWithInitialization() {
 		initializeAuth();
 		pushTypeUser();
 		fetchUserInfos();
-	}, [initializeAuth]);
+	}, [initializeAuth, fetchUserInfos]);
 
 	return <RouterProvider router={router} />;
 }

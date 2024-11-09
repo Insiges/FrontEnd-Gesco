@@ -3,79 +3,52 @@ import { getStudentsByClass } from "../../services/api/class";
 import { saveFrequency } from "../../services/api/frequency";
 import useUserInfos from "../../stores/userStore";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { useGetClassByProfessor } from "../activities/hooks/useGetClassByProfessor";
+import { useGetStudentsByClass } from "../classesStudents/hooks/useGetStudentsByClass";
 import { inputClassName } from "../teacherManagement/const/classConst";
+import { studentsAttendanceSchema } from "./form/schema";
+import { useSaveFrequency } from "./hooks/useSaveFrequency";
 
 export const StudentAttendance = () => {
-	const [students, setStudents] = useState([]);
-	const { data: classes } = useGetClassByProfessor();
-	const [disciplineId, setDisciplineId] = useState(null);
-	const [classId, setClassId] = useState(null);
-	const [isPosting, setIsPosting] = useState(false);
-	const [date, setDate] = useState("");
+	const {
+		register,
+		handleSubmit,
+		reset,
+		watch,
+		formState: { isDirty, isValid, errors },
+	} = useForm({
+		resolver: zodResolver(studentsAttendanceSchema),
+		defaultValues: {
+			date: "",
+			crew: "",
+			subject: "",
+			checkPresence: "",
+		},
+	});
+
+	const crewId = watch("crew");
+	const { data: students } = useGetStudentsByClass(crewId);
+	const { data: classes, isError } = useGetClassByProfessor();
 	const { userInfos } = useUserInfos();
+	const { mutateAsync: saveFrequency } = useSaveFrequency();
 
-	const dateNow = new Date().toLocaleDateString("pt-BR");
-
-	const onChange = (studentId) => {
-		const student = students.map((student) =>
-			student.id === studentId
-				? {
-						...student,
-						presenca: student.presenca === "PRESENTE" ? "AUSENTE" : "PRESENTE",
-					}
-				: student,
-		);
-		setStudents(student);
-	};
-
-	useEffect(() => {
-		const fetchStudents = async () => {
-			try {
-				const response = await getStudentsByClass(classId);
-				setStudents(response);
-			} catch (error) {
-				console.error(error);
-			}
+	const handleMarkAsPresence = async (data) => {
+		const body = {
+			alunos: data.checkPresence,
+			disciplina: Number(data.subject),
+			professor: userInfos.dados.id,
+			dia: data.date,
+			presenca: "PRESENTE",
+			turma: data.crew,
 		};
 
-		fetchStudents();
-	}, [classId]);
-
-	const onSubmit = async () => {
-		if (!disciplineId) {
-			alert("Por favor, selecione uma matéria antes de enviar presenças.");
-			return;
-		}
-
-		const onlyPresentStudents =
-			!!students &&
-			students.length > 0 &&
-			students
-				.map((student) =>
-					student.presenca === "PRESENTE" ? student.id : false,
-				)
-				.filter(Boolean);
-
-		const submitFrequency = async () => {
-			const body = {
-				alunos: onlyPresentStudents,
-				disciplina: Number(disciplineId),
-				professor: userInfos.dados.id,
-				dia: date,
-				presenca: "PRESENTE",
-				turma: classId,
-			};
-
-			try {
-				await saveFrequency(body);
+		await saveFrequency(body, {
+			onSuccess: () => {
 				alert("Os dados foram salvo com sucesso");
-			} catch (error) {
-				console.error(error);
-			}
-		};
-
-		submitFrequency();
+			},
+		});
 	};
 
 	return (
@@ -85,106 +58,103 @@ export const StudentAttendance = () => {
 					Frequência de Alunos
 				</h1>
 			</div>
+			<form onSubmit={handleSubmit(handleMarkAsPresence)}>
+				<div className="gap-12 p-4">
+					<div className="flex justify-between bg-firstBlue text-white h-16 rounded-t-lg items-center w-full p-4">
+						<p className="text-lg font-medium p-8 my-4">
+							{userInfos.dados.nome}
+						</p>
 
-			{/* Header da pagina */}
-			<div className="gap-12 p-4">
-				<div className="flex justify-between bg-firstBlue text-white h-16 rounded-t-lg items-center w-full p-4">
-					<p className="text-lg font-medium p-8 my-4">
-						{" "}
-						{userInfos.dados.nome}
-					</p>
-					<input
-						onChange={(e) => setDate(e.target.value)}
-						type="date"
-						className="text-black px-4 py-2 border border-gray-300 rounded-md"
-					/>
-					<select
-						className={inputClassName}
-						style={{ color: "black" }}
-						onChange={(e) => setClassId(e.target.value)}
-					>
-						<option value="">Selecione a turma</option>
-						{!!classes &&
-							classes.length > 0 &&
-							classes.map((team) => {
-								return (
-									<option key={team.id} value={`${team.id}`}>
-										{team.serie} {team.nome} {team.ano}
-									</option>
-								);
-							})}
-					</select>
-					<select
-						className={inputClassName}
-						style={{ color: "black" }}
-						onChange={(e) => setDisciplineId(e.target.value)}
-					>
-						<option value="" disabled selected>
-							Selecione uma disciplina
-						</option>
-						{userInfos?.disciplinas?.map((it) => (
-							<option key={it.id} value={it.id}>
-								{it.nome}
+						<input
+							type="date"
+							className="text-black px-4 py-2 border border-gray-300 rounded-md"
+							{...register("date")}
+						/>
+						<select
+							className={inputClassName}
+							style={{ color: "black" }}
+							{...register("crew")}
+						>
+							<option value="" defaultValue>
+								Selecione a turma
 							</option>
-						))}
-					</select>
-				</div>
-			</div>
-
-			{/* Tabela que lista alunos */}
-			<div className="flex mx-4 justify-center rounded-lg shadow-lg border-firstBlue">
-				{students.length && !isPosting ? (
-					<table className="table-fixed w-full h-full rounded-lg text-black">
-						<thead>
-							<tr className="bg-firstBlue">
-								<th className={`${thClass} rounded-tl-lg`}>Estudante</th>
-								<th className={thClass}>Matricula</th>
-								<th className={thClass}>Presença</th>
-								<th className={`${thClass} rounded-tr-lg`}>Faltas</th>
-							</tr>
-						</thead>
-
-						<tbody>
-							{students.map((student) => (
-								<tr
-									key={student.id}
-									className="bg-white hover:cursor-pointer"
-									onClick={() => {}}
-								>
-									<td className={tdClass}>{student.nome}</td>
-									<td className={tdClass}>{student.matricula}</td>
-									<td className={tdClass}>
-										<input
-											type="checkbox"
-											onChange={() => onChange(student.id)}
-											checked={student.presenca === "PRESENTE"}
-										/>
-									</td>
-									<td className={tdClass}>MySQL Count de Ausencias</td>
-								</tr>
+							{!isError &&
+								classes?.length > 0 &&
+								classes.map((team) => {
+									return (
+										<option key={team.id} value={`${team.id}`}>
+											{team.serie}
+										</option>
+									);
+								})}
+						</select>
+						<select
+							className={inputClassName}
+							style={{ color: "black" }}
+							{...register("subject")}
+						>
+							<option value="" disabled defaultValue>
+								Selecione uma disciplina
+							</option>
+							{userInfos?.disciplinas?.map((it) => (
+								<option key={it.id} value={`${it.id}`}>
+									{it.nome}
+								</option>
 							))}
-						</tbody>
-					</table>
-				) : isPosting ? (
-					<p className="text-center text-xl text-gray-500 py-4">
-						AGUARDE NA PÁGINA ENQUANTO SALVAMOS ESTAS INFORMAÇÕES.
-					</p>
-				) : (
-					<p className="text-center text-xl text-gray-500 py-4">
-						Não há alunos cadastrados
-					</p>
-				)}
-			</div>
+						</select>
+					</div>
+				</div>
 
-			<div className="m-4 w-full">
-				<button
-					type="submit"
-					className="w-full sm:w-auto px-4 py-2 bg-firstBlue text-white rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-					onClick={onSubmit}
-				>
-					Enviar
-				</button>
-			</div>
+				<div className="flex mx-4 justify-center rounded-lg shadow-lg border-firstBlue">
+					{!!students && students?.length ? (
+						<table className="table-fixed w-full h-full rounded-lg text-black">
+							<thead>
+								<tr className="bg-firstBlue">
+									<th className={`${thClass} rounded-tl-lg`}>Estudante</th>
+									<th className={thClass}>Matricula</th>
+									<th className={thClass}>Presença</th>
+									<th className={`${thClass} rounded-tr-lg`}>Faltas</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								{students.map((student) => (
+									<tr
+										key={student.id}
+										className="bg-white hover:cursor-pointer"
+										onClick={() => {}}
+									>
+										<td className={tdClass}>{student.nome}</td>
+										<td className={tdClass}>{student.matricula}</td>
+										<td className={tdClass}>
+											<input
+												type="checkbox"
+												{...register("checkPresence")}
+												value={student.id}
+											/>
+										</td>
+										<td className={tdClass}></td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					) : (
+						<p className="text-center text-xl text-gray-500 py-4">
+							Não há alunos cadastrados
+						</p>
+					)}
+				</div>
+
+				<div className="m-4 w-full">
+					<button
+						type="submit"
+						className="w-full sm:w-auto px-4 py-2 bg-firstBlue cursor-pointer text-white rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed"
+						// disabled={!isValid}
+					>
+						Enviar
+					</button>
+				</div>
+			</form>
 		</div>
 	);
 };
