@@ -17,7 +17,8 @@ export function TeachersTable() {
 				</thead>
 				<tbody>
 					{!isLoading &&
-						teachers.map((docente, index) => (
+						!!teachers &&
+						teachers?.map((docente, index) => (
 							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 							<tr key={index} className="border-b">
 								<td className="px-4 py-4 flex items-center">
