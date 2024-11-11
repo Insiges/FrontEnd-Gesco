@@ -1,6 +1,6 @@
 import { makeRequest } from "./requestProvider";
 
-export async function getDocents() {
+export async function getTeachers() {
 	const url = "escola/professor";
 	const request = await makeRequest("GET", url);
 

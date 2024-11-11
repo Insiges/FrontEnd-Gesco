@@ -1,14 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import QUERY_KEYS from "../../../consts/queryKeys";
-import { deleteTeacher } from "../../../services/api/teachers";
+import { saveTeacher } from "../../../services/api/teachers";
 
-export function useDeleteDocent() {
+export function useCreateTeacher() {
 	const queryClient = useQueryClient();
+
 	return useMutation({
-		mutationFn: deleteTeacher,
+		mutationFn: saveTeacher,
 		onSuccess: () => {
 			queryClient.invalidateQueries({
-				queryKey: [QUERY_KEYS.DOCENTS],
+				queryKey: [QUERY_KEYS.TEACHERS],
+			});
+			queryClient.invalidateQueries({
+				queryKey: [QUERY_KEYS.TEACHER_BY_ID],
 			});
 		},
 	});

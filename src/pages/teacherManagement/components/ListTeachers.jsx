@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { deleteIcon, editIcon } from "../../../assets/icons";
 
 import { BoxView, Button, Flex, Title } from "../../../components/ui";
-import { FilterDocents } from "./FilterDocentes";
+import { FilterTeachers } from "./FilterTeachers";
 
-export const ListDocents = ({ docentes, onEditar, onDeletar }) => {
+export const ListTeachers = ({ teachers, onEditar, onDeletar }) => {
 	const navigate = useNavigate();
 
 	return (
@@ -14,12 +14,12 @@ export const ListDocents = ({ docentes, onEditar, onDeletar }) => {
 				<Button onClick={() => navigate("register")}>Adicionar Docente</Button>
 			</Flex>
 
-			<FilterDocents
+			<FilterTeachers
 				label="Buscar Docente"
 				placeholder="Digite o nome ou a disciplina desejada…"
 				filtroParam1="nome"
 				filtroParam2="disciplinas"
-				resultados={docentes}
+				resultados={teachers}
 			>
 				{(resultados) => (
 					<BoxView>
@@ -33,29 +33,29 @@ export const ListDocents = ({ docentes, onEditar, onDeletar }) => {
 									</tr>
 								</thead>
 								<tbody>
-									{resultados.map((docente) => (
+									{resultados.map((teacher) => (
 										<tr
-											key={docente.dados.id}
+											key={teacher.dados.id}
 											className="border-t text-center odd:bg-white even:bg-blue-50"
 										>
 											<td className="py-3" style={{ width: "33%" }}>
-												{docente.dados.nome}
+												{teacher.dados.nome}
 											</td>
 											<td className="py-3" style={{ width: "33%" }}>
-												{docente.disciplinas}
+												{teacher.disciplinas}
 											</td>
 
 											<td className="py-3" style={{ width: "33%" }}>
 												<button
 													className="text-blue-500 hover:underline mx-1"
-													onClick={() => onEditar(docente.dados.id ?? "")}
+													onClick={() => onEditar(teacher.dados.id ?? "")}
 													type="button"
 												>
 													{editIcon}
 												</button>
 												<button
 													className="text-red-500 hover:underline mx-1"
-													onClick={() => onDeletar(docente.dados.id)}
+													onClick={() => onDeletar(teacher.dados.id)}
 													type="button"
 												>
 													{deleteIcon}
@@ -75,9 +75,9 @@ export const ListDocents = ({ docentes, onEditar, onDeletar }) => {
 						</div>
 					</BoxView>
 				)}
-			</FilterDocents>
+			</FilterTeachers>
 		</div>
 	);
 };
 
-export default ListDocents;
+export default ListTeachers;

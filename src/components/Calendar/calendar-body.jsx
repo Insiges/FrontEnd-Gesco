@@ -32,7 +32,7 @@ export function CalendarBody({ currentDate, today, events, onDayClick }) {
 	});
 
 	return (
-		<div>
+		<div className="p-6">
 			<div className="grid grid-cols-7 gap-2 text-center text-gray-600 font-medium text-xs sm:text-base">
 				{daysOfWeek.map((day) => (
 					<div key={day} className="py-2">
@@ -41,7 +41,7 @@ export function CalendarBody({ currentDate, today, events, onDayClick }) {
 				))}
 			</div>
 
-			<div className="grid grid-cols-10 gap-2 mt-4">
+			<div className="grid grid-cols-5 lg:grid-cols-9 gap-2 mt-4">
 				{emptyDays}
 				{days}
 			</div>

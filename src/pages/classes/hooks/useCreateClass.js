@@ -1,18 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import QUERY_KEYS from "../../../consts/queryKeys";
-import { editTeacher } from "../../../services/api/teachers";
+import { saveClass } from "../../../services/api/class";
 
-export function useEditDocent() {
+export function useCreateClass() {
 	const queryClient = useQueryClient();
-
 	return useMutation({
-		mutationFn: editTeacher,
+		mutationFn: saveClass,
 		onSuccess: () => {
 			queryClient.invalidateQueries({
-				queryKey: [QUERY_KEYS.DOCENTS],
-			});
-			queryClient.invalidateQueries({
-				queryKey: [QUERY_KEYS.DOCENTS_BY_ID],
+				queryKey: [QUERY_KEYS.CLASSES],
 			});
 		},
 	});
