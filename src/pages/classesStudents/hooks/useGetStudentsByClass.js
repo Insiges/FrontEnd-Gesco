@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 
-import QUERY_KEYS from "../../../consts/QueryKeys";
+import QUERY_KEYS from "../../../consts/queryKeys";
 import { getStudentsByClass } from "../../../services/api/class";
 
 export function useGetStudentsByClass(id) {
 	return useQuery({
-		queryKey: [QUERY_KEYS.STUDENTS_BY_CLASS],
+		queryKey: [QUERY_KEYS.STUDENTS_BY_CLASS, id],
 		queryFn: () => getStudentsByClass(id),
 		enabled: !!id,
 	});

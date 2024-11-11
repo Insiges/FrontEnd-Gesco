@@ -7,7 +7,7 @@ export const ClassTable = ({ turmas }) => {
 	const navigate = useNavigate();
 
 	const handleRowClick = (id) => {
-		navigate(`/ClassSchedule/${id}`);
+		navigate(`/classSchedule/${id}`);
 	};
 
 	return (

@@ -1,37 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { Controller, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
+import {
+	getReservationRoom,
+	saveReservationRoom,
+} from "../../../services/api/rooms";
+import useUserInfos from "../../../stores/userStore";
 
 export function Reservation() {
 	const sala = decodeURIComponent(useParams().sala);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [reservas, setReservas] = useState([
-		{
-			id: uuidv4(),
-			sala: "Laboratório de Informática",
-			data: "12/11/2024",
-			turno: "Manhã",
-			professor: "Jacques",
-		},
-		{
-			id: uuidv4(),
-			sala: "Sala de Artes",
-			data: "20/11/2024",
-			turno: "Tarde",
-			professor: "Edu",
-		},
-		{
-			id: uuidv4(),
-			sala: "Laboratório de Informática",
-			data: "21/11/2024",
-			turno: "Manhã",
-			professor: "Hyago",
-		},
-	]);
+	const { userInfos } = useUserInfos();
+	const [reservas, setReservas] = useState([]);
+
+	useEffect(() => {
+		async function fetchReservas() {
+			try {
+				const response = await getReservationRoom(sala);
+				setReservas(response);
+			} catch (error) {
+				console.error(error);
+			}
+		}
+		fetchReservas();
+	}, [sala]);
+
+	console.log(reservas);
 
 	const { control, handleSubmit, reset } = useForm({
 		defaultValues: {
@@ -44,20 +43,20 @@ export function Reservation() {
 	const openModal = () => setIsModalOpen(true);
 	const closeModal = () => setIsModalOpen(false);
 
-	const onSubmit = (data) => {
-		const newReserva = {
-			id: uuidv4(),
-			sala,
-			data: data.data.toLocaleDateString("pt-BR"), // Converte a data para string formatada
+	const onSubmit = async (data) => {
+		const date = new Date(data.data);
+		const formattedDate = format(date, "yyyy-MM-dd");
+		const body = {
+			dia: formattedDate,
 			turno: data.turno,
-			professor: data.professor,
+			id_professor: userInfos.dados.id,
+			sala,
 		};
-		setReservas([...reservas, newReserva]);
+
+		await saveReservationRoom(body);
 		reset();
 		closeModal();
 	};
-
-	const reservasFiltradas = reservas.filter((reserva) => reserva.sala === sala);
 
 	return (
 		<div className="font-alatsi w-full  mx-auto p-4 sm:p-6 lg:p-8">
@@ -79,11 +78,8 @@ export function Reservation() {
 						</tr>
 					</thead>
 					<tbody>
-						{reservasFiltradas.map((reserva, index) => (
-							<tr
-								key={reserva.id}
-								className={index % 2 === 0 ? "bg-white" : "bg-[#f4f4f4]"}
-							>
+						{reservas.map((reserva) => (
+							<tr key={reserva.id}>
 								<td className="border px-4 py-2">{reserva.data}</td>
 								<td className="border px-4 py-2">{reserva.turno}</td>
 								<td className="border px-4 py-2">{reserva.professor}</td>
@@ -116,24 +112,7 @@ export function Reservation() {
 							</div>
 							<form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
 								<div className="mb-4">
-									<label className="block text-sm font-medium text-[#060343]">
-										Professor
-										<Controller
-											name="professor"
-											control={control}
-											render={({ field }) => (
-												<input
-													{...field}
-													type="text"
-													className="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
-													placeholder="Digite o nome do professor"
-												/>
-											)}
-										/>
-									</label>
-								</div>
-								<div className="mb-4">
-									<label className="block text-sm font-medium text-[#060343]">
+									<label className="block text-sm font-medium text-gray-700">
 										Data
 									</label>
 									<Controller

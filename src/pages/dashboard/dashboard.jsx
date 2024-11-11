@@ -18,14 +18,14 @@ const currentlyMonth = dayjs().month();
 
 export function Dashboard() {
 	const { data: events } = useGetEventsByMonth(currentlyMonth + 1);
-	const { data: counters } = useGetCounters();
+	// const { data: counters } = useGetCounters();
 	const { userType } = useUserInfos();
 
 	return (
 		<div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3">
 			<div className="space-y-2">
 				<div className="bg-white rounded-lg w-[600px]">
-					{userType !== "professor" && <Counters counters={counters} />}
+					{/* {userType !== "professor" && <Counters counters={counters} />} */}
 					{userType === "professor" && (
 						<Link to={"/activities"}>
 							<ActivitiesTable />
@@ -63,10 +63,8 @@ export function Dashboard() {
 			</div>
 
 			{userType === "professor" && (
-				<div className="lg:col-span-2 w-full bg-white">
-					<Link to={"/classesSchedule"}>
-						<ScheduleTeacher />
-					</Link>
+				<div className="lg:col-span-2 w-full bg-white  rounded-lg p-6 ">
+					<ScheduleTeacher />
 				</div>
 			)}
 		</div>

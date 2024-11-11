@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaBook } from "react-icons/fa";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { Outlet } from "react-router-dom";
+import { getRooms } from "../../services/api/rooms";
 
 export function Room() {
+	const [rooms, setRooms] = useState([]);
+
+	useEffect(() => {
+		const fetchRooms = async () => {
+			try {
+				const response = await getRooms();
+
+				setRooms(response);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+
+		fetchRooms();
+	}, []);
+
 	const navigate = useNavigate();
 
 	const handleReserveClick = (sala) => {
@@ -33,57 +50,19 @@ export function Room() {
 								</tr>
 							</thead>
 							<tbody>
-								<tr className="border-b font-bold text-[#060343] text-[18px]">
-									<td className="py-3 px-4">Laboratório de Informática</td>
-									<td className="py-3 px-4 text-center flex ">
-										<FaBook
-											className="w-5 h-5 mx-auto text-[#FFB400] cursor-pointer"
-											onClick={() =>
-												handleReserveClick("Laboratório de Informática")
-											}
-										/>
-									</td>
-								</tr>
-								<tr className="bg-[#f4f4f4] border-b font-bold text-[#060343] text-[18px]">
-									<td className="py-3 px-4">Sala de Artes</td>
-									<td className="py-3 px-4 text-center">
-										<FaBook
-											className="w-5 h-5 mx-auto text-[#FFB400] cursor-pointer"
-											onClick={() => handleReserveClick("Sala de Artes")}
-										/>
-									</td>
-								</tr>
-								<tr className="border-b font-bold text-[#060343] text-[18px]">
-									<td className="py-3 px-4">Auditório</td>
-									<td className="py-3 px-4 text-center">
-										<FaBook
-											className="w-5 h-5 mx-auto text-[#FFB400] cursor-pointer"
-											onClick={() => handleReserveClick("Auditório")}
-										/>
-									</td>
-								</tr>
-								<tr className="bg-[#f4f4f4] border-b font-bold text-[#060343] text-[18px]">
-									<td className="py-3 px-4">Laboratório de Ciências</td>
-									<td className="py-3 px-4 text-center">
-										<FaBook
-											className="w-5 h-5 mx-auto text-[#FFB400] cursor-pointer"
-											onClick={() =>
-												handleReserveClick("Laboratório de Ciências")
-											}
-										/>
-									</td>
-								</tr>
-								<tr>
-									<td className="py-3 px-4 font-bold text-[#060343] text-[18px]">
-										Biblioteca
-									</td>
-									<td className="py-3 px-4 text-center">
-										<FaBook
-											className="w-5 h-5 mx-auto text-[#FFB400] cursor-pointer"
-											onClick={() => handleReserveClick("Biblioteca")}
-										/>
-									</td>
-								</tr>
+								{rooms.map((room) => {
+									return (
+										<tr key={room.id} className="border-b font-bold">
+											<td className="py-3 px-4">{room.nome}</td>
+											<td className="py-3 px-4 text-center flex ">
+												<FaBook
+													className="w-5 h-5 mx-auto text-gray-600 cursor-pointer"
+													onClick={() => handleReserveClick(room.nome)}
+												/>
+											</td>
+										</tr>
+									);
+								})}
 							</tbody>
 						</table>
 					</div>
