@@ -18,10 +18,9 @@ export function RegisterTeacher() {
 	const { mutateAsync: editTeacher } = useEditTeacher();
 	const { mutateAsync: createTeacher } = useCreateTeacher();
 
-	const [docenteId, setDocenteId] = useState(null);
 	const [etapasCadastrais, setEtapasCadastrais] = useState(1);
 
-	const [data, setData] = useState({
+	const [teacher, setTeacher] = useState({
 		nome: "",
 		foto: "",
 		sexo: "",
@@ -49,15 +48,10 @@ export function RegisterTeacher() {
 	});
 	useEffect(() => {
 		if (window.location.pathname !== "/docents/register") {
-			const path = window.location.pathname;
-			const pathParts = path.split("/");
-			const id = pathParts[pathParts.length - 1];
-			setDocenteId(id);
-
 			const fetchTeacher = async () => {
 				try {
 					const response = await getOneTeacher(id);
-					setData({
+					setTeacher({
 						nome: response.dados.nome,
 						foto: response.dados.foto,
 						sexo: response.dados.sexo,
@@ -88,22 +82,10 @@ export function RegisterTeacher() {
 
 			fetchTeacher();
 		}
-	}, []);
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	useEffect(() => {
-		if (id) {
-			const docente = teacher.find(
-				(docente) => docente.id === Number.parseInt(id),
-			);
-			if (docente) {
-				setData(docente);
-			}
-		}
-	}, [id, teacher]);
+	}, [id]);
 
 	const handleChangeOnNext = (vals) => {
-		setData((dadosPrevios) => ({
+		setTeacher((dadosPrevios) => ({
 			...dadosPrevios,
 			...vals,
 		}));
@@ -141,7 +123,7 @@ export function RegisterTeacher() {
 				{etapasCadastrais === 1 && (
 					<PersonalInformationStep
 						etapas={etapasCadastrais}
-						dadosPessoais={data}
+						dadosPessoais={teacher}
 						onNext={(vals) => {
 							handleChangeOnNext(vals);
 							setEtapasCadastrais(2);
@@ -151,7 +133,7 @@ export function RegisterTeacher() {
 
 				{etapasCadastrais === 2 && (
 					<EducationStep
-						formacaoDados={data}
+						formacaoDados={teacher}
 						etapas={etapasCadastrais}
 						onNext={(vals) => {
 							handleChangeOnNext(vals);
@@ -163,7 +145,7 @@ export function RegisterTeacher() {
 
 				{etapasCadastrais === 3 && (
 					<DisciplinesStep
-						disciplinas={data.disciplinas}
+						disciplinas={teacher.disciplinas}
 						etapas={etapasCadastrais}
 						onNext={(vals) => {
 							handleChangeOnNext(vals);
@@ -175,7 +157,7 @@ export function RegisterTeacher() {
 
 				{etapasCadastrais === 4 && (
 					<LoginStep
-						dadosCadastrais={data}
+						dadosCadastrais={teacher}
 						etapas={etapasCadastrais}
 						onSubmit={(e, vals) => handleSubmit(e, vals)}
 						onPrevious={() => setEtapasCadastrais(3)}
