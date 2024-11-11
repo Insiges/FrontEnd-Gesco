@@ -49,6 +49,8 @@ export async function deleteClass(id) {
 }
 
 export async function getStudentsByClass(id) {
+	console.log(id);
+
 	const url = `turmas/alunos/${id}`;
 	const request = await makeRequest("GET", url);
 

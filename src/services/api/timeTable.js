@@ -1,3 +1,4 @@
+import useUserInfos from "../../stores/userStore";
 import { makeRequest } from "./requestProvider";
 
 export async function getWeek() {
@@ -32,7 +33,10 @@ export async function saveGrid(data) {
 
 export async function getGridByClass(id) {
 	const url = `grade-horario/turma/${id}`;
+
 	const request = await makeRequest("GET", url);
+
+	console.log(request.body);
 
 	return request.body;
 }
@@ -55,6 +59,14 @@ export async function editGrid(id, data) {
 	};
 
 	const request = await makeRequest("PUT", url, body);
+
+	return request.body;
+}
+
+export async function getGridByTeacher(id) {
+	const url = `grade-horario/professor/${id}`;
+
+	const request = await makeRequest("GET", url);
 
 	return request.body;
 }

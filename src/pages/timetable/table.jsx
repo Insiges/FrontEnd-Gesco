@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getOneClass } from "../../services/api/class";
-import { getGridByClass } from "../../services/api/timeTable";
-import { useGetAllClasses } from "../classesSchedule/hooks/useGetAllClasses";
 import { Grid, Modal, TitleClass } from "./components";
 import { ModalEdit } from "./components/modal/modalEdit";
+import { useGetGrid } from "./hooks/useGetGrid";
 import { useGetOneClass } from "./hooks/useGetOneClass";
 
 export const Timetable = () => {
@@ -15,7 +13,7 @@ export const Timetable = () => {
 	const { id } = useParams();
 
 	const { data: classe } = useGetOneClass(id);
-	const { data: grid } = useGetAllClasses(id);
+	const { data: grid } = useGetGrid(id);
 
 	useEffect(() => {
 		let horariosUnicos;
@@ -27,7 +25,7 @@ export const Timetable = () => {
 		} else {
 			// Se o array grid estiver vazio, preencha com horários do dia (por exemplo, de 00:00 a 23:00)
 			horariosUnicos = Array.from(
-				{ length: 24 },
+				{ length: 5 },
 				(_, index) => `${String(index).padStart(2, "0")}:00`,
 			);
 		}

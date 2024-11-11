@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const Grid = ({ table, horario, openModal, selectedGrid }) => {
+export const Grid = ({ table, horario, openModal, selectedGrid, type }) => {
 	const handleClick = (e) => {
 		openModal();
 		selectedGrid(e.target.id);
@@ -12,6 +12,7 @@ export const Grid = ({ table, horario, openModal, selectedGrid }) => {
 		"Quinta-feira",
 		"Sexta-feira",
 	];
+
 	// Função para encontrar o horário correspondente a um dia e hora
 	const getHorario = (dia, hora) => {
 		return !!table && table.find((h) => h.dia === dia && h.hora === hora);
@@ -58,7 +59,11 @@ export const Grid = ({ table, horario, openModal, selectedGrid }) => {
 										>
 											{horario ? (
 												<div onClick={handleClick} id={horario.id}>
-													<p id={horario.id}>{horario.professor}</p>
+													<p id={horario.id}>
+														{type === "professor"
+															? horario.turma
+															: horario.professor}
+													</p>
 													<strong id={horario.id}>{horario.disciplina}</strong>
 												</div>
 											) : (
