@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
+import dayjs from "dayjs";
 import {
 	getReservationRoom,
 	saveReservationRoom,
@@ -80,7 +81,9 @@ export function Reservation() {
 					<tbody>
 						{reservas.map((reserva) => (
 							<tr key={reserva.id}>
-								<td className="border px-4 py-2">{reserva.data}</td>
+								<td className="border px-4 py-2">
+									{dayjs(reserva.data).format("DD/MM/YYYY")}
+								</td>
 								<td className="border px-4 py-2">{reserva.turno}</td>
 								<td className="border px-4 py-2">{reserva.professor}</td>
 							</tr>

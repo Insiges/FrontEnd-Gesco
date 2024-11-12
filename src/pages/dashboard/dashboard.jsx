@@ -22,49 +22,39 @@ export function Dashboard() {
 	const { userType } = useUserInfos();
 
 	return (
-		<div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3">
-			<div className="space-y-2">
-				<div className="bg-white rounded-lg w-[600px]">
-					{/* {userType !== "professor" && <Counters counters={counters} />} */}
-					{userType === "professor" && (
-						<Link to={"/activities"}>
-							<ActivitiesTable />
+		<div className="grid grid-cols-2 gap-2 h-[calc(100vh-8rem)] p-4">
+			{userType !== "professor" && (
+				<div className="h-full flex flex-col space-y-2">
+					<div className="bg-white rounded-lg flex-grow h-[calc(50vh-2rem)]">
+						<Link to={"/docents"}>
+							<TeachersTable />
 						</Link>
-					)}
-				</div>
-				<div className="bg-white rounded-lg w-[600px]">
-					<Link to={"/docents"}>
-						<TeachersTable />
-					</Link>
-				</div>
-				{userType !== "professor" && (
-					<div className="lg:grid lg:grid-cols-2 gap-4 ">
-						<div className="bg-white w-[340px]  rounded-lg p-4">
-							<SchoolPerformanceChart />
-						</div>
-						<div className="bg-white w-[220px] rounded-lg p-4 ml-[65px]">
-							<DonutChart title="School Calendar" />
-						</div>
 					</div>
-				)}
-			</div>
-
-			<div className="space-y-2 w-full lg:max-w-sm lg:mx-auto">
-				{userType !== "professor" && (
-					<div className="bg-white rounded-lg p-4">
-						<Calendar events={events} />
-					</div>
-				)}
-				{/* {userType !== "professor" && (
-					<div className="bg-white shadow-xl rounded-lg p-6">
+					<div className="bg-white rounded-lg flex-grow h-[calc(40vh-2rem)] ">
 						<DonutChart title="School Calendar" />
 					</div>
-				)} */}
-			</div>
+				</div>
+			)}
+
+			{userType !== "professor" && (
+				<div className="h-[calc(50vh-2rem)] flex flex-col space-y-2">
+					<div className="bg-white rounded-lg p-1 flex-grow">
+						<Calendar events={events} />
+					</div>
+				</div>
+			)}
 
 			{userType === "professor" && (
-				<div className="lg:col-span-2 w-full bg-white  rounded-lg p-6 ">
-					<ScheduleTeacher />
+				<div className="col-span-full grid grid-cols-2">
+					<div className="h-1/2 w-full bg-white rounded-lg p-6">
+						<ScheduleTeacher />
+					</div>
+
+					<div>
+						<Link to={"/activities"} className="p-6">
+							<ActivitiesTable />
+						</Link>
+					</div>
 				</div>
 			)}
 		</div>

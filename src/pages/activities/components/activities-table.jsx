@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useGetActivies } from "../hooks/useGetActivities";
@@ -65,8 +66,12 @@ export function ActivitiesTable() {
 									{activity.nome}
 								</th>
 
-								<td className="px-6 py-4">{activity.data_atividade}</td>
-								<td className="px-6 py-4">{activity.valor}</td>
+								<td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									{dayjs(activity.data_atividade).format("DD/MM/YYYY")}
+								</td>
+								<td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									{activity.valor}
+								</td>
 								<td className="px-6 py-4">
 									<button
 										type="button"
