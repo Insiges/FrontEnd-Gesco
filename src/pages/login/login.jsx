@@ -63,7 +63,9 @@ export function Login() {
 			<Header />
 			<div className="flex flex-grow justify-center mt-14 gap-2 mx-auto">
 				<div className="w-550px flex flex-col justify-center items-center bg-white p-4 mt-10 ">
-					<h1 className="text-[#060273] text-4xl font-bold mb-10">Bem-vindo</h1>
+					<h1 className="text-[#060273] text-[44px] font-bold mb-10">
+						Bem-vindo!
+					</h1>
 					<form
 						className="space-y-4 w-full max-w-sm"
 						onSubmit={handleSubmit(handleSignIn)}
@@ -71,7 +73,7 @@ export function Login() {
 						<input
 							type="text"
 							placeholder="Usuário"
-							className="block w-full p-[6px] border border-black rounded-md"
+							className="block w-full p-[6px] border border-[#504C4C] rounded-md"
 							{...register("username")}
 						/>
 						{errors.username && (
@@ -81,7 +83,7 @@ export function Login() {
 						<input
 							type="password"
 							placeholder="Senha"
-							className="block w-full p-[6px] border border-black rounded-md"
+							className="block w-full p-[6px] border border-[#504C4C] rounded-md"
 							{...register("password")}
 						/>
 						{errors.password && (

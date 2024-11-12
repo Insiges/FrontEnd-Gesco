@@ -4,7 +4,7 @@ import { StepProgress } from "./StepProgress";
 export function FormLayout({ isEdit, steps, children }) {
 	return (
 		<Flex>
-			<Title fontSize={34} subTitle="Dados Pessoais">
+			<Title fontSize={24} subTitle="Dados Pessoais">
 				{isEdit && "Editar Docente"}
 				{!isEdit && "Adicionar Docentes"}
 			</Title>

@@ -47,7 +47,7 @@ export const FilterTeachers = ({
 	return (
 		<Flex className="gap-12 p-4">
 			<BoxView>
-				<div className="bg-blue-800 text-white">
+				<div className="bg-[#C5CFE4] text-[#060343] rounded-t-lg p-6">
 					<label htmlFor="filtro" className="text-lg font-bold p-4 my-4">
 						{label}
 					</label>

@@ -8,7 +8,7 @@ const LinkSideBar = ({ url, icone, nome }) => {
 		<li className="list-none lg:pl-4">
 			<Link
 				to={url}
-				className={`flex items-center text-gray-300 p-1 gap-4 no-underline transition-all duration-300 hover:bg-white hover:text-gray-600 hover:rounded-l-2xl hover:opacity-80 hover:translate-x-1 sm:hover:translate-x-4 ${
+				className={`flex items-center text-[#060343] p-1 gap-4 no-underline transition-all duration-300 hover:bg-white hover:text-gray-600 hover:rounded-l-2xl hover:opacity-80 hover:translate-x-1 sm:hover:translate-x-4 ${
 					isActive
 						? "bg-white text-gray-700 rounded-l-2xl translate-x-1 opacity-100 sm:translate-x-4"
 						: ""

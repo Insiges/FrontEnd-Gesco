@@ -37,17 +37,17 @@ export const ClassTable = ({ turmas, handleDelete }) => {
 			) : (
 				<table className="table-fixed w-full h-full rounded-lg">
 					<thead>
-						<tr className="bg-firstBlue">
-							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl rounded-tl-lg  text-white text-center">
+						<tr className="bg-[#C5CFE4]">
+							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl rounded-tl-lg  text-[#060343]text-center">
 								Turma
 							</th>
-							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl text-white text-center">
+							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl text-[#060343]text-center">
 								Serie
 							</th>
-							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl text-white text-center">
+							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl text-[#060343] text-center">
 								Ano letivo
 							</th>
-							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl rounded-tr-lg  text-white text-center">
+							<th className="w-1/6 px-2 py-1 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-xl rounded-tr-lg  text-[#060343] text-center">
 								Ação
 							</th>
 						</tr>

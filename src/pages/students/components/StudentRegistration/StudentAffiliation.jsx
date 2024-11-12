@@ -38,7 +38,7 @@ const StudentAffiliation = ({
 	return (
 		<Flex>
 			<Title fontSize={34} subTitle="Responsaveis">
-				Adicionar Docentes
+				Adicionar Responsável
 			</Title>
 
 			<FormStepsGuide etapas={formSteps} />
@@ -146,8 +146,8 @@ const StudentAffiliation = ({
 				<Flex className="flex-1">
 					<BoxView>
 						<div className=" rounded-md ">
-							<div className="bg-blue-800 min-w-full rounded-md p-6">
-								<p className="text-white">
+							<div className="bg-[#E7E7EC] min-w-full rounded-md p-6">
+								<p className="text-[#060343]">
 									<strong>Responsáveis</strong>
 								</p>
 							</div>
@@ -158,7 +158,7 @@ const StudentAffiliation = ({
 											key={`${responsavel.nome}-${index}`}
 											direction="row"
 											justify="between"
-											className="p-6 odd:bg-white even:bg-blue-50"
+											className="p-6 odd:bg-white even:bg-[#f4f4f4]"
 										>
 											<Flex direction="row" className="gap-12 w-full">
 												<p>{responsavel.nome}</p>
@@ -185,7 +185,7 @@ const StudentAffiliation = ({
 									<Flex
 										direction="row"
 										justify="between"
-										className="p-6 odd:bg-white even:bg-blue-50"
+										className="p-6 odd:bg-white even:bg-[#f4f4f4]"
 									>
 										<p>Adicione algum responsável</p>
 									</Flex>

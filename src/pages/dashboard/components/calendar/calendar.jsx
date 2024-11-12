@@ -93,9 +93,9 @@ export function Calendar({ events }) {
 	};
 
 	return (
-		<div className="w-full p-4 sm:p-10 bg-white shadow-md rounded-lg">
+		<div className="w-full p-4 bg-white shadow-md rounded-lg">
 			<h2 className="text-lg font-bold text-center mb-4">Calendário</h2>
-			<div className="flex justify-between items-center mb-4">
+			<div className="flex justify-between items-center mb-1">
 				<button
 					type="button"
 					onClick={prevMonth}

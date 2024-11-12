@@ -66,7 +66,7 @@ const LoginStep = ({ dadosCadastrais, etapas, onSubmit, onPrevious }) => {
 				<Flex className="flex-1">
 					<BoxView>
 						<div>
-							<p className="bg-blue-500 text-white min-w-full rounded-t-md p-6">
+							<p className="bg-[#E7E7EC] text-[#060343] min-w-full rounded-t-md p-6">
 								<strong>Revisar Dados Cadastrais</strong>
 							</p>
 							<div>
@@ -78,7 +78,7 @@ const LoginStep = ({ dadosCadastrais, etapas, onSubmit, onPrevious }) => {
 												key={key}
 												direction="row"
 												justify="between"
-												className="p-3 odd:bg-white even:bg-blue-50"
+												className="p-3 odd:bg-white even:bg-[#f4f4f4]"
 											>
 												<Flex
 													direction="row"

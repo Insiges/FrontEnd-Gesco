@@ -22,42 +22,39 @@ export function Dashboard() {
 	const { userType } = useUserInfos();
 
 	return (
-		<div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
-			<div className="space-y-4">
-				<div className="bg-white  rounded-lg p-4">
-					{/* {userType !== "professor" && <Counters counters={counters} />} */}
-					{userType === "professor" && (
-						<Link to={"/activities"}>
-							<ActivitiesTable />
+		<div className="grid grid-cols-2 gap-2 h-[calc(100vh-8rem)] p-4">
+			{userType !== "professor" && (
+				<div className="h-full flex flex-col space-y-2">
+					<div className="bg-white rounded-lg flex-grow h-[calc(50vh-2rem)]">
+						<Link to={"/docents"}>
+							<TeachersTable />
 						</Link>
-					)}
-				</div>
-				{/* <div className="bg-white rounded-lg p-4">
-					<Link to={"/docents"}>
-						<TeachersTable />
-					</Link>
-				</div> */}
-				{/* {userType !== "professor" && (
-					<div className="bg-white shadow-xl rounded-lg p-6">
-						<SchoolPerformanceChart />
 					</div>
-				)} */}
-			</div>
-			<div className="space-y-4">
-				{userType !== "professor" && (
-					<div>
-						<Calendar events={events} />
-					</div>
-				)}
-				{/* {userType !== "professor" && (
-					<div className="bg-white shadow-xl rounded-lg p-6">
+					<div className="bg-white rounded-lg flex-grow h-[calc(40vh-2rem)] ">
 						<DonutChart title="School Calendar" />
 					</div>
-				)} */}
-			</div>
+				</div>
+			)}
+
+			{userType !== "professor" && (
+				<div className="h-[calc(50vh-2rem)] flex flex-col space-y-2">
+					<div className="bg-white rounded-lg p-1 flex-grow">
+						<Calendar events={events} />
+					</div>
+				</div>
+			)}
+
 			{userType === "professor" && (
-				<div className="lg:col-span-2 w-full bg-white  rounded-lg p-6 ">
-					<ScheduleTeacher />
+				<div className="col-span-full grid grid-cols-2">
+					<div className="h-1/2 w-full bg-white rounded-lg p-6">
+						<ScheduleTeacher />
+					</div>
+
+					<div>
+						<Link to={"/activities"} className="p-6">
+							<ActivitiesTable />
+						</Link>
+					</div>
 				</div>
 			)}
 		</div>

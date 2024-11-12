@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useGetActivies } from "../hooks/useGetActivities";
@@ -34,8 +35,8 @@ export function ActivitiesTable() {
 
 	return (
 		<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-			<table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-				<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+			<table className="w-full text-sm text-left rtl:text-right text-[#030143]">
+				<thead className="text-[17px] text-[#030143] font-semibold bg-[#C5CFE4]">
 					<tr>
 						<th scope="col" className="px-6 py-3">
 							Nome
@@ -65,8 +66,12 @@ export function ActivitiesTable() {
 									{activity.nome}
 								</th>
 
-								<td className="px-6 py-4">{activity.data_atividade}</td>
-								<td className="px-6 py-4">{activity.valor}</td>
+								<td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									{dayjs(activity.data_atividade).format("DD/MM/YYYY")}
+								</td>
+								<td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									{activity.valor}
+								</td>
 								<td className="px-6 py-4">
 									<button
 										type="button"

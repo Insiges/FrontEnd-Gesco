@@ -15,8 +15,8 @@ const LoginRegistration = ({ data, formSteps, onSubmit, onPrevious }) => {
 	return (
 		<Flex>
 			<Flex>
-				<Title fontSize={34} subTitle="Cadastro de Login">
-					Adicionar Docentes
+				<Title fontSize={24} subTitle="Cadastro de Login">
+					Adicionar Estudantes
 				</Title>
 
 				<FormStepsGuide etapas={formSteps} />
@@ -77,7 +77,7 @@ const LoginRegistration = ({ data, formSteps, onSubmit, onPrevious }) => {
 					<Flex className="flex-1">
 						<BoxView>
 							<div>
-								<p className="bg-blue-500 text-white min-w-full rounded-t-md p-6">
+								<p className="bg-[#E7E7EC] text-[#060343] min-w-full rounded-t-md p-6">
 									<strong>Revisar Dados Cadastrais</strong>
 								</p>
 								<div>{Object.entries(data).map(StudentInfoOverview)}</div>

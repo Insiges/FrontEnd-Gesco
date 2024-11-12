@@ -71,7 +71,7 @@ const PersonalInformation = ({ data, formSteps, onNext }) => {
 	return (
 		<Flex>
 			<Title fontSize={34} subTitle="Dados Pessoais">
-				Adicionar Docentes
+				Adicionar Estudantes
 			</Title>
 
 			<FormStepsGuide etapas={formSteps} />

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getGridByTeacher } from "../../../../services/api/timeTable";
 import useUserInfos from "../../../../stores/userStore";
 import { Grid } from "../../../timetable/components";
+import { GridTeacher } from "../grid/grid";
 
 export function ScheduleTeacher() {
 	const [grid, setGrid] = useState([]);
@@ -34,9 +35,9 @@ export function ScheduleTeacher() {
 	}, [grid]);
 	return (
 		<div className="flex justify-center ">
-			<div className=" text-center border-2 p-8 rounded-lg mt-1 text-[#060343] w-[970px] mb-[20px]">
+			<div className=" text-center border-2 p-8 rounded-lg mt-1 text-[#060343] w-[45dvw] ">
 				<h3 className="text-lg font-bold">Grade de horários</h3>
-				<Grid
+				<GridTeacher
 					table={grid}
 					horario={horario}
 					openModal={() => false}

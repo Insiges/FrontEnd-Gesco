@@ -107,7 +107,10 @@ const router = createBrowserRouter([
 							},
 						],
 					},
-					{ path: "/students-attendance", element: <StudentAttendance /> },
+					{
+						path: "/students-attendance",
+						element: <StudentAttendance />,
+					},
 				],
 			},
 		],

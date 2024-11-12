@@ -1,7 +1,7 @@
 export const Title = ({ style, fontSize, subTitle, children }) => (
 	<>
 		<h1
-			className="text-blue-800 font-bold text-4xl"
+			className="text-[#060343] font-bold text-2xl"
 			style={{ ...style, fontSize }}
 		>
 			{children}

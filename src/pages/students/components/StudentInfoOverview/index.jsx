@@ -5,7 +5,7 @@ const Render = ({ key, children }) => (
 		key={key}
 		direction="row"
 		justify="between"
-		className="p-3 odd:bg-white even:bg-blue-50"
+		className="p-3 odd:bg-white even:bg-[#f4f4f4]"
 	>
 		<Flex direction="row" justify="start" className="gap-12">
 			{children}

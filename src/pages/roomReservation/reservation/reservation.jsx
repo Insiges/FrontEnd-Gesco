@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
+import dayjs from "dayjs";
 import {
 	getReservationRoom,
 	saveReservationRoom,
@@ -59,19 +60,19 @@ export function Reservation() {
 	};
 
 	return (
-		<div className="font-alatsi w-full max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+		<div className="font-alatsi w-full  mx-auto p-4 sm:p-6 lg:p-8">
 			<div className="container mx-auto">
 				<h1 className="text-lg sm:text-2xl font-bold text-[#060343] mb-4 text-center sm:text-left">
 					{sala}
 				</h1>
-				<p className="text-sm sm:text-base text-[#060343] mb-4">
+				<p className="text-sm sm:text-base text-[#060273] mb-4">
 					Selecione a data desejada para agendar a sala. Atente-se que não é
 					possível selecionar para o mesmo dia e turno que outra reserva.
 				</p>
 
-				<table className="min-w-full border">
+				<table className="min-w-full border text-[#060343] rounded-lg overflow-hidden">
 					<thead>
-						<tr>
+						<tr className="bg-[#C5CFE4] text-[17px] font-semibold">
 							<th className="px-4 py-2">Data</th>
 							<th className="px-4 py-2">Turno</th>
 							<th className="px-4 py-2">Professor</th>
@@ -80,7 +81,9 @@ export function Reservation() {
 					<tbody>
 						{reservas.map((reserva) => (
 							<tr key={reserva.id}>
-								<td className="border px-4 py-2">{reserva.data}</td>
+								<td className="border px-4 py-2">
+									{dayjs(reserva.data).format("DD/MM/YYYY")}
+								</td>
 								<td className="border px-4 py-2">{reserva.turno}</td>
 								<td className="border px-4 py-2">{reserva.professor}</td>
 							</tr>
@@ -90,7 +93,7 @@ export function Reservation() {
 				<button
 					onClick={openModal}
 					type="button"
-					className="bg-[#060343] text-white px-4 py-2 rounded hover:bg-blue-600 mt-[10px]"
+					className="bg-custom-blue text-white px-4 py-2 rounded hover:opacity-80 mt-[10px]"
 				>
 					Agendar Nova Reserva
 				</button>
@@ -99,10 +102,12 @@ export function Reservation() {
 					<div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
 						<div className="bg-white rounded-lg shadow-lg w-80 p-6">
 							<div className="flex justify-between items-center">
-								<h2 className="text-lg font-semibold">Agendar Nova Data</h2>
+								<h2 className="text-lg font-semibold text-[#060343]">
+									Agendar Nova Data
+								</h2>
 								<button
 									onClick={closeModal}
-									className="text-gray-500 hover:text-gray-700"
+									className="text-[#060343] hover:text-gray-700"
 									type="button"
 								>
 									&times;
@@ -131,7 +136,7 @@ export function Reservation() {
 									/>
 								</div>
 								<div className="mb-4">
-									<label className="block text-sm font-medium text-gray-700">
+									<label className="block text-sm font-medium text-[#060343]">
 										Turno
 										<Controller
 											name="turno"

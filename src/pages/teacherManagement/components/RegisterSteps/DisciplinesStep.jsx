@@ -88,7 +88,7 @@ const DisciplinesStep = ({
 				</Flex>
 
 				<Flex>
-					<h1 className="text-xl text-blue-900">Disciplinas</h1>
+					<h1 className="text-xl font-semibold text-[#060343]">Disciplinas</h1>
 					<ul>
 						{nameDisciplina.map((disciplina, index) => (
 							<li key={disciplina.nome}>

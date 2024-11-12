@@ -32,17 +32,17 @@ export function Room() {
 	const isChildRoute = location.pathname !== "/sala";
 
 	return (
-		<div className="font-alatsi w-full max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+		<div className="font-alatsi w-full mx-auto p-4 sm:p-6 lg:p-8">
 			{!isChildRoute && (
 				<div className="container mx-auto">
 					<h1 className="text-lg sm:text-2xl font-bold text-[#060343] mb-4 text-center sm:text-left">
 						Reserva de Salas
 					</h1>
 
-					<div className="overflow-x-auto">
+					<div className="overflow-x-auto rounded-lg">
 						<table className="min-w-full bg-white border border-gray-200">
 							<thead>
-								<tr className="bg-blue-900 text-white">
+								<tr className="bg-[#C5CFE4] text-[#060343] text-[19px] font-semibold">
 									<th className="text-left py-3 px-4">Sala</th>
 									<th className="text-left py-3 px-4 flex justify-center items-center">
 										Reservar

@@ -54,7 +54,7 @@ export const StudentAttendance = () => {
 	return (
 		<div>
 			<div className="flex justify-between mx-4 items-center">
-				<h1 className="text-2xl font-bold text-firstBlue">
+				<h1 className="text-2xl font-bold text-[#060343]">
 					Frequência de Alunos
 				</h1>
 			</div>
