@@ -71,3 +71,11 @@ export async function getEventsByMonth(month) {
 
 	return request.body;
 }
+
+export async function getStudentsWithSex() {
+	const url = "escola/sexo";
+
+	const request = await makeRequest("GET", url);
+
+	return request.body;
+}
