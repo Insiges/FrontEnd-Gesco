@@ -59,8 +59,6 @@ export const StudentAttendance = () => {
 		const fetchFrequency = async () => {
 			if (crewId !== "" && subjectId !== "" && dateId !== "") {
 				try {
-					console.log("entrou");
-
 					const response = await getFrequencyClass(
 						dateId,
 						crewId,

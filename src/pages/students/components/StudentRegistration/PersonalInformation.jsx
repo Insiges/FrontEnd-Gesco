@@ -9,6 +9,7 @@ import {
 	inputClassName,
 } from "../../common";
 
+import ReactInputMask from "react-input-mask";
 import { getCep } from "../../../../services/api/viacep";
 
 const PersonalInformation = ({ data, formSteps, onNext }) => {
@@ -104,24 +105,11 @@ const PersonalInformation = ({ data, formSteps, onNext }) => {
 							</Flex>
 							<Flex>
 								<label htmlFor="cpf">CPF:</label>
-								<input
-									type="text"
+								<ReactInputMask
+									mask="999.999.999-99"
 									id="cpf"
 									value={personData.cpf}
 									onChange={(e) => handleOnChange("cpf", e.target.value)}
-									className={inputClassName}
-									required
-								/>
-							</Flex>
-							<Flex className="">
-								<label htmlFor="data-de-nascimento">Data de Nascimento:</label>
-								<input
-									type="date"
-									id="data-de-nascimento"
-									value={personData.datanascimento}
-									onChange={(e) =>
-										handleOnChange("datanascimento", e.target.value)
-									}
 									className={inputClassName}
 									required
 								/>
@@ -130,7 +118,7 @@ const PersonalInformation = ({ data, formSteps, onNext }) => {
 					</Flex>
 
 					{/* CEP and CPF Row */}
-					<Flex justify="center">
+					<Flex>
 						<Flex
 							direction="row"
 							justify="center"
@@ -153,26 +141,41 @@ const PersonalInformation = ({ data, formSteps, onNext }) => {
 							</Flex>
 							<Flex className="">
 								<label htmlFor="telefones">Telefone:</label>
-								<input
-									type="text"
-									id="telefones"
+								<ReactInputMask
+									mask="(99) 99999-9999"
+									id="telefone"
 									value={personData.telefone}
 									onChange={(e) => handleOnChange("telefone", e.target.value)}
 									className={inputClassName}
 									required
 								/>
 							</Flex>
-						</Flex>
-						<Flex className="p-4 items-center 2xl:items-start">
-							<label htmlFor="matricula">Matricula:</label>
-							<input
-								type="text"
-								id="matricula"
-								value={personData.matricula}
-								onChange={(e) => handleOnChange("matricula", e.target.value)}
-								className={inputClassName}
-								required
-							/>
+
+							<Flex className="">
+								<label htmlFor="matricula">Matricula:</label>
+								<input
+									type="text"
+									id="matricula"
+									value={personData.matricula}
+									onChange={(e) => handleOnChange("matricula", e.target.value)}
+									className={inputClassName}
+									required
+								/>
+							</Flex>
+
+							<Flex className="">
+								<label htmlFor="data-de-nascimento">Data de Nascimento:</label>
+								<input
+									type="date"
+									id="data-de-nascimento"
+									value={personData.datanascimento}
+									onChange={(e) =>
+										handleOnChange("datanascimento", e.target.value)
+									}
+									className={inputClassName}
+									required
+								/>
+							</Flex>
 						</Flex>
 					</Flex>
 				</Flex>
@@ -296,7 +299,7 @@ const styles = {
 		backgroundPosition: "center",
 		backgroundRepeat: "no-repeat",
 		width: "fit-content",
-		height: 200,
+		height: 120,
 	},
 	photoInput: {
 		opacity: 0,

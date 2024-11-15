@@ -19,8 +19,6 @@ export const StudentByClass = () => {
 		fetchStudent();
 	}, [id]);
 
-	console.log(student);
-
 	return (
 		<div>{student.length !== 0 && <StudentData studentData={student} />}</div>
 	);
