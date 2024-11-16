@@ -1,6 +1,6 @@
-# GESCo
+# GESCO
 
-A comprehensive web-based school management system built with React, enabling efficient management of students, classes, schedules, events, and crew members.
+A comprehensive web-based school management, enabling efficient management of students, classes, schedules, events, and crew members.
 
 ## 🚀 Features
 
