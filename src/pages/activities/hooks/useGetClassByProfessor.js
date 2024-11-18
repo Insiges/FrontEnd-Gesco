@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import QUERY_KEYS from "../../../consts/QueryKeys";
+import QUERY_KEYS from "../../../consts/queryKeys.js";
 import { getClassByProfessor } from "../../../services/api/teachers";
 
 export const useGetClassByProfessor = () => {

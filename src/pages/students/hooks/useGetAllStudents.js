@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import QUERY_KEYS from "../../../consts/queryKeys";
+import QUERY_KEYS from "../../../consts/queryKeys.js";
 import { getStudents } from "../../../services/api/students";
 
 export const useGetAllStudents = () => {

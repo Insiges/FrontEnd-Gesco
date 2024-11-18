@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import QUERY_KEYS from "../../../consts/QueryKeys";
+import QUERY_KEYS from "../../../consts/queryKeys.js";
 import { saveFrequency } from "../../../services/api/frequency";
 
 export function useSaveFrequency() {
