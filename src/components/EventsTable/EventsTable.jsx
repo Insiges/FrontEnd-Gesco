@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useGetEvents } from "../../pages/events/hooks/useGetEvents";
 
 const EventsTable = () => {
@@ -22,7 +23,9 @@ const EventsTable = () => {
 						events?.eventos.map((event) => (
 							<tr key={event.id} className="text-center">
 								<td className="py-5 px-4 border-b">{event.nome}</td>
-								<td className="py-5 px-4 border-b">{event.dia}</td>
+								<td className="py-5 px-4 border-b">
+									{dayjs(event.dia).format("DD/MM/YYYY")}
+								</td>
 								<td className="py-5 px-4 border-b">{event.horario}</td>
 							</tr>
 						))}

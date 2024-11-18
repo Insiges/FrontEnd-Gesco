@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ReactInputMask from "react-input-mask";
 import { BoxView, Button, Flex } from "../../../../components/ui";
 import { getCep } from "../../../../services/api/viacep";
 import { inputClassName } from "../../const/classConst";
@@ -89,8 +90,8 @@ const PersonalInformationStep = ({ dadosPessoais, etapas, onNext }) => {
 							</Flex>
 							<Flex>
 								<label htmlFor="cpf">CPF:</label>
-								<input
-									type="text"
+								<ReactInputMask
+									mask="999.999.999-99"
 									id="cpf"
 									value={personData.cpf}
 									onChange={(e) => handleOnChange("cpf", e.target.value)}
@@ -135,9 +136,9 @@ const PersonalInformationStep = ({ dadosPessoais, etapas, onNext }) => {
 							</select>
 						</Flex>
 						<Flex className="">
-							<label htmlFor="telefone">Telefone:</label>
-							<input
-								type="text"
+							<label htmlFor="telefones">Telefone:</label>
+							<ReactInputMask
+								mask="(99) 99999-9999"
 								id="telefone"
 								value={personData.telefone}
 								onChange={(e) => handleOnChange("telefone", e.target.value)}

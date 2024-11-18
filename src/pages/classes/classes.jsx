@@ -44,7 +44,11 @@ export const Classes = () => {
 
 				<div>
 					<div>
-						<ClassTable turmas={classes} handleDelete={handleDeletarClass} />
+						<ClassTable
+							turmas={classes}
+							handleDelete={handleDeletarClass}
+							boolean={true}
+						/>
 					</div>
 					{showModalDelete && (
 						<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">

@@ -11,6 +11,21 @@ import { StudentInfoOverview } from "../StudentInfoOverview";
 
 const LoginRegistration = ({ data, formSteps, onSubmit, onPrevious }) => {
 	const [loginData, setLoginData] = useState(data);
+	const selectedFields = [
+		"nome",
+		"telefones",
+		"matricula",
+		"cpf",
+		"datanascimento",
+		"sexo",
+		"logradouro",
+		"bairro",
+		"cep",
+		"cidade",
+		"sigla_estado",
+		"numero",
+		"responsaveis",
+	];
 
 	return (
 		<Flex>
@@ -80,7 +95,9 @@ const LoginRegistration = ({ data, formSteps, onSubmit, onPrevious }) => {
 								<p className="bg-[#E7E7EC] text-[#060343] min-w-full rounded-t-md p-6">
 									<strong>Revisar Dados Cadastrais</strong>
 								</p>
-								<div>{Object.entries(data).map(StudentInfoOverview)}</div>
+								{Object.entries(data)
+									.filter(([key]) => selectedFields.includes(key)) // Filtra apenas os campos selecionados
+									.map(StudentInfoOverview)}
 							</div>
 						</BoxView>
 					</Flex>

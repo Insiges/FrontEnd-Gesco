@@ -9,7 +9,7 @@ export function TeachersTable() {
 			<h3 className="text-lg font-bold mb-4">Docente</h3>
 			<table className="w-full table-auto">
 				<thead>
-					<tr className="bg-[#003366] text-white">
+					<tr className="bg-[#C5CFE4] text-[#060343]">
 						<th className="px-4 py-2 text-left">Docente</th>
 						<th className="px-4 py-2 text-left">Disciplina</th>
 						<th className="px-4 py-2 text-left">Contato</th>

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { getStudent } from "../../../../services/api/students";
+import { useCreateStudent } from "../../hooks/useCreateStudent";
 import LoginRegistration from "./LoginRegistration";
 import PersonalInformation from "./PersonalInformation";
 import StudentAffiliation from "./StudentAffiliation";
@@ -37,6 +39,19 @@ const initialState = {
 const StudentsRegistration = ({ onSubmit }) => {
 	const [data, setData] = useState(initialState);
 	const [formSteps, setFormSteps] = useState(1);
+	const { mutateAsync: addStudent } = useCreateStudent();
+	const navigate = useNavigate();
+
+	const handleSubmit = async (data) => {
+		await addStudent(
+			{ ...data },
+			{
+				onSuccess: () => window.alert("Estudante Cadastrado com Sucesso!"),
+			},
+		);
+
+		navigate("/students");
+	};
 
 	useEffect(() => {
 		if (window.location.pathname !== "/students/register") {
@@ -119,7 +134,9 @@ const StudentsRegistration = ({ onSubmit }) => {
 				<LoginRegistration
 					data={data}
 					formSteps={formSteps}
-					onSubmit={(dados) => onSubmit(dados)}
+					onSubmit={(dados) => {
+						handleSubmit(dados);
+					}}
 					onPrevious={() => setFormSteps(2)}
 				/>
 			)}

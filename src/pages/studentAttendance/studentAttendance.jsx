@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getStudentsByClass } from "../../services/api/class";
-import { saveFrequency } from "../../services/api/frequency";
+import { getFrequencyClass, saveFrequency } from "../../services/api/frequency";
 import useUserInfos from "../../stores/userStore";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,10 +29,14 @@ export const StudentAttendance = () => {
 	});
 
 	const crewId = watch("crew");
+	const subjectId = watch("subject");
+	const dateId = watch("date");
 	const { data: students } = useGetStudentsByClass(crewId);
 	const { data: classes, isError } = useGetClassByProfessor();
 	const { userInfos } = useUserInfos();
 	const { mutateAsync: saveFrequency } = useSaveFrequency();
+	const [selectedIds, setSelectedIds] = useState([]);
+	const [checkedStudents, setCheckedStudents] = useState([]);
 
 	const handleMarkAsPresence = async (data) => {
 		const body = {
@@ -50,6 +54,39 @@ export const StudentAttendance = () => {
 			},
 		});
 	};
+
+	useEffect(() => {
+		const fetchFrequency = async () => {
+			if (crewId !== "" && subjectId !== "" && dateId !== "") {
+				try {
+					const response = await getFrequencyClass(
+						dateId,
+						crewId,
+						subjectId,
+						userInfos.dados.id,
+					);
+					setCheckedStudents(response);
+				} catch (error) {
+					console.error(error);
+				}
+			}
+		};
+
+		fetchFrequency();
+	}, [crewId, subjectId, dateId, userInfos.dados.id]);
+
+	useEffect(() => {
+		// Filtra os IDs dos estudantes presentes na lista `checkedStudents`
+		if (students) {
+			const initialSelectedIds = students
+				.filter((student) => checkedStudents.includes(student.id))
+				.map((student) => student.id);
+
+			setSelectedIds(initialSelectedIds);
+		}
+	}, [students, checkedStudents]);
+
+	const isChecked = (id) => selectedIds.includes(id);
 
 	return (
 		<div>
@@ -113,7 +150,6 @@ export const StudentAttendance = () => {
 									<th className={`${thClass} rounded-tl-lg`}>Estudante</th>
 									<th className={thClass}>Matricula</th>
 									<th className={thClass}>Presença</th>
-									<th className={`${thClass} rounded-tr-lg`}>Faltas</th>
 								</tr>
 							</thead>
 
@@ -131,9 +167,9 @@ export const StudentAttendance = () => {
 												type="checkbox"
 												{...register("checkPresence")}
 												value={student.id}
+												checked={isChecked(student.id)}
 											/>
 										</td>
-										<td className={tdClass}></td>
 									</tr>
 								))}
 							</tbody>

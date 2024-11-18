@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { MdDelete, MdGroups2 } from "react-icons/md";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
@@ -60,7 +61,7 @@ export const StudentsTable = ({ students }) => {
 									{student.matricula}
 								</td>
 								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
-									{student.dataNascimento}
+									{dayjs(student.dataNascimento).format("DD/MM/YYYY")}
 								</td>
 								<td className="px-2 py-4 text-xs font-medium sm:text-sm md:text-base lg:text-lg xl:text-lg text-center">
 									<button
