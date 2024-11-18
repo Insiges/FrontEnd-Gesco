@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ACCESS_TOKEN } from "../../consts/storageKeys";
 import { getStorage } from "../storage/storage";
-const BASE_URL = "http://localhost:8080/";
+const BASE_URL = "https://backend-gesco.onrender.com";
 
 export const API = axios.create({
 	baseURL: BASE_URL,

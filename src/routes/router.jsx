@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Default } from "../components/layouts/default";
+import { Default } from "../components/layouts/Default.jsx";
 
 import {
 	Activities,
