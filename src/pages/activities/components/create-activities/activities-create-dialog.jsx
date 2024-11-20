@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 import { X } from "lucide-react";
 import { useState } from "react";
+import useUserInfos from "../../../../stores/userStore";
 import { useCreateActivities } from "../../hooks/useCreateActivities";
 import { useGetClassByProfessor } from "../../hooks/useGetClassByProfessor";
 import { activitySchema } from "./schema";
@@ -17,6 +18,8 @@ export function ActivitiesCreateDialog({ isOpen, onCloseDialog }) {
 	const [errorCreate, setErrorCreate] = useState("");
 	const { mutateAsync: createActivity } = useCreateActivities();
 	const { data: classes } = useGetClassByProfessor();
+	const { userType, userInfos } = useUserInfos();
+
 	const {
 		register,
 		handleSubmit,
@@ -38,18 +41,22 @@ export function ActivitiesCreateDialog({ isOpen, onCloseDialog }) {
 		const date = new Date(data.dueDate);
 		const formattedDate = format(date, "yyyy-MM-dd");
 		const dateFormatted = { ...data, dueDate: formattedDate };
+		const id = userInfos.dados.id;
 
-		console.log(dateFormatted);
-
-		await createActivity(dateFormatted, {
-			onSuccess: () => {
-				reset();
-				onCloseDialog();
+		await createActivity(
+			{ id: id, data: dateFormatted }, // Encapsule os parâmetros
+			{
+				onSuccess: () => {
+					reset();
+					onCloseDialog();
+				},
+				onError: () => {
+					setErrorCreate(
+						"Erro ao tentar criar sua atividade, tente novamente!",
+					);
+				},
 			},
-			onError: () => {
-				setErrorCreate("Erro ao tentar criar sua atividade, tente novamente!");
-			},
-		});
+		);
 	};
 
 	return (

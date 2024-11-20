@@ -34,7 +34,7 @@ export function Dashboard() {
 		<div className="grid grid-cols-2 gap-2 h-[calc(100vh-8rem)] p-4">
 			{userType !== "professor" && (
 				<div className="h-full flex flex-col space-y-2">
-					<div className="bg-white rounded-lg flex-grow max-h-80 mb-20">
+					<div className="bg-white rounded-lg flex-grow max-h-80 mb-15">
 						<Link to={"/docents"}>
 							<TeachersTable />
 						</Link>
@@ -47,8 +47,8 @@ export function Dashboard() {
 
 			{userType !== "professor" && (
 				<div className="">
-					<div className="mb-20 max-h-80">
-						<ClassTable turmas={classes} boolean={false} />
+					<div className="mb-8 max-h-80 overflow-y-hidden">
+						<ClassTable turmas={classes} boolean={false} teacher={false} />
 					</div>
 					<div className="">
 						<div className="bg-white rounded-lg p-1 flex-grow">
@@ -72,7 +72,7 @@ export function Dashboard() {
 						</div>
 
 						<div className="max-h-80">
-							<ClassTable turmas={teacher} boolean={false} />
+							<ClassTable turmas={teacher} boolean={false} teacher={true} />
 						</div>
 					</div>
 				</div>

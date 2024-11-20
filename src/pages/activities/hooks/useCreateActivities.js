@@ -7,7 +7,7 @@ export const useCreateActivities = () => {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: createActivity,
+		mutationFn: createActivity, // Continua recebendo o objeto encapsulado
 		onSuccess: (data, variables, context) => {
 			queryClient.invalidateQueries({
 				queryKey: [QUERY_KEYS.ACTIVITIES],

@@ -33,6 +33,9 @@ export async function addStudent(data) {
 			senha: data.senha,
 		},
 	};
+
+	console.log(body);
+
 	const response = await makeRequest("POST", "aluno", body);
 	return response.body;
 }

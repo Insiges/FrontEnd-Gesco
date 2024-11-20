@@ -81,7 +81,7 @@ const commonSideBarOptions = [
 const sideBarOptionsAdmin = [
 	{
 		id: "4567",
-		name: "Alunos",
+		name: "Estudantes",
 		url: "/students",
 		icon: <UserRound />,
 	},

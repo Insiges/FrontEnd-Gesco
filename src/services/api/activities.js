@@ -9,15 +9,14 @@ export async function getAllActivitiesByProfessor(id) {
 	return request.body;
 }
 
-export async function createActivity(data) {
-	const { userType, userInfos } = useUserInfos();
+export async function createActivity({ id, data }) {
 	const url = "atividade";
 	const body = {
 		nome: data.name,
 		descricao: data.description,
 		valor: data.weight,
 		data_atividade: data.dueDate,
-		id_professor: userType === "professor" ? userInfos.dados.id : 1,
+		id_professor: id,
 		id_turma: data.team,
 		id_tipo_atividade: 1,
 	};

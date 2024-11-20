@@ -9,6 +9,7 @@ export function ScheduleTeacher() {
 	const [selectedGrid, setSelectedGrid] = useState(null);
 	const [horario, setHorario] = useState([]);
 	const { userInfos } = useUserInfos();
+	console.log(grid);
 
 	useEffect(() => {
 		console.log(userInfos);

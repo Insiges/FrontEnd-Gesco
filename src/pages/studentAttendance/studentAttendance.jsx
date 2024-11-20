@@ -48,6 +48,8 @@ export const StudentAttendance = () => {
 			turma: data.crew,
 		};
 
+		console.log(body);
+
 		await saveFrequency(body, {
 			onSuccess: () => {
 				alert("Os dados foram salvo com sucesso");
@@ -88,6 +90,14 @@ export const StudentAttendance = () => {
 
 	const isChecked = (id) => selectedIds.includes(id);
 
+	const handleCheckboxChange = (id) => {
+		setSelectedIds((prevSelectedIds) =>
+			prevSelectedIds.includes(id)
+				? prevSelectedIds.filter((selectedId) => selectedId !== id)
+				: [...prevSelectedIds, id],
+		);
+	};
+
 	return (
 		<div>
 			<div className="flex justify-between mx-4 items-center">
@@ -120,7 +130,7 @@ export const StudentAttendance = () => {
 								classes.map((team) => {
 									return (
 										<option key={team.id} value={`${team.id}`}>
-											{team.serie}
+											{team.serie} {team.nome}
 										</option>
 									);
 								})}
@@ -168,6 +178,7 @@ export const StudentAttendance = () => {
 												{...register("checkPresence")}
 												value={student.id}
 												checked={isChecked(student.id)}
+												onChange={() => handleCheckboxChange(student.id)}
 											/>
 										</td>
 									</tr>

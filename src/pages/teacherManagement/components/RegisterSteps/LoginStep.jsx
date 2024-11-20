@@ -72,7 +72,15 @@ const LoginStep = ({ dadosCadastrais, etapas, onSubmit, onPrevious }) => {
 							<div>
 								{Object.entries(dadosCadastrais).map(([key, value]) => {
 									if (key === "email" || key === "password") return null;
-									if (key !== "disciplinas" && key !== "diplomas") {
+									if (
+										key !== "disciplinas" &&
+										key !== "diplomas" &&
+										key !== "id_telefone" &&
+										key !== "id_email" &&
+										key !== "id_cidade" &&
+										key !== "id_estado" &&
+										key !== "nome_estado"
+									) {
 										return (
 											<Flex
 												key={key}
