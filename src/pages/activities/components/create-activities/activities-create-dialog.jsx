@@ -146,7 +146,7 @@ export function ActivitiesCreateDialog({ isOpen, onCloseDialog }) {
 								classes.map((team) => {
 									return (
 										<option key={team.id} value={`${team.id}`}>
-											{team.serie}
+											{team.serie} {team.nome}
 										</option>
 									);
 								})}
