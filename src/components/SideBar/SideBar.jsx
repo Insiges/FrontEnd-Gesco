@@ -10,13 +10,21 @@ import {
 	Users,
 } from "lucide-react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logoImg from "/logoGesco.png";
 import useUserInfos from "../../stores/userStore";
 import LinkSideBar from "./LinkSideBar/LinkSideBar";
 
 export function SideBar() {
 	const { userType } = useUserInfos();
+	const navigate = useNavigate();
+
+	const handleLogout = () => {
+		console.log("foi");
+
+		navigate("/login"); // Redireciona para a página de login
+	};
+
 	const sideBarOptions =
 		userType === "professor"
 			? [...commonSideBarOptions, ...sideBarOptionsTeacher]
@@ -44,6 +52,13 @@ export function SideBar() {
 					);
 				})}
 			</ul>
+			<button
+				type="button"
+				onClick={handleLogout}
+				className="flex items-center gap-3 mt-auto mb-4 p-4 text-[#060273] font-semibold hover:bg-gray-200 rounded-lg transition-colors w-full"
+			>
+				<span>Sair</span>
+			</button>
 		</nav>
 	);
 }

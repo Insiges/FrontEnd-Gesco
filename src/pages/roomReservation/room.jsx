@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { FaBook } from "react-icons/fa";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { Outlet } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import { getRooms } from "../../services/api/rooms";
+import "react-toastify/dist/ReactToastify.css";
 
 export function Room() {
 	const [rooms, setRooms] = useState([]);
@@ -33,6 +35,18 @@ export function Room() {
 
 	return (
 		<div className="font-alatsi w-full mx-auto p-4 sm:p-6 lg:p-8">
+			<ToastContainer
+				position="top-right"
+				autoClose={3000} // O toast será fechado após 3 segundos
+				hideProgressBar={true}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss={false}
+				draggable
+				pauseOnHover
+				theme="dark"
+			/>
 			{!isChildRoute && (
 				<div className="container mx-auto">
 					<h1 className="text-lg sm:text-2xl font-bold text-[#060343] mb-4 text-center sm:text-left">

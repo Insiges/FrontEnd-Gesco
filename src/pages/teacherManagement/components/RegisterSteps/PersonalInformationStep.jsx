@@ -70,7 +70,10 @@ const PersonalInformationStep = ({ dadosPessoais, etapas, onNext }) => {
 								style={styles.photoInput}
 								onChange={(event) => {
 									const file = event.target.files[0];
-									handleOnChange("foto", event.target.value);
+									handleOnChange(
+										"foto",
+										"https://firebasestorage.googleapis.com/v0/b/bebe-vindo.appspot.com/o/Gesco%2Fescolinha%20do%20professor%20raimundo-min.jpeg?alt=media&token=60796b90-5b02-444f-ac41-1f5e66b35ba5",
+									);
 								}}
 							/>
 						</BoxView>

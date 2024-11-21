@@ -28,6 +28,7 @@
 		"react-input-mask": "^2.0.4",
 		"react-router": "^6.26.1",
 		"react-router-dom": "^6.26.1",
+		"react-toastify": "^10.0.6",
 		"uuid": "^11.0.2",
 		"victory": "^37.1.1",
 		"vitest": "^2.1.3",

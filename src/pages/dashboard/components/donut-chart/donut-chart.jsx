@@ -22,9 +22,6 @@ export function DonutChart() {
 		fetchSudents();
 	}, []);
 
-	console.log(students);
-	console.log(data);
-
 	useEffect(() => {
 		if (students !== null) {
 			const alunas = Number(

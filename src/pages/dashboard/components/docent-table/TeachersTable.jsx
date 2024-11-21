@@ -23,7 +23,12 @@ export function TeachersTable() {
 								// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 								<tr key={index} className="border-b">
 									<td className="px-4 py-4 flex items-center">
-										<div className="w-10 h-10 bg-gray-200 rounded-full mr-4"></div>
+										<img
+											src={docente.dados.foto}
+											alt="foto docente"
+											className="w-10 h-10 bg-gray-200 rounded-full mr-4"
+										/>
+										{/* <img className="w-10 h-10 bg-gray-200 rounded-full mr-4"></img> */}
 										<span className="font-semibold">{docente.dados.nome}</span>
 									</td>
 									<td className="px-4 py-4">{docente.disciplinas[0].nome}</td>

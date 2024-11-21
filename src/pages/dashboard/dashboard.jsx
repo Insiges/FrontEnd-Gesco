@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import useUserInfos from "../../stores/userStore";
 import { ActivitiesTable } from "../activities/components";
 import { useGetClassByProfessor } from "../activities/hooks/useGetClassByProfessor";
@@ -16,6 +17,8 @@ import {
 } from "./components";
 import { useGetCounters } from "./hooks/useGetCounters";
 import { useGetEventsByMonth } from "./hooks/useGetEventsByMonth";
+import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
 
 const currentlyMonth = dayjs().month();
 
@@ -29,6 +32,20 @@ export function Dashboard() {
 		userType === "professor"
 			? useGetClassByProfessor()
 			: { data: null, isError: false };
+
+	useEffect(() => {
+		const toastId = toast.loading("Carregando...");
+
+		// Simule o carregamento de dados
+		setTimeout(() => {
+			toast.update(toastId, {
+				render: "Carregamento concluído!",
+				type: toast.success,
+				isLoading: false, // Finaliza o carregamento
+				autoClose: 2500, // Fecha após 3 segundos
+			});
+		}, 2500); // Ajuste conforme necessário para o seu carregamento
+	}, []);
 
 	return (
 		<div className="grid grid-cols-2 gap-2 h-[calc(100vh-8rem)] p-4">
@@ -77,6 +94,19 @@ export function Dashboard() {
 					</div>
 				</div>
 			)}
+
+			<ToastContainer
+				position="top-right"
+				autoClose={3000} // O toast será fechado após 3 segundos
+				hideProgressBar={true}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss={false}
+				draggable
+				pauseOnHover
+				theme="dark"
+			/>
 		</div>
 	);
 }

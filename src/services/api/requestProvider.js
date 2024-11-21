@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 import { API } from "./config";
 
 // Uma função que usa uma lib para fazer request, dá para chamar qualquer api usando essa função

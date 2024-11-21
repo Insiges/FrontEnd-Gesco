@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
 import { getStudent } from "../../../../services/api/students";
 import { useCreateStudent } from "../../hooks/useCreateStudent";
 import LoginRegistration from "./LoginRegistration";
 import PersonalInformation from "./PersonalInformation";
 import StudentAffiliation from "./StudentAffiliation";
+import "react-toastify/dist/ReactToastify.css";
 
 const initialState = {
 	id: "",
@@ -43,10 +45,20 @@ const StudentsRegistration = ({ onSubmit }) => {
 	const navigate = useNavigate();
 
 	const handleSubmit = async (data) => {
+		const toastId = toast.loading("Salvando...");
+
 		await addStudent(
 			{ ...data },
 			{
-				onSuccess: () => window.alert("Estudante Cadastrado com Sucesso!"),
+				onSuccess: () =>
+					setTimeout(() => {
+						toast.update(toastId, {
+							render: "Estudante cadastrado com sucesso!",
+							type: toast.success,
+							isLoading: false, // Finaliza o carregamento
+							autoClose: 500, // Fecha após 3 segundos
+						});
+					}, 3000),
 			},
 		);
 
@@ -106,6 +118,18 @@ const StudentsRegistration = ({ onSubmit }) => {
 
 	return (
 		<section className="p-4">
+			<ToastContainer
+				position="top-right"
+				autoClose={3000} // O toast será fechado após 3 segundos
+				hideProgressBar={true}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss={false}
+				draggable
+				pauseOnHover
+				theme="dark"
+			/>
 			{formSteps === 1 && (
 				<PersonalInformation
 					data={data}

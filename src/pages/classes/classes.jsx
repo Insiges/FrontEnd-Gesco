@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import { Button } from "../../components/ui/button";
 import AddClassModal from "./components/AddModal/AddModal";
 import { ClassTable, SearchFilter } from "./components/index";
 import { useDeleteClasses } from "./hooks/useDeleteClasses";
 import { useGetClasses } from "./hooks/useGetClasses";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Classes = () => {
 	const [showModalDelete, setShowModalDelete] = useState(false);
@@ -30,8 +32,34 @@ export const Classes = () => {
 		setError("");
 	};
 
+	useEffect(() => {
+		const toastId = toast.loading("Carregando...");
+
+		// Simule o carregamento de dados
+		setTimeout(() => {
+			toast.update(toastId, {
+				render: "Carregamento concluído!",
+				type: toast.success,
+				isLoading: false, // Finaliza o carregamento
+				autoClose: 500, // Fecha após 3 segundos
+			});
+		}, 700); // Ajuste conforme necessário para o seu carregamento
+	}, []);
+
 	return (
 		<div className="m-auto max-w-[1400px] p-4">
+			<ToastContainer
+				position="top-right"
+				autoClose={3000} // O toast será fechado após 3 segundos
+				hideProgressBar={true}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss={false}
+				draggable
+				pauseOnHover
+				theme="dark"
+			/>
 			<div className="grid gap-6">
 				<div className="flex justify-between mx-4 items-center">
 					<h1 className="text-3xl font-bold text-firstBlue">Turmas</h1>
@@ -48,6 +76,7 @@ export const Classes = () => {
 							turmas={classes}
 							handleDelete={handleDeletarClass}
 							boolean={true}
+							teacher={true}
 						/>
 					</div>
 					{showModalDelete && (

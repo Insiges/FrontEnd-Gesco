@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import { Grid, Modal, TitleClass } from "./components";
 import { ModalEdit } from "./components/modal/modalEdit";
 import { useGetGrid } from "./hooks/useGetGrid";
 import { useGetOneClass } from "./hooks/useGetOneClass";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Timetable = () => {
 	const [showModal, setShowModal] = useState(false);
@@ -33,10 +35,36 @@ export const Timetable = () => {
 		setHorario(horariosUnicos);
 	}, [grid]);
 
+	useEffect(() => {
+		const toastId = toast.loading("Carregando...");
+
+		// Simule o carregamento de dados
+		setTimeout(() => {
+			toast.update(toastId, {
+				render: "Carregamento concluído!",
+				type: toast.success,
+				isLoading: false, // Finaliza o carregamento
+				autoClose: 500, // Fecha após 3 segundos
+			});
+		}, 1500); // Ajuste conforme necessário para o seu carregamento
+	}, []);
+
 	return (
 		<div>
+			<ToastContainer
+				position="top-right"
+				autoClose={3000} // O toast será fechado após 3 segundos
+				hideProgressBar={true}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss={false}
+				draggable
+				pauseOnHover
+				theme="dark"
+			/>
 			{/* Alterar o nome da turma conmforme o banco de dados */}
-			<TitleClass title={`${!!classe && classe.nome}`} />
+			<TitleClass title={`${!!classe && classe.serie + classe.nome}`} />
 			<Grid
 				table={grid}
 				horario={horario}

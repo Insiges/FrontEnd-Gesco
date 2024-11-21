@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
 import notebookImage from "../../assets/login/pc.png";
 import { useHasTokenInLocal } from "../../hooks/useHasTokenInLocal";
 import { useHasTypeUser } from "../../hooks/useHasTypeUser";
@@ -10,6 +11,7 @@ import { Header } from "../login/components/header/Header";
 import { Roles } from "./components";
 import { loginSchema } from "./form/loginSchema";
 import { useSignIn } from "./hooks/useSignIn";
+import "react-toastify/dist/ReactToastify.css";
 
 export function Login() {
 	const [loginType, setLoginType] = useState("");
@@ -38,6 +40,7 @@ export function Login() {
 	const { mutateAsync: signIn } = useSignIn();
 
 	const handleSignIn = async (data) => {
+		toast.loading("Logando");
 		if (hasToken) logout();
 		const dataWithRole = { ...data, role: loginType };
 		await signIn(dataWithRole, {
@@ -46,8 +49,9 @@ export function Login() {
 				navigate("/dashboard");
 			},
 			onError: () => {
-				setCredentialsError("Credencias erradas!");
+				setCredentialsError("Credenciais erradas!");
 				reset();
+				toast.error("Erro ao realizar login. Verifique suas credenciais.");
 			},
 		});
 	};
@@ -60,6 +64,18 @@ export function Login() {
 
 	return (
 		<div>
+			<ToastContainer
+				position="top-right"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss={false}
+				draggable
+				pauseOnHover
+				theme="dark"
+			/>
 			<Header />
 			<div className="flex flex-grow justify-center mt-14 gap-2 mx-auto">
 				<div className="w-550px flex flex-col justify-center items-center bg-white p-4 mt-10 ">

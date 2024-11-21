@@ -106,6 +106,7 @@ export function RegisterTeacher() {
 				},
 			);
 		} else {
+			toast.loading("Salvando...");
 			await createTeacher(finalData, {
 				onSuccess: () => {
 					navigate("/docents");
