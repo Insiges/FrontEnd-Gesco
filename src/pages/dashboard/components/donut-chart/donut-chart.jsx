@@ -37,16 +37,22 @@ export function DonutChart() {
 		}
 	}, [students]);
 
+	console.log(students);
+
 	return (
 		<div className="w-full h-full flex-col justify-center">
 			<div>
 				<div className="flex justify-evenly gap-2">
 					<div className="flex gap-1">
-						<span className="p-4 bg-[#060273] rounded-xl"></span>
+						<span className="p-4 bg-[#060273] rounded-xl text-white">
+							{students.alunas}
+						</span>
 						<p className="self-center">{data[0].x}</p>
 					</div>
 					<div className="flex gap-1">
-						<span className="p-4 bg-[#FCD52E] rounded-xl"></span>
+						<span className="p-4 bg-[#FCD52E] rounded-xl text-black">
+							{students.alunos}
+						</span>
 						<p className="self-center">{data[1].x}</p>
 					</div>
 				</div>
