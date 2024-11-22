@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
 import { getStudent } from "../../../../services/api/students";
+import { useCreateStudent } from "../../hooks/useCreateStudent";
 import LoginRegistration from "./LoginRegistration";
 import PersonalInformation from "./PersonalInformation";
 import StudentAffiliation from "./StudentAffiliation";
+import "react-toastify/dist/ReactToastify.css";
 
 const initialState = {
 	id: "",
@@ -37,6 +41,29 @@ const initialState = {
 const StudentsRegistration = ({ onSubmit }) => {
 	const [data, setData] = useState(initialState);
 	const [formSteps, setFormSteps] = useState(1);
+	const { mutateAsync: addStudent } = useCreateStudent();
+	const navigate = useNavigate();
+
+	const handleSubmit = async (data) => {
+		const toastId = toast.loading("Salvando...");
+
+		await addStudent(
+			{ ...data },
+			{
+				onSuccess: () =>
+					setTimeout(() => {
+						toast.update(toastId, {
+							render: "Estudante cadastrado com sucesso!",
+							type: toast.success,
+							isLoading: false, // Finaliza o carregamento
+							autoClose: 500, // Fecha após 3 segundos
+						});
+					}, 3000),
+			},
+		);
+
+		navigate("/students");
+	};
 
 	useEffect(() => {
 		if (window.location.pathname !== "/students/register") {
@@ -91,6 +118,18 @@ const StudentsRegistration = ({ onSubmit }) => {
 
 	return (
 		<section className="p-4">
+			<ToastContainer
+				position="top-right"
+				autoClose={3000} // O toast será fechado após 3 segundos
+				hideProgressBar={true}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss={false}
+				draggable
+				pauseOnHover
+				theme="dark"
+			/>
 			{formSteps === 1 && (
 				<PersonalInformation
 					data={data}
@@ -119,7 +158,9 @@ const StudentsRegistration = ({ onSubmit }) => {
 				<LoginRegistration
 					data={data}
 					formSteps={formSteps}
-					onSubmit={(dados) => onSubmit(dados)}
+					onSubmit={(dados) => {
+						handleSubmit(dados);
+					}}
 					onPrevious={() => setFormSteps(2)}
 				/>
 			)}

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 
+import { ToastContainer, toast } from "react-toastify";
 import { getTeachers } from "../../../../services/api/school";
 import {
 	getHours,
 	getWeek,
 	saveGrid,
 } from "../../../../services/api/timeTable";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Modal = ({ closeModal }) => {
 	const [materia, setMateria] = useState("");
@@ -87,6 +89,18 @@ export const Modal = ({ closeModal }) => {
 	};
 	return (
 		<div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+			<ToastContainer
+				position="top-right"
+				autoClose={3000} // O toast será fechado após 3 segundos
+				hideProgressBar={true}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss={false}
+				draggable
+				pauseOnHover
+				theme="dark"
+			/>
 			<div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
 				<div className="flex justify-between items-center mb-4">
 					<h2 className="text-2xl font-bold">Salvar Horário</h2>

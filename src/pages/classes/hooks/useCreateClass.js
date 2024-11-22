@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import QUERY_KEYS from "../../../consts/queryKeys";
+import QUERY_KEYS from "../../../consts/queryKeys.js";
 import { saveClass } from "../../../services/api/class";
 
 export function useCreateClass() {

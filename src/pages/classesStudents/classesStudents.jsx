@@ -6,8 +6,6 @@ import { useGetStudentsByClass } from "./hooks/useGetStudentsByClass";
 export const ClassesStudents = () => {
 	const { id } = useParams();
 	const { data: studentsByClass } = useGetStudentsByClass(id);
-	console.log("qw");
-
 	return (
 		<div>
 			<div className="flex justify-between mx-4 items-center">

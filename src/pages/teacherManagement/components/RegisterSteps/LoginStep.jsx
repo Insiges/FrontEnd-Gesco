@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import { BoxView, Button, Flex } from "../../../../components/ui";
 import { inputClassName } from "../../const/classConst";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginStep = ({ dadosCadastrais, etapas, onSubmit, onPrevious }) => {
 	const [loginData, setLoginData] = useState(dadosCadastrais);
@@ -15,6 +17,18 @@ const LoginStep = ({ dadosCadastrais, etapas, onSubmit, onPrevious }) => {
 
 	return (
 		<>
+			<ToastContainer
+				position="top-right"
+				autoClose={3000} // O toast será fechado após 3 segundos
+				hideProgressBar={true}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss={false}
+				draggable
+				pauseOnHover
+				theme="dark"
+			/>
 			<Flex direction="row" justify="center" className="flex-wrap gap-4">
 				<Flex className="items-start">
 					<BoxView className="p-8">
@@ -72,7 +86,15 @@ const LoginStep = ({ dadosCadastrais, etapas, onSubmit, onPrevious }) => {
 							<div>
 								{Object.entries(dadosCadastrais).map(([key, value]) => {
 									if (key === "email" || key === "password") return null;
-									if (key !== "disciplinas" && key !== "diplomas") {
+									if (
+										key !== "disciplinas" &&
+										key !== "diplomas" &&
+										key !== "id_telefone" &&
+										key !== "id_email" &&
+										key !== "id_cidade" &&
+										key !== "id_estado" &&
+										key !== "nome_estado"
+									) {
 										return (
 											<Flex
 												key={key}

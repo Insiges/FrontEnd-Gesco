@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useState } from "react";
 
 export const StudentData = ({ studentData }) => {
@@ -34,7 +35,7 @@ export const StudentData = ({ studentData }) => {
 					</label>
 					<input
 						type="text"
-						value={studentData.aluno.dataNascimento}
+						value={dayjs(student.aluno.dataNascimento).format("DD/MM/YYYY")}
 						readOnly
 						className="block w-full p-2 border border-gray-300 rounded-md text-gray-900 bg-gray-100"
 						disabled
@@ -214,7 +215,7 @@ export const StudentData = ({ studentData }) => {
 								</label>
 								<input
 									type="text"
-									value={responsavel.dataNascimento}
+									value={dayjs(responsavel.dataNascimento).format("DD/MM/YYYY")}
 									readOnly
 									className="block w-full p-2 border border-gray-300 rounded-md text-gray-900 bg-gray-100"
 								/>

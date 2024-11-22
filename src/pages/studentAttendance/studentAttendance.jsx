@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { getStudentsByClass } from "../../services/api/class";
-import { saveFrequency } from "../../services/api/frequency";
+import { getFrequencyClass, saveFrequency } from "../../services/api/frequency";
 import useUserInfos from "../../stores/userStore";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
 import { useGetClassByProfessor } from "../activities/hooks/useGetClassByProfessor";
 import { useGetStudentsByClass } from "../classesStudents/hooks/useGetStudentsByClass";
 import { inputClassName } from "../teacherManagement/const/classConst";
 import { studentsAttendanceSchema } from "./form/schema";
 import { useSaveFrequency } from "./hooks/useSaveFrequency";
+import "react-toastify/dist/ReactToastify.css";
 
 export const StudentAttendance = () => {
 	const {
@@ -29,10 +31,14 @@ export const StudentAttendance = () => {
 	});
 
 	const crewId = watch("crew");
+	const subjectId = watch("subject");
+	const dateId = watch("date");
 	const { data: students } = useGetStudentsByClass(crewId);
 	const { data: classes, isError } = useGetClassByProfessor();
 	const { userInfos } = useUserInfos();
 	const { mutateAsync: saveFrequency } = useSaveFrequency();
+	const [selectedIds, setSelectedIds] = useState([]);
+	const [checkedStudents, setCheckedStudents] = useState([]);
 
 	const handleMarkAsPresence = async (data) => {
 		const body = {
@@ -43,16 +49,75 @@ export const StudentAttendance = () => {
 			presenca: "PRESENTE",
 			turma: data.crew,
 		};
+		const toastId = toast.loading("Salvando...");
 
 		await saveFrequency(body, {
 			onSuccess: () => {
-				alert("Os dados foram salvo com sucesso");
+				toast.update(toastId, {
+					render: "Os dados foram cadastrados com sucesso!",
+					type: toast.success,
+					isLoading: false, // Finaliza o carregamento
+					autoClose: 2500, // Fecha após 3 segundos
+				});
 			},
 		});
 	};
 
+	useEffect(() => {
+		const fetchFrequency = async () => {
+			if (crewId !== "" && subjectId !== "" && dateId !== "") {
+				try {
+					const response = await getFrequencyClass(
+						dateId,
+						crewId,
+						subjectId,
+						userInfos.dados.id,
+					);
+					setCheckedStudents(response);
+				} catch (error) {
+					console.error(error);
+				}
+			}
+		};
+
+		fetchFrequency();
+	}, [crewId, subjectId, dateId, userInfos.dados.id]);
+
+	useEffect(() => {
+		// Filtra os IDs dos estudantes presentes na lista `checkedStudents`
+		if (students) {
+			const initialSelectedIds = students
+				.filter((student) => checkedStudents.includes(student.id))
+				.map((student) => student.id);
+
+			setSelectedIds(initialSelectedIds);
+		}
+	}, [students, checkedStudents]);
+
+	const isChecked = (id) => selectedIds.includes(id);
+
+	const handleCheckboxChange = (id) => {
+		setSelectedIds((prevSelectedIds) =>
+			prevSelectedIds.includes(id)
+				? prevSelectedIds.filter((selectedId) => selectedId !== id)
+				: [...prevSelectedIds, id],
+		);
+	};
+
 	return (
 		<div>
+			<ToastContainer
+				position="top-right"
+				autoClose={3000} // O toast será fechado após 3 segundos
+				hideProgressBar={true}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss={false}
+				draggable
+				pauseOnHover
+				theme="dark"
+			/>
 			<div className="flex justify-between mx-4 items-center">
 				<h1 className="text-2xl font-bold text-[#060343]">
 					Frequência de Alunos
@@ -83,7 +148,7 @@ export const StudentAttendance = () => {
 								classes.map((team) => {
 									return (
 										<option key={team.id} value={`${team.id}`}>
-											{team.serie}
+											{team.serie} {team.nome}
 										</option>
 									);
 								})}
@@ -113,7 +178,6 @@ export const StudentAttendance = () => {
 									<th className={`${thClass} rounded-tl-lg`}>Estudante</th>
 									<th className={thClass}>Matricula</th>
 									<th className={thClass}>Presença</th>
-									<th className={`${thClass} rounded-tr-lg`}>Faltas</th>
 								</tr>
 							</thead>
 
@@ -131,9 +195,10 @@ export const StudentAttendance = () => {
 												type="checkbox"
 												{...register("checkPresence")}
 												value={student.id}
+												checked={isChecked(student.id)}
+												onChange={() => handleCheckboxChange(student.id)}
 											/>
 										</td>
-										<td className={tdClass}></td>
 									</tr>
 								))}
 							</tbody>

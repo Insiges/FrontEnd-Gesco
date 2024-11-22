@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import QUERY_KEYS from "../../../consts/QueryKeys";
+import QUERY_KEYS from "../../../consts/queryKeys.js";
 import { useHasTokenInLocal } from "../../../hooks/useHasTokenInLocal";
 import { getUserInfos } from "../../../services/api/user";
 

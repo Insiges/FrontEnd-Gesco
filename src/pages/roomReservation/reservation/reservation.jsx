@@ -7,11 +7,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 import dayjs from "dayjs";
+import { ToastContainer, toast } from "react-toastify";
 import {
 	getReservationRoom,
 	saveReservationRoom,
 } from "../../../services/api/rooms";
 import useUserInfos from "../../../stores/userStore";
+import "react-toastify/dist/ReactToastify.css";
 
 export function Reservation() {
 	const sala = decodeURIComponent(useParams().sala);
@@ -53,14 +55,37 @@ export function Reservation() {
 			id_professor: userInfos.dados.id,
 			sala,
 		};
+		const toastId = toast.loading("Salvando...");
 
 		await saveReservationRoom(body);
 		reset();
 		closeModal();
+
+		// Simule o carregamento de dados
+		setTimeout(() => {
+			toast.update(toastId, {
+				render: "Reserva cadastrada com sucesso!",
+				type: toast.success,
+				isLoading: false, // Finaliza o carregamento
+				autoClose: 2500, // Fecha após 3 segundos
+			});
+		}, 1000); // Ajuste conforme necessário para o seu carregamento
 	};
 
 	return (
 		<div className="font-alatsi w-full  mx-auto p-4 sm:p-6 lg:p-8">
+			<ToastContainer
+				position="top-right"
+				autoClose={3000} // O toast será fechado após 3 segundos
+				hideProgressBar={true}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss={false}
+				draggable
+				pauseOnHover
+				theme="dark"
+			/>
 			<div className="container mx-auto">
 				<h1 className="text-lg sm:text-2xl font-bold text-[#060343] mb-4 text-center sm:text-left">
 					{sala}

@@ -8,6 +8,8 @@ import LoginStep from "../components/RegisterSteps/LoginStep";
 import PersonalInformationStep from "../components/RegisterSteps/PersonalInformationStep";
 import { useCreateTeacher } from "../hooks/useCreateTeacher";
 import { useEditTeacher } from "../hooks/useEditTeacher";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 export function RegisterTeacher() {
 	const navigate = useNavigate();
@@ -106,6 +108,7 @@ export function RegisterTeacher() {
 				},
 			);
 		} else {
+			toast.loading("Salvando...");
 			await createTeacher(finalData, {
 				onSuccess: () => {
 					navigate("/docents");

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ReactInputMask from "react-input-mask";
 import { BoxView, Button, Flex } from "../../../../components/ui";
 import { getCep } from "../../../../services/api/viacep";
 import { inputClassName } from "../../const/classConst";
@@ -69,7 +70,10 @@ const PersonalInformationStep = ({ dadosPessoais, etapas, onNext }) => {
 								style={styles.photoInput}
 								onChange={(event) => {
 									const file = event.target.files[0];
-									handleOnChange("foto", event.target.value);
+									handleOnChange(
+										"foto",
+										"https://firebasestorage.googleapis.com/v0/b/bebe-vindo.appspot.com/o/Gesco%2Fescolinha%20do%20professor%20raimundo-min.jpeg?alt=media&token=60796b90-5b02-444f-ac41-1f5e66b35ba5",
+									);
 								}}
 							/>
 						</BoxView>
@@ -89,8 +93,8 @@ const PersonalInformationStep = ({ dadosPessoais, etapas, onNext }) => {
 							</Flex>
 							<Flex>
 								<label htmlFor="cpf">CPF:</label>
-								<input
-									type="text"
+								<ReactInputMask
+									mask="999.999.999-99"
 									id="cpf"
 									value={personData.cpf}
 									onChange={(e) => handleOnChange("cpf", e.target.value)}
@@ -135,9 +139,9 @@ const PersonalInformationStep = ({ dadosPessoais, etapas, onNext }) => {
 							</select>
 						</Flex>
 						<Flex className="">
-							<label htmlFor="telefone">Telefone:</label>
-							<input
-								type="text"
+							<label htmlFor="telefones">Telefone:</label>
+							<ReactInputMask
+								mask="(99) 99999-9999"
 								id="telefone"
 								value={personData.telefone}
 								onChange={(e) => handleOnChange("telefone", e.target.value)}

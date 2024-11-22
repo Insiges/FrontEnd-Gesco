@@ -67,7 +67,7 @@ export const GridTeacher = ({
 												<div onClick={handleClick} id={horario.id}>
 													<p id={horario.id}>
 														{type === "professor"
-															? horario.turma
+															? `${horario.serie} ${horario.turma}`
 															: horario.professor}
 													</p>
 													<strong id={horario.id}>{horario.disciplina}</strong>
